@@ -1,0 +1,7 @@
+<section data-ng-controller="CoursesController" data-ng-init="find()">
+	<h2>Courses</h2>
+
+	<div class="list-group">
+		<a data-ng-repeat="course in courses" data-ng-href="#!/courses/{{course._id}}" class="list-group-item">{{course.title}}</a>
+	</div>
+</section>
