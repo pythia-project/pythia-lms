@@ -1,6 +1,10 @@
 <section data-ng-controller="CoursesController" data-ng-init="find()">
 	<h2>Courses</h2>
 
+	<div class="text-right" data-ng-if="(authentication.user) && (authentication.user.roles.indexOf('admin') != -1)">
+		<a href="#!/courses/create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New course</a>
+	</div>
+
 	<div class="list-group">
 		<a data-ng-repeat="course in courses" data-ng-href="#!/courses/{{course._id}}" class="list-group-item">{{course.title}}</a>
 	</div>
