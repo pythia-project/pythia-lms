@@ -32,7 +32,7 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 			course.$remove();
 
 			for (var i in $scope.courses) {
-				if ($scope.courses [i] === course) {
+				if ($scope.courses[i] === course) {
 					$scope.courses.splice(i, 1);
 				}
 			}

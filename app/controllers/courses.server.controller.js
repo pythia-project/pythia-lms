@@ -19,9 +19,8 @@ exports.create = function(req, res) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
-			res.jsonp(course);
 		}
+		res.jsonp(course);
 	});
 };
 
@@ -43,9 +42,8 @@ exports.update = function(req, res) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
-			res.jsonp(course);
 		}
+		res.jsonp(course);
 	});
 };
 
@@ -59,9 +57,8 @@ exports.delete = function(req, res) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
-			res.jsonp(course);
 		}
+		res.jsonp(course);
 	});
 };
 
@@ -74,9 +71,8 @@ exports.list = function(req, res) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
-			res.jsonp(courses);
 		}
+		res.jsonp(courses);
 	});
 };
 
