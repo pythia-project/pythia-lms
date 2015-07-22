@@ -8,36 +8,36 @@ var mongoose = require('mongoose'),
 	crypto = require('crypto');
 
 /**
- * A Validation function for local strategy properties
+ * A validation function for local strategy properties
  */
 var validateLocalStrategyProperty = function(property) {
-	return ((this.provider !== 'local' && !this.updated) || property.length);
+	return (this.provider !== 'local' && ! this.updated) || property.length;
 };
 
 /**
- * A Validation function for local strategy password
+ * A validation function for local strategy password
  */
 var validateLocalStrategyPassword = function(password) {
-	return (this.provider !== 'local' || (password && password.length > 6));
+	return this.provider !== 'local' || (password && password.length > 6);
 };
 
 /**
  * User Schema
  */
 var UserSchema = new Schema({
-	firstName: {
+	firstname: {
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+		validate: [validateLocalStrategyProperty, 'Please fill in your firstname.']
 	},
-	lastName: {
+	lastname: {
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+		validate: [validateLocalStrategyProperty, 'Please fill in your lastname.']
 	},
-	displayName: {
+	displayname: {
 		type: String,
 		trim: true
 	},
@@ -45,29 +45,27 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your email'],
-		match: [/.+\@.+\..+/, 'Please fill a valid email address']
+		validate: [validateLocalStrategyProperty, 'Please fill in your email.'],
+		match: [/.+\@.+\..+/, 'Please fill a valid email address.']
 	},
 	username: {
 		type: String,
-		unique: 'testing error message',
-		required: 'Please fill in a username',
+		unique: 'A user with the same username already exists.',
+		required: 'Please fill in a username.',
 		trim: true
 	},
 	password: {
 		type: String,
 		default: '',
-		validate: [validateLocalStrategyPassword, 'Password should be longer']
+		validate: [validateLocalStrategyPassword, 'Password should be longer.']
 	},
 	salt: {
 		type: String
 	},
 	provider: {
 		type: String,
-		required: 'Provider is required'
+		required: 'Provider is required.'
 	},
-	providerData: {},
-	additionalProvidersData: {},
 	roles: {
 		type: [{
 			type: String,

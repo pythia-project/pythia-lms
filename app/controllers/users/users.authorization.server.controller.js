@@ -14,8 +14,12 @@ exports.userByID = function(req, res, next, id) {
 	User.findOne({
 		_id: id
 	}).exec(function(err, user) {
-		if (err) return next(err);
-		if (!user) return next(new Error('Failed to load User ' + id));
+		if (err) {
+			return next(err);
+		}
+		if (! user) {
+			return next(new Error('Failed to load user ' + id));
+		}
 		req.profile = user;
 		next();
 	});
@@ -25,7 +29,7 @@ exports.userByID = function(req, res, next, id) {
  * Require login routing middleware
  */
 exports.requiresLogin = function(req, res, next) {
-	if (!req.isAuthenticated()) {
+	if (! req.isAuthenticated()) {
 		return res.status(401).send({
 			message: 'User is not logged in'
 		});

@@ -13,7 +13,7 @@ var _ = require('lodash'),
  * Update user details
  */
 exports.update = function(req, res) {
-	// Init Variables
+	// Init variables
 	var user = req.user;
 	var message = null;
 
@@ -24,7 +24,7 @@ exports.update = function(req, res) {
 		// Merge existing user
 		user = _.extend(user, req.body);
 		user.updated = Date.now();
-		user.displayName = user.firstName + ' ' + user.lastName;
+		user.displayname = user.firstname + ' ' + user.lastname;
 
 		user.save(function(err) {
 			if (err) {
@@ -43,7 +43,7 @@ exports.update = function(req, res) {
 		});
 	} else {
 		res.status(400).send({
-			message: 'User is not signed in'
+			message: 'User is not signed in.'
 		});
 	}
 };
