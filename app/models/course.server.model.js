@@ -12,7 +12,7 @@ var mongoose = require('mongoose'),
 var CourseSchema = new Schema({
 	title: {
 		type: String,
-		required: 'Please select a title for the course',
+		required: 'Please select a title for the course.',
 		trim: true
 	},
 	description: {
@@ -22,7 +22,7 @@ var CourseSchema = new Schema({
 	coordinator: {
 		type: Schema.ObjectId,
 		ref: 'User',
-		required: 'Please choose a coordinator for the course'
+		required: 'Please choose a coordinator for the course.'
 	},
 	created: {
 		type: Date,

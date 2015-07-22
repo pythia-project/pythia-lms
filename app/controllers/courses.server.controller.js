@@ -16,7 +16,6 @@ exports.create = function(req, res) {
 	course.user = req.user;
 	course.save(function(err) {
 		if (err) {
-			console.log(err);
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
@@ -101,7 +100,7 @@ exports.courseByID = function(req, res, next, id) {
  * Course authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.course.user.id !== req.user.id) {
+	if (req.course.user.toString() !== req.user.id) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();
