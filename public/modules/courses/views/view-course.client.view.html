@@ -1,7 +1,16 @@
 <section data-ng-controller="CoursesController" data-ng-init="findOne()">
 	<h2>{{course.title}}</h2>
 
-		<div class="text-right" data-ng-if="(authentication.user) && (authentication.user.roles.indexOf('admin') != -1)">
+	<div class="text-right" data-ng-if="(authentication.user) && (authentication.user.roles.indexOf('admin') != -1)">
 		<a data-ng-href="#!/courses/{{course._id}}/sequences/create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New sequence</a>
+	</div>
+
+	<div data-ng-id="course.description">{{course.description}}</div>
+
+	<div data-ng-if="! course.sequences || course.sequences.length === 0">
+		No sequences in this course yet.
+	</div>
+	<div class="list-group" data-ng-if="course.sequences && course.sequences.length > 0">
+		<a data-ng-repeat="sequence in course.sequences" data-ng-href="#!/courses/{{course._id}}/sequences/{{sequence._id}}" class="list-group-item">{{sequence.name}}</a>
 	</div>
 </section>

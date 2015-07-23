@@ -5,22 +5,49 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
+	Course = mongoose.model('Course'),
 	Sequence = mongoose.model('Sequence'),
 	_ = require('lodash');
 
 /**
- * Create a Sequence
+ * Create a sequence
  */
 exports.create = function(req, res) {
-	var sequence = new Sequence(req.body);
-	sequence.user = req.user;
-	sequence.save(function(err) {
+	// Check course
+	var courseId = req.body.courseId;
+	Course.findById(courseId, 'sequences').exec(function(err, course) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		}
-		res.jsonp(sequence);
+		if (! course) {
+			return res.status(400).send({
+				message: 'Failed to load course ' + courseId
+			});
+		}
+		var sequence = new Sequence({
+			'name': req.body.name,
+			'course': course._id
+		});
+		sequence.user = req.user;
+		sequence.save(function(err) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			}
+			// Add the sequence to the course
+			course.sequences.push(sequence);
+			course.save(function(err) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				}
+				res.jsonp(sequence);
+			});
+		});
 	});
 };
 
@@ -36,6 +63,7 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
 	var sequence = req.sequence;
+	req.body.course = req.body.course._id;
 	sequence = _.extend(sequence, req.body);
 	sequence.save(function(err) {
 		if (err) {

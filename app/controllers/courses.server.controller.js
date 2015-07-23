@@ -66,7 +66,7 @@ exports.delete = function(req, res) {
  * List of courses
  */
 exports.list = function(req, res) { 
-	Course.find().exec(function(err, courses) {
+	Course.find({}, 'title').exec(function(err, courses) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -80,7 +80,7 @@ exports.list = function(req, res) {
  * Course middleware
  */
 exports.courseByID = function(req, res, next, id) { 
-	Course.findById(id).exec(function(err, course) {
+	Course.findById(id, 'title sequences description user').populate('sequences', 'name').exec(function(err, course) {
 		if (err) {
 			return next(err);
 		}

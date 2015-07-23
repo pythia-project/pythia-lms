@@ -47,7 +47,8 @@ describe('Sequence CRUD tests', function() {
 			course.save(function() {
 				sequence = {
 					name: 'Sequence name',
-					course: course.id
+					course: course,
+					courseId: course.id
 				};
 
 				done();				
@@ -84,7 +85,6 @@ describe('Sequence CRUD tests', function() {
 								var sequences = sequencesGetRes.body;
 
 								// Set assertions
-								(sequences[0].user.toString()).should.equal(userId);
 								(sequences[0].course.toString()).should.equal(course.id);
 								(sequences[0].name).should.match('Sequence name');
 

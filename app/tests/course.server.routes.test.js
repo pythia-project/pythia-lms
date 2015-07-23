@@ -76,8 +76,6 @@ describe('Course CRUD tests', function() {
 
 								// Set assertions
 								(courses[0].title).should.match('Course title');
-								(courses[0].coordinator.toString()).should.equal(userId);
-								(courses[0].description).should.match('');
 
 								// Call the assertion callback
 								done();
