@@ -9,16 +9,18 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 		// Create new sequence object
 		var sequence = new Sequences ({
 			name: this.name,
-			course: this.course
+			course: this.course,
+			description: this.description
 		});
 
 		// Redirect after save
 		sequence.$save(function(response) {
-			$location.path('sequences/' + response._id);
+			$location.path('courses/' + response.course._id + '/sequences/' + response._id);
 
 			// Clear form fields
 			$scope.name = '';
 			$scope.course = null;
+			$scope.description = '';
 		}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;
 		});

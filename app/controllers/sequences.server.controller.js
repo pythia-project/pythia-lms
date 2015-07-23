@@ -14,7 +14,7 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	// Check course
-	var courseId = req.body.courseId;
+	var courseId = req.body.course._id;
 	Course.findById(courseId, 'sequences').exec(function(err, course) {
 		if (err) {
 			return res.status(400).send({
@@ -28,7 +28,8 @@ exports.create = function(req, res) {
 		}
 		var sequence = new Sequence({
 			'name': req.body.name,
-			'course': course._id
+			'course': course._id,
+			'description': req.body.description
 		});
 		sequence.user = req.user;
 		sequence.save(function(err) {

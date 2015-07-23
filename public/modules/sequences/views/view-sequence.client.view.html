@@ -1,21 +1,5 @@
 <section data-ng-controller="SequencesController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="sequence.name"></h1>
-	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == sequence.user._id))">
-		<a class="btn btn-primary" href="/#!/sequences/{{sequence._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="sequence.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="sequence.user.displayName"></span>
-		</em>
-	</small>
+	<h2>{{sequence.name}}</h2>
+
+	<div data-ng-if="sequence.description">{{sequence.description}}</div>
 </section>

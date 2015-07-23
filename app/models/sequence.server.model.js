@@ -16,6 +16,10 @@ var SequenceSchema = new Schema({
 		required: 'Please select a name for the sequence.',
 		trim: true
 	},
+	description: {
+		type: String,
+		default: ''
+	},
 	course: {
 		type: Schema.ObjectId,
 		ref: 'Course',
