@@ -5,7 +5,7 @@
 		<a data-ng-href="#!/courses/{{course._id}}/sequences/create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New sequence</a>
 	</div>
 
-	<div data-ng-id="course.description">{{course.description}}</div>
+	<div data-ng-if="course.description">{{course.description}}</div>
 
 	<div data-ng-if="! course.sequences || course.sequences.length === 0">
 		No sequences in this course yet.
