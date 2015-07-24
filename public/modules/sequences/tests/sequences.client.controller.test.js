@@ -90,20 +90,29 @@
 			expect(scope.sequence).toEqualData(sampleSequence);
 		}));
 
-		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Sequences) {
-			// Create a sample Sequence object
+		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Courses, Sequences) {
+			// Create a sample course object
+			var sampleCourse = new Courses({
+				_id: '991f5fab8b69a9a026f807b8',
+				title: 'New course'
+			});
+
+			// Create a sample sequence object
 			var sampleSequencePostData = new Sequences({
-				name: 'New Sequence'
+				name: 'New sequence',
+				course: sampleCourse
 			});
 
 			// Create a sample Sequence response
 			var sampleSequenceResponse = new Sequences({
 				_id: '525cf20451979dea2c000001',
-				name: 'New Sequence'
+				name: 'New sequence',
+				course: sampleCourse
 			});
 
 			// Fixture mock form input values
-			scope.name = 'New Sequence';
+			scope.name = 'New sequence';
+			scope.course = sampleCourse;
 
 			// Set POST response
 			$httpBackend.expectPOST('sequences', sampleSequencePostData).respond(sampleSequenceResponse);
@@ -116,7 +125,7 @@
 			expect(scope.name).toEqual('');
 
 			// Test URL redirection after the Sequence was created
-			expect($location.path()).toBe('/sequences/' + sampleSequenceResponse._id);
+			expect($location.path()).toBe('/courses/' + sampleCourse._id + '/sequences/' + sampleSequenceResponse._id);
 		}));
 
 		it('$scope.update() should update a valid Sequence', inject(function(Sequences) {
