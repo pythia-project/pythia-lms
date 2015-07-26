@@ -1,6 +1,6 @@
 {
 	"name": "pythia-lms",
-	"description": "Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js",
+	"description": "Pythia LMS is an application to create courses with Pythia problems and manage learners.",
 	"version": "0.0.1",
 	"author": "Pythia",
 	"engines": {

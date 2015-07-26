@@ -3,7 +3,7 @@
 module.exports = {
 	db: 'mongodb://localhost/pythia-lms-dev',
 	app: {
-		title: 'pythia-lms - Development Environment'
+		title: 'Pythia LMS - Development Environment'
 	},
 	mailer: {
 		from: process.env.MAILER_FROM || 'MAILER_FROM',

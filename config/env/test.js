@@ -4,7 +4,7 @@ module.exports = {
 	db: 'mongodb://localhost/pythia-lms-test',
 	port: 3001,
 	app: {
-		title: 'pythia-lms - Test Environment'
+		title: 'Pythia LMS - Test Environment'
 	},
 	mailer: {
 		from: process.env.MAILER_FROM || 'MAILER_FROM',
