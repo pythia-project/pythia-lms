@@ -15,6 +15,8 @@ module.exports = {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+				'public/lib/ng-tags-input/ng-tags-input.css',
+				'public/lib/ng-tags-input/ng-tags-input.bootstrap.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
@@ -35,6 +37,7 @@ module.exports = {
 				'public/lib/angular-ui-validate/dist/validate.js',
 				'public/lib/angular-ui-utils/index.js',
 				'public/lib/jquery/dist/jquery.js',
+				'public/lib/ng-tags-input/ng-tags-input.js',
 				'public/lib/bootstrap/dist/js/bootstrap.js'
 			]
 		},

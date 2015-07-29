@@ -1,7 +1,7 @@
 <section data-ng-controller="CoursesController">
 	<h2>Create course</h2>
 
-	<div class="col-md-12">
+	<div class="col-md-12" data-ng-init="initCourseForm()">
 		<form class="form-horizontal" data-ng-submit="create()" novalidate>
 			<fieldset>
 				<div class="form-group">
@@ -11,10 +11,10 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="coordinator">Coordinator</label>
-					<div class="controls">
-						<input type="text" data-ng-model="coordinator" id="coordinator" class="form-control" placeholder="Coordinator" required>
-					</div>
+					<label class="control-label" for="coordinators">Coordinator</label>
+					<tags-input data-ng-model="coordinators" add-on-blur="false" add-from-autocomplete-only placeholder="Add a coordinator">
+						<auto-complete source="loadTeachers($query)" min-length="0"></auto-complete>
+					</tags-input>
 				</div>
 				<div class="form-group">
 					<label class="control-label" for="description">Description</label>

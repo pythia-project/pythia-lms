@@ -1,16 +1,21 @@
 'use strict';
 
 // Courses controller
-angular.module('courses').controller('CoursesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Courses', function($scope, $stateParams, $location, Authentication, Courses) {
+angular.module('courses').controller('CoursesController', ['$scope', '$stateParams', '$location', '$http', '$filter', 'Authentication', 'Courses', function($scope, $stateParams, $location, $http, $filter, Authentication, Courses) {
 	$scope.authentication = Authentication;
+	var teachersList = [];
 
 	// Create new course
 	$scope.create = function() {
 		// Create new course object
+		var coordinatorsIDs = [];
+		for (var i = 0; i < this.coordinators.length; i++) {
+			coordinatorsIDs.push(this.coordinators[i].user._id);
+		}
 		var course = new Courses ({
 			title: this.title,
 			description: this.description,
-			coordinator: this.coordinator
+			coordinators: coordinatorsIDs
 		});
 
 		// Redirect after save
@@ -20,7 +25,7 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 			// Clear form fields
 			$scope.title = '';
 			$scope.description = '';
-			$scope.coordinator = '';
+			$scope.coordinators = [];
 		}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;
 		});
@@ -64,5 +69,22 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 		$scope.course = Courses.get({ 
 			courseId: $stateParams.courseId
 		});
+	};
+
+	// Load the list of teachers, for autocompletion of coordinators field
+	$scope.initCourseForm = function() {
+		$http.get('/users').success(function(data, status, headers, config) {
+			data.forEach(function(user) {
+				teachersList.push({
+					text: user.displayname,
+					user: user
+				});
+			});
+		});
+	};
+
+	// Filter list of available teachers
+	$scope.loadTeachers = function(query) {
+		return $filter('filter')(teachersList, query);
 	};
 }]);

@@ -19,15 +19,21 @@ var CourseSchema = new Schema({
 		type: String,
 		default: ''
 	},
-	coordinator: {
-		type: Schema.ObjectId,
-		ref: 'User',
-		required: 'Please choose a coordinator for the course.'
+	coordinators: {
+		type: [{
+			type: Schema.ObjectId,
+			ref: 'User',
+		}],
+		default: [],
+		required: 'Please choose at least one coordinator for the course.'
 	},
-	sequences: [{
-		type: Schema.ObjectId,
-		ref: 'Sequence'
-	}],
+	sequences: {
+		type: [{
+			type: Schema.ObjectId,
+			ref: 'Sequence'
+		}],
+		default: []
+	},
 	created: {
 		type: Date,
 		default: Date.now
