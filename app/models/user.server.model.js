@@ -69,7 +69,7 @@ var UserSchema = new Schema({
 	roles: {
 		type: [{
 			type: String,
-			enum: ['user', 'admin']
+			enum: ['user', 'teacher', 'admin']
 		}],
 		default: ['user']
 	},
@@ -107,9 +107,8 @@ UserSchema.pre('save', function(next) {
 UserSchema.methods.hashPassword = function(password) {
 	if (this.salt && password) {
 		return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
-	} else {
-		return password;
 	}
+	return password;
 };
 
 /**
