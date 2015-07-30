@@ -5,6 +5,12 @@
 		<form class="form-horizontal" data-ng-submit="create()" novalidate>
 			<fieldset>
 				<div class="form-group">
+					<label class="control-label" for="serial">Serial</label>
+					<div class="controls">
+						<input type="text" data-ng-model="serial" id="serial" class="form-control" placeholder="Serial" required>
+					</div>
+				</div>
+				<div class="form-group">
 					<label class="control-label" for="title">Title</label>
 					<div class="controls">
 						<input type="text" data-ng-model="title" id="title" class="form-control" placeholder="Title" required>

@@ -13,11 +13,11 @@ angular.module('courses').config(['$stateProvider', function($stateProvider) {
 		templateUrl: 'modules/courses/views/create-course.client.view.html'
 	})
 	.state('viewCourse', {
-		url: '/courses/:courseId',
+		url: '/courses/:courseSerial',
 		templateUrl: 'modules/courses/views/view-course.client.view.html'
 	})
 	.state('editCourse', {
-		url: '/courses/:courseId/edit',
+		url: '/courses/:courseSerial/edit',
 		templateUrl: 'modules/courses/views/edit-course.client.view.html'
 	});
 }]);

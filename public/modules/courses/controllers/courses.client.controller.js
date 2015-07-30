@@ -3,6 +3,7 @@
 // Courses controller
 angular.module('courses').controller('CoursesController', ['$scope', '$stateParams', '$location', '$http', '$filter', 'Authentication', 'Courses', function($scope, $stateParams, $location, $http, $filter, Authentication, Courses) {
 	$scope.authentication = Authentication;
+	$scope.coordinators = [];
 	var teachersList = [];
 
 	// Create new course
@@ -13,19 +14,21 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 			coordinatorsIDs.push(this.coordinators[i].user._id);
 		}
 		var course = new Courses ({
+			serial: this.serial,
 			title: this.title,
-			description: this.description,
-			coordinators: coordinatorsIDs
+			coordinators: coordinatorsIDs,
+			description: this.description
 		});
 
 		// Redirect after save
 		course.$save(function(response) {
-			$location.path('courses/' + response._id);
+			$location.path('courses/' + response.serial);
 
 			// Clear form fields
+			$scope.serial = '';
 			$scope.title = '';
-			$scope.description = '';
 			$scope.coordinators = [];
+			$scope.description = '';
 		}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;
 		});
@@ -67,7 +70,7 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 	// Find existing course
 	$scope.findOne = function() {
 		$scope.course = Courses.get({ 
-			courseId: $stateParams.courseId
+			courseSerial: $stateParams.courseSerial
 		});
 	};
 

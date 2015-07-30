@@ -66,7 +66,7 @@ exports.delete = function(req, res) {
  * List of courses
  */
 exports.list = function(req, res) { 
-	Course.find({}, 'title').exec(function(err, courses) {
+	Course.find({}, 'serial title').exec(function(err, courses) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -79,13 +79,13 @@ exports.list = function(req, res) {
 /**
  * Course middleware
  */
-exports.courseByID = function(req, res, next, id) { 
-	Course.findById(id, 'title sequences description user').populate('sequences', 'name').exec(function(err, course) {
+exports.courseBySerial = function(req, res, next, serial) { 
+	Course.findOne({'serial': serial}, 'serial title sequences description user').populate('sequences', 'name').exec(function(err, course) {
 		if (err) {
 			return next(err);
 		}
 		if (! course) {
-			return next(new Error('Failed to load course ' + id));
+			return next(new Error('Failed to load course ' + serial));
 		}
 		req.course = course;
 		next();

@@ -10,6 +10,11 @@ var mongoose = require('mongoose'),
  * Course Schema
  */
 var CourseSchema = new Schema({
+	serial: {
+		type: String,
+		required: 'Please select a serial for the course.',
+		unique: 'A course with the same serial already exists.'
+	},
 	title: {
 		type: String,
 		required: 'Please select a title for the course.',
