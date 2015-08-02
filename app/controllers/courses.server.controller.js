@@ -66,7 +66,7 @@ exports.delete = function(req, res) {
  * List of courses
  */
 exports.list = function(req, res) { 
-	Course.find({}, 'serial title').exec(function(err, courses) {
+	Course.find({}, 'serial title visible').exec(function(err, courses) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
