@@ -11,7 +11,7 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 		// Create new course object
 		var coordinatorsIDs = [];
 		for (var i = 0; i < this.coordinators.length; i++) {
-			coordinatorsIDs.push(this.coordinators[i].user._id);
+			coordinatorsIDs.push(this.coordinators[i]._id);
 		}
 		var course = new Courses ({
 			serial: this.serial,
@@ -23,7 +23,6 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 		// Redirect after save
 		course.$save(function(response) {
 			$location.path('courses/' + response.serial);
-
 			// Clear form fields
 			$scope.serial = '';
 			$scope.title = '';
@@ -38,7 +37,6 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 	$scope.remove = function(course) {
 		if (course) { 
 			course.$remove();
-
 			for (var i in $scope.courses) {
 				if ($scope.courses[i] === course) {
 					$scope.courses.splice(i, 1);
@@ -54,7 +52,6 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 	// Update existing course
 	$scope.update = function() {
 		var course = $scope.course;
-
 		course.$update(function() {
 			$location.path('courses/' + course._id);
 		}, function(errorResponse) {
@@ -77,12 +74,7 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 	// Load the list of teachers, for autocompletion of coordinators field
 	$scope.initCourseForm = function() {
 		$http.get('/users').success(function(data, status, headers, config) {
-			data.forEach(function(user) {
-				teachersList.push({
-					text: user.displayname,
-					user: user
-				});
-			});
+			teachersList = data;
 		});
 	};
 

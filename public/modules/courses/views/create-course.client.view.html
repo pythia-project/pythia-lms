@@ -1,6 +1,8 @@
 <section data-ng-controller="CoursesController">
 	<h2>Create course</h2>
 
+	{{coordinators}}
+
 	<div class="col-md-12" data-ng-init="initCourseForm()">
 		<form class="form-horizontal" data-ng-submit="create()" novalidate>
 			<fieldset>
@@ -17,8 +19,8 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="coordinators">Coordinator</label>
-					<tags-input data-ng-model="coordinators" add-on-blur="false" add-from-autocomplete-only placeholder="Add a coordinator">
+					<label class="control-label" for="coordinators">Coordinators</label>
+					<tags-input data-ng-model="coordinators" add-on-blur="false" add-from-autocomplete-only display-property="displayname" placeholder="Add a coordinator">
 						<auto-complete source="loadTeachers($query)" min-length="0"></auto-complete>
 					</tags-input>
 				</div>
