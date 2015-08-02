@@ -23,6 +23,25 @@ div.description {
 .content {
 	margin-top: 50px;
 }
+
+.navbar-inverse .navbar-brand > img {
+	margin-top: -7px;
+}
+
+/* Bootstrap change */
+.navbar-inverse {
+	background-image: linear-gradient(to bottom, #4e9a06 0%, #418105 100%);
+}
+.navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand {
+	color: #FFFFFF;
+}
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open a:focus {
+	color: #FFFFFF;
+	background-image: linear-gradient(to bottom, #396B0B 0%, #1A2F07 100%);
+}
+
+/* MEAN.js generated */
+
 .undecorated-link:hover {
 	text-decoration: none;
 }
