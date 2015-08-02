@@ -25,6 +25,13 @@ var SequenceSchema = new Schema({
 		ref: 'Course',
 		required: 'Please select a course for this sequence'
 	},
+	lessons: {
+		type: [{
+			type: Schema.ObjectId,
+			ref: 'Lesson'
+		}],
+		default: []
+	},
 	created: {
 		type: Date,
 		default: Date.now

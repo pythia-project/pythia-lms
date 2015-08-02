@@ -44,7 +44,9 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 	// Update existing sequence
 	$scope.update = function() {
 		var sequence = $scope.sequence;
-		sequence.$update(function() {
+		sequence.$update({
+			sequenceIndex: $scope.sequenceIndex
+		}, function() {
 			$location.path('sequences/' + sequence._id);
 		}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;
