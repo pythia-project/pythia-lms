@@ -108,8 +108,8 @@ exports.list = function(req, res) {
 /**
  * Sequence middleware
  */
-exports.sequenceByID = function(req, res, next, id) { 
-	Sequence.findById(id).exec(function(err, sequence) {
+exports.sequenceByIndex = function(req, res, next, index) {
+	Sequence.findById({'_id': req.course.sequences[index - 1]._id}, 'name').exec(function(err, sequence) {
 		if (err) {
 			return next(err);
 		}

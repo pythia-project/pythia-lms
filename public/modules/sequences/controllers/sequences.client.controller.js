@@ -28,9 +28,8 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 
 	// Remove existing sequence
 	$scope.remove = function(sequence) {
-		if ( sequence ) { 
+		if (sequence) {
 			sequence.$remove();
-
 			for (var i in $scope.sequences) {
 				if ($scope.sequences [i] === sequence) {
 					$scope.sequences.splice(i, 1);
@@ -46,7 +45,6 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 	// Update existing sequence
 	$scope.update = function() {
 		var sequence = $scope.sequence;
-
 		sequence.$update(function() {
 			$location.path('sequences/' + sequence._id);
 		}, function(errorResponse) {
@@ -61,8 +59,9 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 
 	// Find existing sequence
 	$scope.findOne = function() {
-		$scope.sequence = Sequences.get({ 
-			sequenceId: $stateParams.sequenceId
+		$scope.sequence = Sequences.get({
+			courseSerial: $stateParams.courseSerial,
+			sequenceIndex: $stateParams.sequenceIndex
 		});
 	};
 

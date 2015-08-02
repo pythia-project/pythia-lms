@@ -11,6 +11,6 @@
 		No sequences in this course yet.
 	</div>
 	<div class="list-group" data-ng-if="course.sequences && course.sequences.length > 0">
-		<a data-ng-repeat="sequence in course.sequences" data-ng-href="#!/courses/{{course.serial}}/sequences/{{sequence._id}}" class="list-group-item">{{sequence.name}}</a>
+		<a data-ng-repeat="i in getNumber(course.sequences.length) track by $index" data-ng-href="#!/courses/{{course.serial}}/sequences/{{$index + 1}}" class="list-group-item">{{course.sequences[$index].name}}</a>
 	</div>
 </section>

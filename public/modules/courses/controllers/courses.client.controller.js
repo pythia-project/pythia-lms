@@ -82,4 +82,13 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 	$scope.loadTeachers = function(query) {
 		return $filter('filter')(teachersList, query);
 	};
+
+	// Build an array of consecutive integers from 0 to n-1
+	$scope.getNumber = function(n) {
+		var tab = [];
+		for (var i = 0; i < n; i++) {
+			tab.push(i);
+		}
+		return tab;
+	};
 }]);
