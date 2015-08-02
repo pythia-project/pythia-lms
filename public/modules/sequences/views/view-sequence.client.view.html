@@ -1,4 +1,10 @@
 <section data-ng-controller="SequencesController" data-ng-init="findOne()">
+	<ol class="breadcrumb">
+		<li><a href="#!/courses">Courses</a></li>
+		<li><a data-ng-href="#!/courses/{{sequence.course.serial}}">{{sequence.course.serial}}</a></li>
+		<li class="active"><a data-ng-href="#!/courses/{{sequence.course.serial}}/sequences/{{sequenceIndex}}">{{sequence.name}}</a></li>
+	</ol>
+
 	<h2>{{sequence.name}}</h2>
 
 	<div data-ng-if="sequence.description">{{sequence.description}}</div>

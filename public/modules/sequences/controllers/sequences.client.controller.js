@@ -59,6 +59,7 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 
 	// Find existing sequence
 	$scope.findOne = function() {
+		$scope.sequenceIndex = $stateParams.sequenceIndex;
 		$scope.sequence = Sequences.get({
 			courseSerial: $stateParams.courseSerial,
 			sequenceIndex: $stateParams.sequenceIndex

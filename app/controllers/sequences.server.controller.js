@@ -109,7 +109,7 @@ exports.list = function(req, res) {
  * Sequence middleware
  */
 exports.sequenceByIndex = function(req, res, next, index) {
-	Sequence.findById({'_id': req.course.sequences[index - 1]._id}, 'name').exec(function(err, sequence) {
+	Sequence.findById({'_id': req.course.sequences[index - 1]._id}, 'name course').populate('course', 'serial').exec(function(err, sequence) {
 		if (err) {
 			return next(err);
 		}
