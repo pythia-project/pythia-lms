@@ -1,4 +1,9 @@
 <section data-ng-controller="SequencesController" data-ng-init="findCourse()">
+	<ol class="breadcrumb">
+		<li><a href="#!/courses">Courses</a></li>
+		<li class="active"><a data-ng-href="#!/courses/{{course.serial}}">{{course.serial}}</a></li>
+	</ol>
+
 	<h2>Create sequence</h2>
 
 	<div class="col-md-12">

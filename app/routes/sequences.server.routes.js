@@ -6,7 +6,7 @@ module.exports = function(app) {
 	var sequences = require('../../app/controllers/sequences.server.controller');
 
 	// Sequences Routes
-	app.route('/sequences')
+	app.route('/courses/:courseSerial/sequences')
 		.get(sequences.list)
 		.post(users.requiresLogin, sequences.create);
 

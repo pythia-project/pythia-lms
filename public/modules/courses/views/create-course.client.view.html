@@ -1,7 +1,9 @@
 <section data-ng-controller="CoursesController">
-	<h2>Create course</h2>
+	<ol class="breadcrumb">
+		<li class="active"><a href="#!/courses">Courses</a></li>
+	</ol>
 
-	{{coordinators}}
+	<h2>Create course</h2>
 
 	<div class="col-md-12" data-ng-init="initCourseForm()">
 		<form class="form-horizontal" data-ng-submit="create()" novalidate>

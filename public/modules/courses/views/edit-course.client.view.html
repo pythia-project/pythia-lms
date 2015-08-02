@@ -1,4 +1,9 @@
 <section data-ng-controller="CoursesController" data-ng-init="findOne()">
+	<ol class="breadcrumb">
+		<li><a href="#!/courses">Courses</a></li>
+		<li class="active"><a data-ng-href="#!/courses/{{course.serial}}">{{course.serial}}</a></li>
+	</ol>
+
 	<h2>Edit course</h2>
 
 	<div class="col-md-12" data-ng-init="initCourseForm()">

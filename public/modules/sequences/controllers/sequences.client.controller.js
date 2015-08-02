@@ -9,13 +9,12 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 		// Create new sequence object
 		var sequence = new Sequences ({
 			name: this.name,
-			course: this.course,
-			description: this.description
+			description: this.description,
+			course: this.course
 		});
-
 		// Redirect after save
 		sequence.$save(function(response) {
-			$location.path('courses/' + response.course._id + '/sequences/' + response._id);
+			$location.path('courses/' + response.course.serial + '/sequences/' + response.course.sequences.length);
 
 			// Clear form fields
 			$scope.name = '';
@@ -69,7 +68,7 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 	// Find existing course
 	$scope.findCourse = function() {
 		$scope.course = Courses.get({ 
-			courseId: $stateParams.courseId
+			courseSerial: $stateParams.courseSerial
 		});
 	};
 }]);

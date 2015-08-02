@@ -14,8 +14,8 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	// Check course
-	var courseId = req.body.course._id;
-	Course.findById(courseId, 'sequences').exec(function(err, course) {
+	var serial = req.body.course.serial;
+	Course.findOne({'serial': serial}, 'serial sequences').exec(function(err, course) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -23,7 +23,7 @@ exports.create = function(req, res) {
 		}
 		if (! course) {
 			return res.status(400).send({
-				message: 'Failed to load course ' + courseId
+				message: 'Failed to load course ' + serial
 			});
 		}
 		var sequence = new Sequence({
@@ -46,6 +46,7 @@ exports.create = function(req, res) {
 						message: errorHandler.getErrorMessage(err)
 					});
 				}
+				sequence.course = course;
 				res.jsonp(sequence);
 			});
 		});
@@ -114,7 +115,7 @@ exports.sequenceByIndex = function(req, res, next, index) {
 			return next(err);
 		}
 		if (! sequence) {
-			return next(new Error('Failed to load sequence ' + id));
+			return next(new Error('Failed to load sequence ' + index + ' of course ' + req.course.sequences[index - 1].serial));
 		}
 		req.sequence = sequence;
 		next();
