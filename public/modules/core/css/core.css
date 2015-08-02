@@ -12,6 +12,10 @@ div.action-box {
 	text-align: right;
 }
 
+div.description {
+	margin: 15px 0px;
+}
+
 .list-group {
 	margin-top: 15px;
 }
