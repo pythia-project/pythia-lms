@@ -7,6 +7,11 @@ img.grayscale, input[type="image"].grayscale {
 	opacity: 0.5;
 }
 
+div.action-box {
+	margin-bottom: 15px;
+	text-align: right;
+}
+
 .list-group {
 	margin-top: 15px;
 }

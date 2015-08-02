@@ -1,9 +1,15 @@
 <section data-ng-controller="CoursesController" data-ng-init="findOne()">
 	<h2>Edit course</h2>
 
-	<div class="col-md-12">
+	<div class="col-md-12" data-ng-init="initCourseForm()">
 		<form class="form-horizontal" data-ng-submit="update()" novalidate>
 			<fieldset>
+				<div class="form-group">
+					<label class="control-label" for="serial">Serial</label>
+					<div class="controls">
+						<input type="text" data-ng-model="course.serial" id="serial" class="form-control" placeholder="Serial" disabled>
+					</div>
+				</div>
 				<div class="form-group">
 					<label class="control-label" for="title">Title</label>
 					<div class="controls">
@@ -11,10 +17,10 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="coordinator">Coordinator</label>
-					<div class="controls">
-						<input type="text" data-ng-model="course.coordinator" id="coordinator" class="form-control" placeholder="Coordinator" required>
-					</div>
+					<label class="control-label" for="coordinators">Coordinators</label>
+					<tags-input data-ng-model="course.coordinators" add-on-blur="false" add-from-autocomplete-only display-property="displayname" placeholder="Add a coordinator">
+						<auto-complete source="loadTeachers($query)" min-length="0"></auto-complete>
+					</tags-input>
 				</div>
 				<div class="form-group">
 					<label class="control-label" for="description">Description</label>

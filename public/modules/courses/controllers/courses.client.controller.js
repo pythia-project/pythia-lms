@@ -53,7 +53,7 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 	$scope.update = function() {
 		var course = $scope.course;
 		course.$update(function() {
-			$location.path('courses/' + course._id);
+			$location.path('courses/' + course.serial);
 		}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;
 		});
