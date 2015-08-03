@@ -6,11 +6,11 @@ module.exports = function(app) {
 
 	// Courses routes
 	app.route('/courses')
-		.get(courses.list);
+		.get(courses.list)
+		.post(users.requiresLogin, courses.create);
 
 	app.route('/courses/:courseSerial')
 		.get(courses.read)
-		.post(users.requiresLogin, courses.create)
 		.put(users.requiresLogin, courses.hasAuthorization, courses.update)
 		.delete(users.requiresLogin, courses.hasAuthorization, courses.delete);
 

@@ -52,7 +52,9 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 	// Update existing course
 	$scope.update = function() {
 		var course = $scope.course;
-		course.$update(function() {
+		course.$update({
+			courseSerial: course.serial
+		}, function() {
 			$location.path('courses/' + course.serial);
 		}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;

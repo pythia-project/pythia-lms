@@ -80,9 +80,6 @@ exports.list = function(req, res) {
  * Course middleware
  */
 exports.courseBySerial = function(req, res, next, serial) {
-	if(req.method === 'POST') {
-		return next();
-	}
 	Course.findOne({'serial': serial}, 'serial title coordinators description sequences user').populate('coordinators', 'displayname').populate('sequences', 'name').exec(function(err, course) {
 		if (err) {
 			return next(err);
