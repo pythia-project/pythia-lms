@@ -10,15 +10,14 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 		var sequence = new Sequences ({
 			name: this.name,
 			description: this.description,
-			course: this.course
+			courseSerial: $scope.course.serial
 		});
 		// Redirect after save
 		sequence.$save(function(response) {
-			$location.path('courses/' + response.course.serial + '/sequences/' + response.course.sequences.length);
+			$location.path('courses/' + $scope.course.serial + '/sequences/' + response.sequenceIndex);
 
 			// Clear form fields
 			$scope.name = '';
-			$scope.course = null;
 			$scope.description = '';
 		}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;
@@ -45,9 +44,10 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 	$scope.update = function() {
 		var sequence = $scope.sequence;
 		sequence.$update({
+			courseSerial: $scope.courseSerial,
 			sequenceIndex: $scope.sequenceIndex
 		}, function() {
-			$location.path('sequences/' + sequence._id);
+			$location.path('courses/' + $scope.courseSerial + '/sequences/' + $scope.sequenceIndex);
 		}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;
 		});
@@ -60,6 +60,7 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 
 	// Find existing sequence
 	$scope.findOne = function() {
+		$scope.courseSerial = $stateParams.courseSerial;
 		$scope.sequenceIndex = $stateParams.sequenceIndex;
 		$scope.sequence = Sequences.get({
 			courseSerial: $stateParams.courseSerial,

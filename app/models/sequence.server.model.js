@@ -20,11 +20,6 @@ var SequenceSchema = new Schema({
 		type: String,
 		default: ''
 	},
-	course: {
-		type: Schema.ObjectId,
-		ref: 'Course',
-		required: 'Please select a course for this sequence'
-	},
 	lessons: {
 		type: [{
 			type: Schema.ObjectId,

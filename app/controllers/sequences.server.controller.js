@@ -14,7 +14,7 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	// Check course
-	var serial = req.body.course.serial;
+	var serial = req.body.courseSerial;
 	Course.findOne({'serial': serial}, 'serial sequences').exec(function(err, course) {
 		if (err) {
 			return res.status(400).send({
@@ -28,7 +28,6 @@ exports.create = function(req, res) {
 		}
 		var sequence = new Sequence({
 			'name': req.body.name,
-			'course': course._id,
 			'description': req.body.description
 		});
 		sequence.user = req.user;
@@ -46,26 +45,26 @@ exports.create = function(req, res) {
 						message: errorHandler.getErrorMessage(err)
 					});
 				}
-				sequence.course = course;
-				res.jsonp(sequence);
+				res.jsonp({
+					'sequenceIndex': course.sequences.length
+				});
 			});
 		});
 	});
 };
 
 /**
- * Show the current Sequence
+ * Show the current sequence
  */
 exports.read = function(req, res) {
 	res.jsonp(req.sequence);
 };
 
 /**
- * Update a Sequence
+ * Update a sequence
  */
 exports.update = function(req, res) {
 	var sequence = req.sequence;
-	req.body.course = req.body.course._id;
 	sequence = _.extend(sequence, req.body);
 	sequence.save(function(err) {
 		if (err) {
@@ -78,7 +77,7 @@ exports.update = function(req, res) {
 };
 
 /**
- * Delete an Sequence
+ * Delete a sequence
  */
 exports.delete = function(req, res) {
 	var sequence = req.sequence;
@@ -93,7 +92,7 @@ exports.delete = function(req, res) {
 };
 
 /**
- * List of Sequences
+ * List of sequences
  */
 exports.list = function(req, res) { 
 	Sequence.find().exec(function(err, sequences) {
@@ -110,7 +109,7 @@ exports.list = function(req, res) {
  * Sequence middleware
  */
 exports.sequenceByIndex = function(req, res, next, index) {
-	Sequence.findById({'_id': req.course.sequences[index - 1]._id}, 'name course description user').populate('course', 'serial title').exec(function(err, sequence) {
+	Sequence.findById({'_id': req.course.sequences[index - 1]._id}, 'name description user').exec(function(err, sequence) {
 		if (err) {
 			return next(err);
 		}

@@ -16,6 +16,5 @@ module.exports = function(app) {
 		.delete(users.requiresLogin, sequences.hasAuthorization, sequences.delete);
 
 	// Finish by binding the sequence middleware
-	app.param('courseSerial', courses.courseBySerial);
 	app.param('sequenceIndex', sequences.sequenceByIndex);
 };
