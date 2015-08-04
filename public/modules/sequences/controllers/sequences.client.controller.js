@@ -53,11 +53,6 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 		});
 	};
 
-	// Find a list of sequences
-	$scope.find = function() {
-		$scope.sequences = Sequences.query();
-	};
-
 	// Find existing sequence
 	$scope.findOne = function() {
 		$scope.courseSerial = $stateParams.courseSerial;
