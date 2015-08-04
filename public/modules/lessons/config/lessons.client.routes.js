@@ -10,7 +10,7 @@ angular.module('lessons').config(['$stateProvider',
 			templateUrl: 'modules/lessons/views/list-lessons.client.view.html'
 		}).
 		state('createLesson', {
-			url: '/lessons/create',
+			url: '/courses/:courseSerial/sequences/:sequenceIndex/lessons/create',
 			templateUrl: 'modules/lessons/views/create-lesson.client.view.html'
 		}).
 		state('viewLesson', {

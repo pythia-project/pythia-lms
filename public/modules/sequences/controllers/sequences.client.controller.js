@@ -74,4 +74,13 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 			courseSerial: $stateParams.courseSerial
 		});
 	};
+
+	// Build an array of consecutive integers from 0 to n-1
+	$scope.getNumber = function(n) {
+		var tab = [];
+		for (var i = 0; i < n; i++) {
+			tab.push(i);
+		}
+		return tab;
+	};
 }]);

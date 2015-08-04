@@ -7,14 +7,17 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 /**
- * Lesson Schema
+ * Lesson schema
  */
 var LessonSchema = new Schema({
 	name: {
 		type: String,
-		default: '',
-		required: 'Please fill Lesson name',
+		required: 'Please select a name for the lesson.',
 		trim: true
+	},
+	context: {
+		type: String,
+		required: 'Please enter a context for the lesson.'
 	},
 	created: {
 		type: Date,

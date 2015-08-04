@@ -5,24 +5,53 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
+	Course = mongoose.model('Course'),
+	Sequence = mongoose.model('Sequence'),
 	Lesson = mongoose.model('Lesson'),
 	_ = require('lodash');
 
 /**
- * Create a Lesson
+ * Create a lesson
  */
 exports.create = function(req, res) {
-	var lesson = new Lesson(req.body);
-	lesson.user = req.user;
-
-	lesson.save(function(err) {
+	// Check course
+	var courseSerial = req.body.courseSerial;
+	Course.findOne({'serial': courseSerial}, 'serial sequences').populate('sequences', 'lessons').exec(function(err, course) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
-			res.jsonp(lesson);
 		}
+		if (! course) {
+			return res.status(400).send({
+				message: 'Failed to load course ' + courseSerial
+			});
+		}
+		var sequence = course.sequences[req.body.sequenceIndex - 1];
+		var lesson = new Lesson({
+			'name': req.body.name,
+			'context': req.body.context
+		});
+		lesson.user = req.user;
+		lesson.save(function(err) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			}
+			// Add the lesson to the sequence
+			sequence.lessons.push(lesson);
+			sequence.save(function(err) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				}
+				res.jsonp({
+					'lessonIndex': sequence.lessons.length
+				});
+			});
+		});
 	});
 };
 
