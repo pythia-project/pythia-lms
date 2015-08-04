@@ -1,8 +1,8 @@
-<section data-ng-controller="LessonsController" data-ng-init="findCourse()">
+<section data-ng-controller="LessonsController" data-ng-init="findSequence()">
 	<ol class="breadcrumb">
 		<li><a href="#!/courses">Courses</a></li>
-		<li><a data-ng-href="#!/courses/{{course.serial}}">{{course.serial}}</a></li>
-		<li class="active"><a data-ng-href="#!/courses/{{course.serial}}/sequences/{{sequenceIndex}}">{{course.sequences[sequenceIndex - 1].name}}</a></li>
+		<li><a data-ng-href="#!/courses/{{courseSerial}}">{{courseSerial}}</a></li>
+		<li class="active"><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}">{{sequence.name}}</a></li>
 	</ol>
 
 	<h2>New lesson</h2>

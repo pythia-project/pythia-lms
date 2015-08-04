@@ -1,3 +1,10 @@
+h2 {
+	font-size: 30px;
+}
+h3 {
+	font-size: 20px;
+}
+
 img.grayscale, input[type="image"].grayscale {
 	filter: grayscale(1);
 	-webkit-filter: grayscale(1);
@@ -23,12 +30,15 @@ div.description {
 .content {
 	margin-top: 50px;
 }
+div.context p {
+	text-align: justify;
+}
 
+/* Bootstrap change */
 .navbar-inverse .navbar-brand > img {
 	margin-top: -7px;
 }
 
-/* Bootstrap change */
 .navbar-inverse {
 	background-image: linear-gradient(to bottom, #4e9a06 0%, #418105 100%);
 }

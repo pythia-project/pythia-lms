@@ -10,12 +10,12 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		var lesson = new Lessons ({
 			name: this.name,
 			context: this.context,
-			courseSerial: $scope.course.serial,
+			courseSerial: $scope.courseSerial,
 			sequenceIndex: $scope.sequenceIndex
 		});
 		// Redirect after save
 		lesson.$save(function(response) {
-			$location.path('lessons/' + response._id);
+			$location.path('courses/' + $scope.courseSerial + '/sequences/' + $scope.sequenceIndex + '/lessons/' + response.lessonIndex);
 
 			// Clear form fields
 			$scope.name = '';
@@ -58,9 +58,6 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 
 	// Find existing lesson
 	$scope.findOne = function() {
-		$scope.courseSerial = $stateParams.courseSerial;
-		$scope.sequenceIndex = $stateParams.sequenceIndex;
-		$scope.lessonIndex = $stateParams.lessonIndex;
 		$scope.lesson = Lessons.get({ 
 			courseSerial: $stateParams.courseSerial,
 			sequenceIndex: $stateParams.sequenceIndex,
@@ -71,6 +68,8 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 
 	// Find existing course
 	$scope.findSequence = function() {
+		$scope.courseSerial = $stateParams.courseSerial;
+		$scope.sequenceIndex = $stateParams.sequenceIndex;
 		$scope.lessonIndex = $stateParams.lessonIndex;
 		$scope.sequence = Sequences.get({ 
 			courseSerial: $stateParams.courseSerial,
