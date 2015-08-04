@@ -4,7 +4,8 @@
 angular.module('lessons').factory('Lessons', ['$resource', function($resource) {
 	return $resource('courses/:courseSerial/sequences/:sequenceIndex/lessons/:lessonIndex', {
 		courseSerial: '@courseSerial',
-		sequenceIndex: '@sequenceIndex'
+		sequenceIndex: '@sequenceIndex',
+		lessonIndex: ''
 	}, {
 		update: {
 			method: 'PUT'

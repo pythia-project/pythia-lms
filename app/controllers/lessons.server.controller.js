@@ -116,11 +116,15 @@ exports.list = function(req, res) {
 /**
  * Lesson middleware
  */
-exports.lessonByID = function(req, res, next, id) { 
-	Lesson.findById(id).populate('user', 'displayName').exec(function(err, lesson) {
-		if (err) return next(err);
-		if (! lesson) return next(new Error('Failed to load Lesson ' + id));
-		req.lesson = lesson ;
+exports.lessonByIndex = function(req, res, next, index) { 
+	Lesson.findById({'_id': req.sequence.lessons[index - 1]._id}, 'name context user').exec(function(err, lesson) {
+		if (err) {
+			return next(err);
+		}
+		if (! lesson) {
+			return next(new Error('Failed to load lesson ' + index + ' of sequence ' + req.sequence.name + ' of course ' + req.course.serial));
+		}
+		req.lesson = lesson;
 		next();
 	});
 };

@@ -1,7 +1,7 @@
 'use strict';
 
 // Lessons controller
-angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Courses', 'Lessons', function($scope, $stateParams, $location, Authentication, Courses, Lessons) {
+angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Sequences', 'Lessons', function($scope, $stateParams, $location, Authentication, Sequences, Lessons) {
 	$scope.authentication = Authentication;
 
 	// Create new lesson
@@ -58,16 +58,23 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 
 	// Find existing lesson
 	$scope.findOne = function() {
+		$scope.courseSerial = $stateParams.courseSerial;
+		$scope.sequenceIndex = $stateParams.sequenceIndex;
+		$scope.lessonIndex = $stateParams.lessonIndex;
 		$scope.lesson = Lessons.get({ 
-			lessonId: $stateParams.lessonId
+			courseSerial: $stateParams.courseSerial,
+			sequenceIndex: $stateParams.sequenceIndex,
+			lessonIndex: $stateParams.lessonIndex
 		});
+		$scope.findSequence();
 	};
 
 	// Find existing course
-	$scope.findCourse = function() {
-		$scope.sequenceIndex = $stateParams.sequenceIndex;
-		$scope.course = Courses.get({ 
-			courseSerial: $stateParams.courseSerial
+	$scope.findSequence = function() {
+		$scope.lessonIndex = $stateParams.lessonIndex;
+		$scope.sequence = Sequences.get({ 
+			courseSerial: $stateParams.courseSerial,
+			sequenceIndex: $stateParams.sequenceIndex
 		});
 	};
 }]);

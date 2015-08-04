@@ -114,7 +114,7 @@ exports.sequenceByIndex = function(req, res, next, index) {
 			return next(err);
 		}
 		if (! sequence) {
-			return next(new Error('Failed to load sequence ' + index + ' of course ' + req.course.sequences[index - 1].serial));
+			return next(new Error('Failed to load sequence ' + index + ' of course ' + req.course.serial));
 		}
 		req.sequence = sequence;
 		next();

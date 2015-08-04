@@ -10,11 +10,11 @@ module.exports = function(app) {
 		.get(lessons.list)
 		.post(users.requiresLogin, lessons.create);
 
-	app.route('/lessons/:lessonId')
+	app.route('/courses/:courseSerial/sequences/:sequenceIndex/lessons/:lessonIndex')
 		.get(lessons.read)
 		.put(users.requiresLogin, lessons.hasAuthorization, lessons.update)
 		.delete(users.requiresLogin, lessons.hasAuthorization, lessons.delete);
 
 	// Finish by binding the lesson middleware
-	app.param('lessonId', lessons.lessonByID);
+	app.param('lessonIndex', lessons.lessonByIndex);
 };
