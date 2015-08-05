@@ -20,6 +20,14 @@ var SequenceSchema = new Schema({
 		type: String,
 		default: ''
 	},
+	start: {
+		type: Date,
+		default: null
+	},
+	end: {
+		type: Date,
+		default: null
+	},
 	lessons: {
 		type: [{
 			type: Schema.ObjectId,

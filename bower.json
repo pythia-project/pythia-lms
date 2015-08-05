@@ -14,7 +14,8 @@
 		"angular-bootstrap": "~0.13.1",
 		"angular-ui-utils": "~3.0.0",
 		"angular-ui-router": "~0.2.15",
-		"ng-tags-input": "~3.0.0"
+		"ng-tags-input": "~3.0.0",
+		"angular-moment": "~0.10.2"
 	},
 	"resolutions": {
 		"angular": ">=1.4.3"

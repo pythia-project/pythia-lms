@@ -24,6 +24,8 @@ module.exports = {
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 				'public/lib/angular-cookies/angular-cookies.js',
 				'public/lib/angular-mocks/angular-mocks.js',
+				'public/lib/moment/moment.js',
+				'public/lib/angular-moment/angular-moment.js',
 				'public/lib/angular-resource/angular-resource.js',
 				'public/lib/angular-sanitize/angular-sanitize.js',
 				'public/lib/angular-touch/angular-touch.js',

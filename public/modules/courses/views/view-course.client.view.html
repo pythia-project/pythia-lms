@@ -13,8 +13,8 @@
 
 	<div data-ng-if="course.description" class="description">{{course.description}}</div>
 
-	<div data-ng-if="course.sequences && course.sequences.length > 0" class="list-group" >
-		<a data-ng-repeat="i in getNumber(course.sequences.length) track by $index" data-ng-href="#!/courses/{{course.serial}}/sequences/{{$index + 1}}" class="list-group-item">{{course.sequences[$index].name}}</a>
+	<div data-ng-if="course.sequences && course.sequences.length > 0" class="list-group">
+		<a data-ng-init="available = ! ((course.sequences[$index].start === null || isAfter(course.sequences[$index].start)) && (course.sequences[$index].end === null || isBefore(course.sequences[$index].end)))" data-ng-repeat="i in getNumber(course.sequences.length) track by $index" data-ng-href="{{available ? '' : '#!/courses/' + course.serial + '/sequences/' + ($index + 1)}}" data-ng-class="{'list-group-item': true, 'disabled': available}">{{course.sequences[$index].name}}</a>
 	</div>
 	<div data-ng-if="! course.sequences || course.sequences.length === 0" class="alert alert-warning" role="alert">
 		No sequences in this course yet.

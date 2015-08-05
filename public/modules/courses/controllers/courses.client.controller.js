@@ -93,4 +93,12 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 		}
 		return tab;
 	};
+
+	$scope.isBefore = function(date) {
+		return moment().isBefore(moment(date));
+	};
+
+	$scope.isAfter = function(date) {
+		return moment().isAfter(moment(date));
+	};
 }]);
