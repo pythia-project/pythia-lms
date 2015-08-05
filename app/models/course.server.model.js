@@ -43,6 +43,10 @@ var CourseSchema = new Schema({
 		type: Boolean,
 		default: false
 	},
+	private: {
+		type: Boolean,
+		default: true
+	},
 	created: {
 		type: Date,
 		default: Date.now
