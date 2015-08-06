@@ -4,6 +4,10 @@
 angular.module('courses').config(['$stateProvider', function($stateProvider) {
 	// Courses state routing
 	$stateProvider
+	.state('manageCourses', {
+		url: '/courses/manage',
+		templateUrl: 'modules/courses/views/manage-courses.client.view.html'
+	})
 	.state('listCourses', {
 		url: '/courses',
 		templateUrl: 'modules/courses/views/list-courses.client.view.html'

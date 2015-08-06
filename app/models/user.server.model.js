@@ -73,6 +73,19 @@ var UserSchema = new Schema({
 		}],
 		default: ['user']
 	},
+	registrations: {
+		type: [new Schema({
+			course: {
+				type: Schema.ObjectId,
+				ref: 'Course'
+			},
+			registered: {
+				type: Date,
+				default: Date.now
+			}
+		})],
+		default: []
+	},
 	updated: {
 		type: Date
 	},

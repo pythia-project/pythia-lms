@@ -65,15 +65,35 @@ exports.delete = function(req, res) {
 /**
  * List of courses
  */
-exports.list = function(req, res) { 
-	Course.find({}, 'serial title visible').exec(function(err, courses) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
+exports.list = function(req, res) {
+	switch (req.query.filter) {
+		case 'all':
+			Course.find({}, 'serial title visible').exec(function(err, courses) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				}
+				res.jsonp(courses);
 			});
-		}
-		res.jsonp(courses);
-	});
+		return;
+
+		case 'opened':
+			Course.find({}, 'serial title visible').where('visible').equals(true).exec(function(err, courses) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				}
+				res.jsonp(courses);
+			});
+		return;
+
+		case 'registered':
+			res.jsonp(req.user.registrations);
+		return;
+	}
+	res.jsonp([]);
 };
 
 /**

@@ -62,13 +62,15 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 	};
 
 	// Find a list of courses
-	$scope.find = function() {
-		$scope.courses = Courses.query();
+	$scope.find = function(filter) {
+		$scope.courses = Courses.query({
+			filter: filter
+		});
 	};
 
 	// Find existing course
 	$scope.findOne = function() {
-		$scope.course = Courses.get({ 
+		$scope.course = Courses.get({
 			courseSerial: $stateParams.courseSerial
 		});
 	};
@@ -94,11 +96,20 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 		return tab;
 	};
 
+	// Test whether the specified date is before now
 	$scope.isBefore = function(date) {
 		return moment().isBefore(moment(date));
 	};
 
+	// Test whether the specified date is after now
 	$scope.isAfter = function(date) {
 		return moment().isAfter(moment(date));
+	};
+
+	// Test whether the current user has one of the specified roles
+	$scope.hasRole = function(roles) {
+		return $scope.authentication.user && roles.some(function(element, index, array) {
+			return $scope.authentication.user.roles.indexOf(element) !== -1;
+		});
 	};
 }]);

@@ -1,0 +1,14 @@
+<section data-ng-controller="CoursesController" data-ng-init="find('all')">
+	<h2>Manage courses</h2>
+
+	<div class="action-box" class="text-right">
+		<a href="#!/courses/create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New course</a>
+	</div>
+
+	<div data-ng-if="courses && courses.length > 0" class="list-group">
+		<a data-ng-repeat="course in courses" data-ng-href="#!/courses/{{course.serial}}" class="list-group-item">{{course.serial}} &mdash; {{course.title}} <span class="pull-right"><img src="images/visibility.png" alt="Visibility" width="25" height="17" data-ng-class="{grayscale: ! course.visible}" /></span></a>
+	</div>
+	<div data-ng-if="! courses || courses.length === 0" class="alert alert-warning" role="alert">
+		No courses yet.
+	</div>
+</section>

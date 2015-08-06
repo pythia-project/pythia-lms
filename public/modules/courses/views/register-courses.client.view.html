@@ -1,3 +1,10 @@
-<section data-ng-controller="CoursesController" data-ng-init="find()">
-	<h2>Register</h2>
+<section data-ng-controller="CoursesController" data-ng-init="find('opened')">
+	<h2>Register to a course</h2>
+
+	<ul data-ng-if="courses && courses.length > 0" class="list-group">
+		<li data-ng-repeat="course in courses" class="list-group-item">{{course.serial}} &mdash; {{course.title}} <span class="pull-right"></span></li>
+	</ul>
+	<div data-ng-if="! courses || courses.length === 0" class="alert alert-warning" role="alert">
+		No courses yet.
+	</div>
 </section>
