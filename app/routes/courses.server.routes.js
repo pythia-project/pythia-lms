@@ -14,6 +14,9 @@ module.exports = function(app) {
 		.put(users.requiresLogin, courses.hasAuthorization, courses.update)
 		.delete(users.requiresLogin, courses.hasAuthorization, courses.delete);
 
+	app.route('/courses/:courseSerial/switchvisibility')
+		.post(users.requiresLogin, courses.hasAuthorization, courses.switchVisibility);
+
 	// Finish by binding the course middleware
 	app.param('courseSerial', courses.courseBySerial);
 };

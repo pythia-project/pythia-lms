@@ -113,6 +113,31 @@ exports.courseBySerial = function(req, res, next, serial) {
 };
 
 /**
+ * Switch the visibility of a course
+ */
+exports.switchVisibility = function(req, res) {
+	Course.findOne({'serial': req.course.serial}, 'visible').exec(function(err, course) {
+		if (err) {
+			return next(err);
+		}
+		if (! course) {
+			return next(new Error('Failed to load course ' + serial));
+		}
+		course.visible = ! course.visible;
+		course.save(function(err) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			}
+			res.jsonp({
+				'visible': course.visible
+			});
+		});
+	});
+};
+
+/**
  * Course authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {

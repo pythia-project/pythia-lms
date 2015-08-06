@@ -87,6 +87,14 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 		return $filter('filter')(teachersList, query);
 	};
 
+	// Change the visibility of a course
+	$scope.changeVisibility = function(index, serial) {
+		$http.post('/courses/' + serial + '/switchvisibility').success(function(data, status, headers, config) {
+			console.log(data);
+			$scope.courses[index].visible = data.visible;
+		});
+	};
+
 	// Build an array of consecutive integers from 0 to n-1
 	$scope.getNumber = function(n) {
 		var tab = [];
