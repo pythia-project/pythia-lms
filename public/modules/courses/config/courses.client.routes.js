@@ -8,6 +8,10 @@ angular.module('courses').config(['$stateProvider', function($stateProvider) {
 		url: '/courses',
 		templateUrl: 'modules/courses/views/list-courses.client.view.html'
 	})
+	.state('registerCourses', {
+		url: '/courses/register',
+		templateUrl: 'modules/courses/views/register-courses.client.view.html'
+	})
 	.state('createCourse', {
 		url: '/courses/create',
 		templateUrl: 'modules/courses/views/create-course.client.view.html'
