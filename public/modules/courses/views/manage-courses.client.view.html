@@ -6,7 +6,7 @@
 	</div>
 
 	<div data-ng-if="courses && courses.length > 0" class="list-group">
-		<a data-ng-repeat="i in getNumber(courses.length) track by $index" data-ng-href="#!/courses/{{courses[$index].serial}}" class="list-group-item">{{courses[$index].serial}} &mdash; {{courses[$index].title}} <span class="pull-right"><img src="images/visibility.png" alt="Visibility" width="25" height="17" data-ng-class="{grayscale: ! courses[$index].visible}" data-ng-click="changeVisibility($index, courses[$index].serial);$event.preventDefault();" /></span></a>
+		<a data-ng-repeat="i in getNumber(courses.length) track by $index" data-ng-href="#!/courses/{{courses[$index].serial}}" class="list-group-item">{{courses[$index].serial}} &mdash; {{courses[$index].title}} <span class="pull-right"><img src="images/visibility.png" alt="Visibility" width="25" height="17" data-ng-class="{grayscale: ! courses[$index].visible}" data-ng-click="changeVisibility($index);$event.preventDefault();" /></span></a>
 	</div>
 	<div data-ng-if="! courses || courses.length === 0" class="alert alert-warning" role="alert">
 		No courses yet.

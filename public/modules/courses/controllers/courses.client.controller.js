@@ -88,10 +88,10 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 	};
 
 	// Change the visibility of a course
-	$scope.changeVisibility = function(index, serial) {
-		$http.post('/courses/' + serial + '/switchvisibility').success(function(data, status, headers, config) {
-			console.log(data);
-			$scope.courses[index].visible = data.visible;
+	$scope.changeVisibility = function(index) {
+		var course = $scope.courses[index];
+		$http.post('/courses/' + course.serial + '/switchvisibility').success(function(data, status, headers, config) {
+			course.visible = data.visible;
 		});
 	};
 
