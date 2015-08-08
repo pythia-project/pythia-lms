@@ -95,6 +95,23 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 		});
 	};
 
+	// Register to a course
+	$scope.register = function(index) {
+		var course = $scope.courses[index];
+		if (! $scope.isRegistered(course)) {
+			$http.post('/courses/' + course.serial + '/register').success(function(data, status, headers, config) {
+				$scope.authentication.user.registrations.push(data);
+			});
+		}
+	};
+
+	// Test whether the user is already registered to a course
+	$scope.isRegistered = function(course) {
+		return $scope.authentication.user.registrations.some(function(element, index, array) {
+			return element.course.toString() === course._id;
+		});
+	};
+
 	// Build an array of consecutive integers from 0 to n-1
 	$scope.getNumber = function(n) {
 		var tab = [];

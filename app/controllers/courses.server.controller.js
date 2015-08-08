@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Course = mongoose.model('Course'),
+	User = mongoose.model('User'),
 	_ = require('lodash');
 
 /**
@@ -90,7 +91,13 @@ exports.list = function(req, res) {
 		return;
 
 		case 'registered':
-			res.jsonp(req.user.registrations);
+			User.populate(req.user, {path: 'registrations.course', select: 'serial title', model: 'Course'}, function(err, user) {
+				var courses = [];
+				for (var i = 0; i < user.registrations.length; i++) {
+					courses.push(user.registrations[i].course);
+				}
+				res.jsonp(courses);
+			});
 		return;
 	}
 	res.jsonp([]);
@@ -115,8 +122,9 @@ exports.courseBySerial = function(req, res, next, serial) {
 /**
  * Switch the visibility of a course
  */
-exports.switchVisibility = function(req, res) {
-	Course.findOne({'serial': req.course.serial}, 'visible').exec(function(err, course) {
+exports.switchVisibility = function(req, res, next) {
+	var serial = req.course.serial;
+	Course.findOne({'serial': serial}, 'visible').exec(function(err, course) {
 		if (err) {
 			return next(err);
 		}
@@ -133,6 +141,32 @@ exports.switchVisibility = function(req, res) {
 			res.jsonp({
 				'visible': course.visible
 			});
+		});
+	});
+};
+
+/**
+ * Register to a course
+ */
+exports.register = function(req, res, next) {
+	var serial = req.course.serial;
+	Course.findOne({'serial': serial}, '_id').exec(function(err, course) {
+		if (err) {
+			return next(err);
+		}
+		if (! course) {
+			return next(new Error('Failed to load course ' + serial));
+		}
+		req.user.registrations.push({
+			'course': course._id
+		});
+		req.user.save(function(err) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			}
+			res.jsonp(req.user.registrations[req.user.registrations.length - 1]);
 		});
 	});
 };

@@ -17,6 +17,9 @@ module.exports = function(app) {
 	app.route('/courses/:courseSerial/switchvisibility')
 		.post(users.requiresLogin, courses.hasAuthorization, courses.switchVisibility);
 
+	app.route('/courses/:courseSerial/register')
+		.post(users.requiresLogin, courses.hasAuthorization, courses.register);
+
 	// Finish by binding the course middleware
 	app.param('courseSerial', courses.courseBySerial);
 };
