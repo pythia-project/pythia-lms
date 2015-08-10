@@ -14,6 +14,10 @@ img.grayscale, input[type="image"].grayscale {
 	opacity: 0.5;
 }
 
+img.iconuserpic {
+	margin: -10px 0 0 5px;
+}
+
 div.action-box {
 	margin-bottom: 15px;
 	text-align: right;
