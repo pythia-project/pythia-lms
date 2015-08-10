@@ -1,8 +1,8 @@
 <section data-ng-controller="SequencesController" data-ng-init="findOne()">
 	<ol class="breadcrumb">
 		<li><a href="#!/courses">Courses</a></li>
-		<li><a data-ng-href="#!/courses/{{courseSerial}}">{{courseSerial}}</a></li>
-		<li class="active"><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}">{{sequence.name}}</a></li>
+		<li><a data-ng-href="#!/courses/{{courseSerial}}" data-ng-bind="courseSerial"></a></li>
+		<li class="active"><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}" data-ng-bind="sequence.name"></a></li>
 	</ol>
 
 	<h2>Edit sequence</h2>
@@ -13,7 +13,7 @@
 				<div class="form-group">
 					<label class="control-label" for="course">Course</label>
 					<div class="controls">
-						<input type="text" data-ng-model="sequence.course.title" id="course" class="form-control" placeholder="Course" required disabled>
+						<input type="text" data-ng-model="courseSerial" id="course" class="form-control" placeholder="Course" required disabled>
 					</div>
 				</div>
 				<div class="form-group">
