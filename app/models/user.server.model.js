@@ -86,6 +86,10 @@ var UserSchema = new Schema({
 		})],
 		default: []
 	},
+	picture: {
+		type: Boolean,
+		default: false
+	},
 	updated: {
 		type: Date
 	},

@@ -12,14 +12,14 @@
 		<ul class="nav navbar-nav" data-ng-if="menu.shouldRender(authentication.user)">
 			<li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(authentication.user)" data-ng-switch="item.menuItemType" ui-route="{{item.uiRoute}}" class="{{item.menuItemClass}}" data-ng-class="{active: ($uiRoute)}" dropdown="item.menuItemType === 'dropdown'">
 				<a href="#" data-ng-switch-when="dropdown" class="dropdown-toggle" data-toggle="dropdown">
-					<span>{{item.title}}</span> <b class="caret"></b>
+					<span data-ng-bind="item.title"></span> <b class="caret"></b>
 				</a>
 				<ul data-ng-switch-when="dropdown" class="dropdown-menu">
 					<li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(authentication.user)" ui-route="{{subitem.uiRoute}}" data-ng-class="{active: $uiRoute}">
-						<a href="/#!/{{subitem.link}}">{{subitem.title}}</a>
+						<a data-ng-href="/#!/{{subitem.link}}" data-ng-bind="subitem.title"></a>
 					</li>
 				</ul>
-				<a data-ng-switch-default href="/#!/{{item.link}}">{{item.title}}</a>
+				<a data-ng-switch-default href="/#!/{{item.link}}" data-ng-bind="item.title"></a>
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right" data-ng-if="! authentication.user">
@@ -34,7 +34,7 @@
 		<ul class="nav navbar-nav navbar-right" data-ng-if="authentication.user">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<span data-ng-bind="authentication.user.displayname"></span> <b class="caret"></b>
+					<img data-ng-src="/images/users/{{authentication.user._id}}.jpg" width="25" height="25" class="iconuserpic" data-ng-if="authentication.user.picture" /> <span data-ng-bind="authentication.user.displayname"></span> <b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
 					<li>
