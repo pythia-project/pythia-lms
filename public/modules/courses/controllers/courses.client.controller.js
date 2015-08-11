@@ -72,6 +72,10 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 	$scope.findOne = function() {
 		$scope.course = Courses.get({
 			courseSerial: $stateParams.courseSerial
+		}, function() {
+			$scope.registration = $scope.authentication.user.registrations.find(function(element, index, array) {
+				return element.course.toString() === $scope.course._id;
+			});
 		});
 	};
 
