@@ -117,7 +117,7 @@ exports.list = function(req, res) {
  * Lesson middleware
  */
 exports.lessonByIndex = function(req, res, next, index) { 
-	Lesson.findById({'_id': req.sequence.lessons[index - 1]._id}, 'name context user').exec(function(err, lesson) {
+	Lesson.findById({'_id': req.sequence.lessons[index - 1]._id}, 'name context problems user').populate('problems', 'name description').exec(function(err, lesson) {
 		if (err) {
 			return next(err);
 		}

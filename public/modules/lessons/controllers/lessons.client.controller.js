@@ -58,12 +58,19 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 
 	// Find existing lesson
 	$scope.findOne = function() {
-		$scope.lesson = Lessons.get({ 
+		$scope.findSequence();$scope.lesson = Lessons.get({ 
 			courseSerial: $stateParams.courseSerial,
 			sequenceIndex: $stateParams.sequenceIndex,
 			lessonIndex: $stateParams.lessonIndex
+		}, function() {
+			// Generate the context, replacing placeholders with problems
+			var content = $scope.lesson.context;
+			for (var i = 1; i <= $scope.lesson.problems.length; i++) {
+				var problem = $scope.lesson.problems[i - 1];
+				content = content.replace('[[' + i + ']]', '<div class="panel panel-default"><div class="panel-heading"><b>Problem ' + i + '</b>: ' + problem.name + '</div><div class="panel-body">' + problem.description + '</div></div>');
+			}
+			$scope.lessonContext = content;
 		});
-		$scope.findSequence();
 	};
 
 	// Find existing course

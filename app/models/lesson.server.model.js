@@ -19,6 +19,13 @@ var LessonSchema = new Schema({
 		type: String,
 		required: 'Please enter a context for the lesson.'
 	},
+	problems: {
+		type: [{
+			type: Schema.ObjectId,
+			ref: 'Problem'
+		}],
+		default: []
+	},
 	created: {
 		type: Date,
 		default: Date.now

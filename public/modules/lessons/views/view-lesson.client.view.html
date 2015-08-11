@@ -1,12 +1,28 @@
 <section data-ng-controller="LessonsController" data-ng-init="findOne()">
 	<ol class="breadcrumb">
 		<li><a href="#!/courses">Courses</a></li>
-		<li><a data-ng-href="#!/courses/{{courseSerial}}">{{courseSerial}}</a></li>
-		<li><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}">{{sequence.name}}</a></li>
-		<li class="active"><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/lessons/{{lessonIndex}}">{{lesson.name}}</a></li>
+		<li><a data-ng-href="#!/courses/{{courseSerial}}" data-ng-bind="courseSerial"></a></li>
+		<li><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}" data-ng-bind="sequence.name"></a></li>
+		<li class="active"><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/lessons/{{lessonIndex}}" data-ng-bind="lesson.name"></a></li>
 	</ol>
 
-	<h2>{{lesson.name}}</h2>
+	<h2 data-ng-bind="lesson.name"></h2>
 
-	<div class="context" data-ng-bind-html="lesson.context"></div>
+	<div class="row">
+		<div class="col-md-9">
+			<div class="context" data-ng-bind-html="lessonContext"></div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="panel panel-info">
+				<div class="panel-heading"><h3 class="panel-title">Information</h3></div>
+				<div class="panel-body">
+					<dl>
+						<dt>Progress</dt>
+						<dd>&mdash;</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
