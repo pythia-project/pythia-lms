@@ -175,8 +175,36 @@ exports.register = function(req, res, next) {
  * Course authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.course.user.toString() !== req.user.id) {
-		return res.status(403).send('User is not authorized');
+	// Authorized users for a course are admin and coordinators
+	var isCoordinator = req.course.coordinators.some(function(element, index, array) {
+		return element.id === req.user.id;
+	});
+	if (req.user.roles.indexOf('admin') === -1 && ! isCoordinator) {
+		return res.status(403).send('User is not authorized.');
 	}
 	next();
+};
+
+/*
+ * Test whether the user is registered to the course
+ */
+exports.isRegistered = function(check) {
+	var _this = this;
+	return function(req, res, next) {
+		var isRegistered = req.user.registrations.some(function(element, index, array) {
+			return element.course.toString() === req.course.id;
+		});
+		if (! check && isRegistered) {
+			return res.status(403).send('User is already registered.');
+		}
+		if (check && ! isRegistered) {
+			var isCoordinator = req.course.coordinators.some(function(element, index, array) {
+				return element.id === req.user.id;
+			});
+			if (req.user.roles.indexOf('admin') === -1 && ! isCoordinator) {
+				return res.status(403).send('User is not yet registered.');
+			}
+		}
+		next();
+	};
 };

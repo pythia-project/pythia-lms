@@ -6,19 +6,19 @@ module.exports = function(app) {
 
 	// Courses routes
 	app.route('/courses')
-		.get(courses.list)
-		.post(users.requiresLogin, courses.create);
+		.get(users.requiresLogin, courses.list)
+		.post(users.requiresLogin, users.hasAuthorization(['admin']), courses.create);
 
 	app.route('/courses/:courseSerial')
-		.get(courses.read)
+		.get(users.requiresLogin, courses.isRegistered(true), courses.read)
 		.put(users.requiresLogin, courses.hasAuthorization, courses.update)
-		.delete(users.requiresLogin, courses.hasAuthorization, courses.delete);
+		.delete(users.requiresLogin, users.hasAuthorization(['admin']), courses.delete);
 
 	app.route('/courses/:courseSerial/switchvisibility')
 		.post(users.requiresLogin, courses.hasAuthorization, courses.switchVisibility);
 
 	app.route('/courses/:courseSerial/register')
-		.post(users.requiresLogin, courses.hasAuthorization, courses.register);
+		.post(users.requiresLogin, courses.isRegistered(false), courses.register);
 
 	// Finish by binding the course middleware
 	app.param('courseSerial', courses.courseBySerial);
