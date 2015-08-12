@@ -7,13 +7,13 @@ module.exports = function(app) {
 
 	// Lessons Routes
 	app.route('/courses/:courseSerial/sequences/:sequenceIndex/lessons')
-		.get(lessons.list)
-		.post(users.requiresLogin, lessons.create);
+		.get(users.requiresLogin, courses.isRegistered(true), lessons.list)
+		.post(users.requiresLogin, courses.hasAuthorization, lessons.create);
 
 	app.route('/courses/:courseSerial/sequences/:sequenceIndex/lessons/:lessonIndex')
-		.get(lessons.read)
-		.put(users.requiresLogin, lessons.hasAuthorization, lessons.update)
-		.delete(users.requiresLogin, lessons.hasAuthorization, lessons.delete);
+		.get(users.requiresLogin, courses.isRegistered(true), lessons.read)
+		.put(users.requiresLogin, courses.hasAuthorization, lessons.update)
+		.delete(users.requiresLogin, courses.hasAuthorization, lessons.delete);
 
 	// Finish by binding the lesson middleware
 	app.param('lessonIndex', lessons.lessonByIndex);
