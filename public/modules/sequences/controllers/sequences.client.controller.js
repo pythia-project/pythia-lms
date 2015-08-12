@@ -10,6 +10,8 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 		var sequence = new Sequences ({
 			name: this.name,
 			description: this.description,
+			start: this.start,
+			end: this.end,
 			courseSerial: $scope.course.serial
 		});
 		// Redirect after save
@@ -19,6 +21,8 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 			// Clear form fields
 			$scope.name = '';
 			$scope.description = '';
+			$scope.start = '';
+			$scope.end = '';
 		}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;
 		});

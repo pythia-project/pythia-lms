@@ -28,7 +28,9 @@ exports.create = function(req, res) {
 		}
 		var sequence = new Sequence({
 			'name': req.body.name,
-			'description': req.body.description
+			'description': req.body.description,
+			'start': req.body.start,
+			'end': req.body.end
 		});
 		sequence.user = req.user;
 		sequence.save(function(err) {
