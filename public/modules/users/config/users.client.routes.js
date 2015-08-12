@@ -39,5 +39,9 @@ angular.module('users').config(['$stateProvider', function($stateProvider) {
 	.state('listUsers', {
 		url: '/users/manage',
 		templateUrl: 'modules/users/views/list-users.client.view.html'
+	})
+	.state('viewUser', {
+		url: '/users/:username',
+		templateUrl: 'modules/users/views/view-user.client.view.html'
 	});
 }]);

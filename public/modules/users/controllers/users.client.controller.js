@@ -8,4 +8,11 @@ angular.module('users').controller('UsersController', ['$scope', '$stateParams',
 	$scope.find = function(filter) {
 		$scope.users = Users.query();
 	};
+
+	// Find existing user
+	$scope.findOne = function() {
+		$scope.user = Users.get({
+			username: $stateParams.username
+		});
+	};
 }]);

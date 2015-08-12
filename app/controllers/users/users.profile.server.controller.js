@@ -31,15 +31,14 @@ exports.update = function(req, res) {
 				return res.status(400).send({
 					message: errorHandler.getErrorMessage(err)
 				});
-			} else {
-				req.login(user, function(err) {
-					if (err) {
-						res.status(400).send(err);
-					} else {
-						res.json(user);
-					}
-				});
 			}
+			req.login(user, function(err) {
+				if (err) {
+					res.status(400).send(err);
+				} else {
+					res.json(user);
+				}
+			});
 		});
 	} else {
 		res.status(400).send({
@@ -53,18 +52,4 @@ exports.update = function(req, res) {
  */
 exports.me = function(req, res) {
 	res.json(req.user || null);
-};
-
-/**
- * List of users
- */
-exports.list = function(req, res) {
-	User.find({}, 'firstname lastname displayname username').exec(function(err, users) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		}
-		res.jsonp(users);
-	});
 };

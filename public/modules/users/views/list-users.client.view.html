@@ -1,9 +1,9 @@
 <section data-ng-controller="UsersController" data-ng-init="find()">
 	<h2>Users</h2>
 
-	<ul data-ng-if="users && users.length > 0" class="list-group">
-		<li data-ng-repeat="user in users | orderBy: '+lastname'" class="list-group-item">{{user.lastname}} {{user.firstname}}</li>
-	</ul>
+	<div data-ng-if="users && users.length > 0" class="list-group">
+		<a data-ng-repeat="user in users | orderBy: '+lastname'" class="list-group-item" data-ng-href="#!/users/{{user.username}}"><img data-ng-src="/images/users/{{user._id}}.jpg" width="25" height="25" class="iconuserpic" data-ng-if="user.picture" /> {{user.firstname}} {{user.lastname}}</a>
+	</div>
 	<div data-ng-if="! users || users.length === 0" class="alert alert-warning" role="alert">
 		No users yet.
 	</div>

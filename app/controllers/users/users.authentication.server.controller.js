@@ -30,19 +30,17 @@ exports.signup = function(req, res) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
-			// Remove sensitive data before login
-			user.password = undefined;
-			user.salt = undefined;
-
-			req.login(user, function(err) {
-				if (err) {
-					res.status(400).send(err);
-				} else {
-					res.json(user);
-				}
-			});
 		}
+		// Remove sensitive data before login
+		user.password = undefined;
+		user.salt = undefined;
+		req.login(user, function(err) {
+			if (err) {
+				res.status(400).send(err);
+			} else {
+				res.json(user);
+			}
+		});
 	});
 };
 
