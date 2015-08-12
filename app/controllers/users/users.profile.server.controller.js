@@ -56,10 +56,10 @@ exports.me = function(req, res) {
 };
 
 /**
- *
+ * List of users
  */
 exports.list = function(req, res) {
-	User.find({}, 'displayname').exec(function(err, users) {
+	User.find({}, 'firstname lastname displayname username').exec(function(err, users) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
