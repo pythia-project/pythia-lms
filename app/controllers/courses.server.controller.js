@@ -186,7 +186,7 @@ exports.hasAuthorization = function(req, res, next) {
 };
 
 /*
- * Test whether the user is registered to the course
+ * Test registration station of the user to the course
  */
 exports.isRegistered = function(check) {
 	var _this = this;
