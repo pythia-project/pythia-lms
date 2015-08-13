@@ -18,7 +18,29 @@ var ProblemSchema = new Schema({
 	},
 	authors: [{
 		type: String
-	}]
+	}],
+	tasks: {
+		environment: {
+			type: String,
+		},
+		taskfs: {
+			type: String,
+		},
+		limits: {
+			time: {
+				type: Number,
+			},
+			memory: {
+				type: Number,
+			},
+			disk: {
+				type: Number,
+			},
+			output: {
+				type: Number,
+			}
+		}
+	}
 });
 
 mongoose.model('Problem', ProblemSchema);
