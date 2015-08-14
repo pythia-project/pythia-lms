@@ -30,6 +30,8 @@ exports.create = function(req, res) {
 		var sequence = course.sequences[req.body.sequenceIndex - 1];
 		var lesson = new Lesson({
 			'name': req.body.name,
+			'start': req.body.start,
+			'end': req.body.end,
 			'context': req.body.context
 		});
 		lesson.user = req.user;
@@ -117,7 +119,7 @@ exports.list = function(req, res) {
  * Lesson middleware
  */
 exports.lessonByIndex = function(req, res, next, index) { 
-	Lesson.findById({'_id': req.sequence.lessons[index - 1]._id}, 'name context problems user').populate('problems', 'name description').exec(function(err, lesson) {
+	Lesson.findById({'_id': req.sequence.lessons[index - 1]._id}, 'name start end context problems user').populate('problems', 'name description').exec(function(err, lesson) {
 		if (err) {
 			return next(err);
 		}

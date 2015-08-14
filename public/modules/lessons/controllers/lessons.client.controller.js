@@ -9,6 +9,8 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		// Create new lesson object
 		var lesson = new Lessons ({
 			name: this.name,
+			start: this.start,
+			end: this.end,
 			context: this.context,
 			courseSerial: $scope.courseSerial,
 			sequenceIndex: $scope.sequenceIndex
@@ -19,6 +21,8 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 
 			// Clear form fields
 			$scope.name = '';
+			$scope.start = '';
+			$scope.end = '';
 			$scope.context = '';
 		}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;
@@ -70,7 +74,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 				var problem = $scope.lesson.problems[i - 1];
 				var problemcontent = '<div class="panel panel-default"><div class="panel-heading"><b>Problem ' + i + '</b>: ' + problem.name + '</div>';
 				// Generate problem structure to submit and retrieve feedback
-				problemcontent += '<div class="panel-body"><div class="col-md-12">' + problem.description + '</div>';
+				problemcontent += '<div class="panel-body" id="problem-p' + i + '"><div class="col-md-12">' + problem.description + '</div>';
 				problemcontent += '<div id="feedback-p' + i + '"></div><div class="text-right"><a href="#" onclick="angular.element(document.getElementById(\'lessoncontent\')).scope().submitProblem(' + i + ');event.preventDefault();" class="btn btn-primary">Submit</a></div>';
 				// Insert problem into lesson 
 				problemcontent += '</div></div>';
@@ -94,5 +98,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 	// Submit a problem
 	$scope.submitProblem = function(index) {
 		console.log('Problem submission #' + index);
+		var $form = $('#problem-p' + index + ' form');
+		console.log($form.serialize());
 	};
 }]);
