@@ -15,6 +15,9 @@ module.exports = function(app) {
 		.put(users.requiresLogin, courses.hasAuthorization, lessons.update)
 		.delete(users.requiresLogin, courses.hasAuthorization, lessons.delete);
 
+	app.route('/courses/:courseSerial/sequences/:sequenceIndex/lessons/:lessonIndex/problems/:problemIndex/submit')
+		.post(users.requiresLogin, lessons.submit);
+
 	// Finish by binding the lesson middleware
 	app.param('lessonIndex', lessons.lessonByIndex);
 };

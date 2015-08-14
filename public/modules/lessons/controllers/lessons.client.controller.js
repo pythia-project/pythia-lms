@@ -1,7 +1,7 @@
 'use strict';
 
 // Lessons controller
-angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Sequences', 'Lessons', '$sce', function($scope, $stateParams, $location, Authentication, Sequences, Lessons, $sce) {
+angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Sequences', 'Lessons', '$sce', '$http', function($scope, $stateParams, $location, Authentication, Sequences, Lessons, $sce, $http) {
 	$scope.authentication = Authentication;
 
 	// Create new lesson
@@ -103,6 +103,8 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 	$scope.submitProblem = function(index) {
 		console.log('Problem submission #' + index);
 		var $form = $('#problem-p' + index + ' form');
-		console.log($form.serialize());
+		$http.post('/courses/' + $scope.courseSerial + '/sequences/' + $scope.sequenceIndex + '/lessons/' + $scope.lessonIndex + '/problems/' + index + '/submit').success(function(data, status, headers, config) {
+			console.log('Answer: ' + data);
+		});
 	};
 }]);

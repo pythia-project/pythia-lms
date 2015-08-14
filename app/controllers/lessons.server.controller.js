@@ -127,3 +127,11 @@ exports.lessonByIndex = function(req, res, next, index) {
 		next();
 	});
 };
+
+/*
+ * Submit a problem
+ */
+exports.submit = function(req, res) {
+	console.log('Submission of a problem...');
+	res.send('OK');
+};
