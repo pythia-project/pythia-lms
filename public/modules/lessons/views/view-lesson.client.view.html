@@ -17,15 +17,13 @@
 			<div class="panel panel-info">
 				<div class="panel-heading"><h3 class="panel-title">Information</h3></div>
 				<div class="panel-body">
-					<dl>
+					<dl data-ng-if="lesson.start !== null">
 						<dt>Start date</dt>
-						<dd data-ng-if="lesson.start !== null">{{lesson.start | amDateFormat:'ddd, D MMM YYYY, H:mm'}}</dd>
-						<dd data-ng-if="lesson.start === null">&mdash;</dd>
+						<dd>{{lesson.start | amDateFormat:'ddd, D MMM YYYY, H:mm'}}</dd>
 					</dl>
-					<dl>
+					<dl data-ng-if="lesson.end !== null">
 						<dt>End date</dt>
-						<dd data-ng-if="lesson.end !== null">{{lesson.end | amDateFormat:'ddd, D MMM YYYY, H:mm'}}</dd>
-						<dd data-ng-if="lesson.end === null">&mdash;</dd>
+						<dd>{{lesson.end | amDateFormat:'ddd, D MMM YYYY, H:mm'}}</dd>
 					</dl>
 					<dl>
 						<dt>Progress</dt>

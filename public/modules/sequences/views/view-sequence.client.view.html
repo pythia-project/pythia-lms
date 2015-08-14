@@ -27,15 +27,13 @@
 			<div class="panel panel-info">
 				<div class="panel-heading"><h3 class="panel-title">Information</h3></div>
 				<div class="panel-body">
-					<dl>
+					<dl data-ng-if="sequence.start !== null">
 						<dt>Start date</dt>
-						<dd data-ng-if="sequence.start !== null">{{sequence.start | amDateFormat:'ddd, D MMM YYYY, H:mm'}}</dd>
-						<dd data-ng-if="sequence.start === null">&mdash;</dd>
+						<dd>{{sequence.start | amDateFormat:'ddd, D MMM YYYY, H:mm'}}</dd>
 					</dl>
-					<dl>
+					<dl data-ng-if="sequence.end !== null">
 						<dt>End date</dt>
-						<dd data-ng-if="sequence.end !== null">{{sequence.end | amDateFormat:'ddd, D MMM YYYY, H:mm'}}</dd>
-						<dd data-ng-if="sequence.end === null">&mdash;</dd>
+						<dd>{{sequence.end | amDateFormat:'ddd, D MMM YYYY, H:mm'}}</dd>
 					</dl>
 				</div>
 			</div>
