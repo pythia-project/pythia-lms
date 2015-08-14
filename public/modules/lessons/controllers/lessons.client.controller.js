@@ -48,8 +48,12 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 	// Update existing lesson
 	$scope.update = function() {
 		var lesson = $scope.lesson;
-		lesson.$update(function() {
-			$location.path('lessons/' + lesson._id);
+		lesson.$update({
+			courseSerial: $scope.courseSerial,
+			sequenceIndex: $scope.sequenceIndex,
+			lessonIndex: $scope.lessonIndex
+		}, function() {
+			$location.path('courses/' + $scope.courseSerial + '/sequences/' + $scope.sequenceIndex + '/lessons/' + $scope.lessonIndex);
 		}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;
 		});

@@ -65,26 +65,23 @@ exports.read = function(req, res) {
 };
 
 /**
- * Update a Lesson
+ * Update a lesson
  */
 exports.update = function(req, res) {
-	var lesson = req.lesson ;
-
-	lesson = _.extend(lesson , req.body);
-
+	var lesson = req.lesson;
+	lesson = _.extend(lesson, req.body);
 	lesson.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
-			res.jsonp(lesson);
 		}
+		res.jsonp(lesson);
 	});
 };
 
 /**
- * Delete an Lesson
+ * Delete a lesson
  */
 exports.delete = function(req, res) {
 	var lesson = req.lesson ;
@@ -101,7 +98,7 @@ exports.delete = function(req, res) {
 };
 
 /**
- * List of Lessons
+ * List of lessons
  */
 exports.list = function(req, res) { 
 	Lesson.find().sort('-created').populate('user', 'displayName').exec(function(err, lessons) {

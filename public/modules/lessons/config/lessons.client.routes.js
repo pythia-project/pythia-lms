@@ -18,7 +18,7 @@ angular.module('lessons').config(['$stateProvider',
 			templateUrl: 'modules/lessons/views/view-lesson.client.view.html'
 		}).
 		state('editLesson', {
-			url: '/lessons/:lessonId/edit',
+			url: '/courses/:courseSerial/sequences/:sequenceIndex/lessons/:lessonIndex/edit',
 			templateUrl: 'modules/lessons/views/edit-lesson.client.view.html'
 		});
 	}
