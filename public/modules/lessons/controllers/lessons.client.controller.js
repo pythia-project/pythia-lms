@@ -1,7 +1,7 @@
 'use strict';
 
 // Lessons controller
-angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Sequences', 'Lessons', function($scope, $stateParams, $location, Authentication, Sequences, Lessons) {
+angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Sequences', 'Lessons', '$sce', function($scope, $stateParams, $location, Authentication, Sequences, Lessons, $sce) {
 	$scope.authentication = Authentication;
 
 	// Create new lesson
@@ -66,10 +66,17 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			// Generate the context, replacing placeholders with problems
 			var content = $scope.lesson.context;
 			for (var i = 1; i <= $scope.lesson.problems.length; i++) {
+				// Get the problem description and title
 				var problem = $scope.lesson.problems[i - 1];
-				content = content.replace('[[' + i + ']]', '<div class="panel panel-default"><div class="panel-heading"><b>Problem ' + i + '</b>: ' + problem.name + '</div><div class="panel-body">' + problem.description + '</div></div>');
+				var problemcontent = '<div class="panel panel-default"><div class="panel-heading"><b>Problem ' + i + '</b>: ' + problem.name + '</div>';
+				// Generate problem structure to submit and retrieve feedback
+				problemcontent += '<div class="panel-body"><div class="col-md-12">' + problem.description + '</div>';
+				problemcontent += '<div id="feedback-p' + i + '"></div><div class="text-right"><a href="#" onclick="angular.element(document.getElementById(\'lessoncontent\')).scope().submitProblem(' + i + ');event.preventDefault();" class="btn btn-primary">Submit</a></div>';
+				// Insert problem into lesson 
+				problemcontent += '</div></div>';
+				content = content.replace('[[' + i + ']]', problemcontent);
 			}
-			$scope.lessonContext = content;
+			$scope.lessonContext = $sce.trustAsHtml(content);
 		});
 	};
 
@@ -82,5 +89,10 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			courseSerial: $stateParams.courseSerial,
 			sequenceIndex: $stateParams.sequenceIndex
 		});
+	};
+
+	// Submit a problem
+	$scope.submitProblem = function(index) {
+		console.log('Problem submission #' + index);
 	};
 }]);
