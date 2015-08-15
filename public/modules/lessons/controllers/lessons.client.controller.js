@@ -105,13 +105,19 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		var $form = $('#problem-p' + index + ' form');
 		$http.post('/courses/' + $scope.courseSerial + '/sequences/' + $scope.sequenceIndex + '/lessons/' + $scope.lessonIndex + '/problems/' + index + '/submit').success(function(data, status, headers, config) {
 			console.log('Answer: ' + JSON.stringify(data));
-			if (data.status === 'error') {
-				console.log(data.message);
-				var $feedback = $('#feedback-p' + index);
-				$feedback.removeClass();
-				$feedback.addClass('feedback alert alert-danger');
-				$feedback.html(data.message);
+			console.log(data.message);
+			var $feedback = $('#feedback-p' + index);
+			$feedback.removeClass();
+			$feedback.addClass('feedback alert');
+			switch (data.status) {
+				case 'success':
+					$feedback.addClass('alert-success');
+				break;
+				case 'error':
+					$feedback.addClass('alert-danger');
+				break;
 			}
+			$feedback.html(data.message);
 		});
 	};
 }]);

@@ -135,26 +135,45 @@ exports.lessonByIndex = function(req, res, next, index) {
 exports.submit = function(req, res) {
 	console.log('Submission of a problem...');
 	// Trying to reach Pythia queue
-	var client = net.createConnection(9000, '127.0.0.1');
-	client.on('connect', function() {
+	var message = 'An error occurred during the grading of your submission, please try again later.';
+	var socket = net.createConnection(9000, '127.0.0.1');
+	socket.on('connect', function() {
 		console.log('Connected!');
-		client.destroy();
+		socket.write(JSON.stringify({
+			'message': 'launch',
+			'id': 'test',
+			'task': {
+				'environment': 'busybox',
+				'taskfs': 'hello-world.sfs',
+				'limits': {
+					'time': 60,
+					'memory': 32,
+					'disk': 50,
+					'output': 1024
+				}
+			},
+			'input': 'Hello, this is my input'
+		}));
+//		socket.write('{"message":"launch","id":"test","task":{"environment":"busybox","taskfs":"hello-world.sfs","limits":{"time":60,"memory":32,"disk":50,"output":1024}},"input":"Hello, this is my input"}');
 	});
-	client.on('close', function(had_error) {
+	socket.on('data', function(data) {
+		console.log('Received: ' + data);
+		data = JSON.parse(data);
+		message = '<pre>' + data.output + '</pre>';
+		socket.destroy();
+	});
+	socket.on('close', function(had_error) {
 		console.log('Connexion closed!');
-		if (! had_error) {
-			res.jsonp({
-				'status': 'success'
-			});
-		}
-	});
-	client.on('error', function(err) {
-		console.log('Error: ');
-		console.log(err);
-		var message = 'An error occurred during the grading of your submission, please try again later.';
 		res.jsonp({
-			'status': 'error',
+			'status': had_error ? 'error' : 'success',
 			'message': message
 		});
+	});
+	socket.on('error', function(err) {
+		console.log('Error: ');
+		console.log(err);
+		if (err.errno === 'ECONNREFUSED') {
+			message = 'The grading server is not reachable, please try again later.';
+		}
 	});
 };
