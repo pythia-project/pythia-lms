@@ -7,4 +7,6 @@ public/lib
 app/tests/coverage/
 .bower-*/
 .idea/
+public/dist/
 public/images/users/
+tasks/
