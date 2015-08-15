@@ -20,4 +20,5 @@ module.exports = function(app) {
 
 	// Finish by binding the lesson middleware
 	app.param('lessonIndex', lessons.lessonByIndex);
+	app.param('problemIndex', lessons.problemByIndex);
 };

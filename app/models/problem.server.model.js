@@ -19,7 +19,7 @@ var ProblemSchema = new Schema({
 	authors: [{
 		type: String
 	}],
-	tasks: {
+	task: {
 		environment: {
 			type: String,
 		},
