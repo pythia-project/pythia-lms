@@ -92,6 +92,11 @@ exports.list = function(req, res) {
 
 		case 'registered':
 			User.populate(req.user, {path: 'registrations.course', select: 'serial title', model: 'Course'}, function(err, user) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				}
 				var courses = [];
 				for (var i = 0; i < user.registrations.length; i++) {
 					courses.push(user.registrations[i].course);
@@ -108,11 +113,8 @@ exports.list = function(req, res) {
  */
 exports.courseBySerial = function(req, res, next, serial) {
 	Course.findOne({'serial': serial}, 'serial title coordinators description sequences user').populate('coordinators', 'displayname').populate('sequences', 'name start end').exec(function(err, course) {
-		if (err) {
-			return next(err);
-		}
-		if (! course) {
-			return next(new Error('Failed to load course ' + serial));
+		if (err || ! course) {
+			return errorHandler.getLoadErrorMessage(err, 'course', serial, next);
 		}
 		req.course = course;
 		next();
@@ -125,11 +127,8 @@ exports.courseBySerial = function(req, res, next, serial) {
 exports.switchVisibility = function(req, res, next) {
 	var serial = req.course.serial;
 	Course.findOne({'serial': serial}, 'visible').exec(function(err, course) {
-		if (err) {
-			return next(err);
-		}
-		if (! course) {
-			return next(new Error('Failed to load course ' + serial));
+		if (err || ! course) {
+			return errorHandler.getLoadErrorMessage(err, 'course', serial, next);
 		}
 		course.visible = ! course.visible;
 		course.save(function(err) {
@@ -151,11 +150,8 @@ exports.switchVisibility = function(req, res, next) {
 exports.register = function(req, res, next) {
 	var serial = req.course.serial;
 	Course.findOne({'serial': serial}, '_id').exec(function(err, course) {
-		if (err) {
-			return next(err);
-		}
-		if (! course) {
-			return next(new Error('Failed to load course ' + serial));
+		if (err || ! course) {
+			return errorHandler.getLoadErrorMessage(err, 'course', serial, next);
 		}
 		req.user.registrations.push({
 			'course': course._id

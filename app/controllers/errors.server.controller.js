@@ -5,15 +5,12 @@
  */
 var getUniqueErrorMessage = function(err) {
 	var output;
-
 	try {
 		var fieldName = err.err.substring(err.err.lastIndexOf('.$') + 2, err.err.lastIndexOf('_1'));
 		output = fieldName.charAt(0).toUpperCase() + fieldName.slice(1) + ' already exists.';
-
 	} catch (ex) {
 		output = 'Unique field already exists.';
 	}
-
 	return output;
 };
 
@@ -22,7 +19,6 @@ var getUniqueErrorMessage = function(err) {
  */
 exports.getErrorMessage = function(err) {
 	var message = '';
-
 	if (err.code) {
 		switch (err.code) {
 			case 11000:
@@ -34,9 +30,21 @@ exports.getErrorMessage = function(err) {
 		}
 	} else {
 		for (var errName in err.errors) {
-			if (err.errors[errName].message) message = err.errors[errName].message;
+			if (err.errors[errName].message) {
+				message = err.errors[errName].message;
+			}
 		}
 	}
-
 	return message;
+};
+
+/**
+ * Get the error message for the loading of an object
+ */
+exports.getLoadErrorMessage = function(err, ref, value, next) {
+	if (err) {
+		return next ? next(err) : this.getErrorMessage(err);
+	}
+	var msg = 'Failed to load ' + ref + ' ' + value;
+	return next ? next(new Error(msg)) : msg;
 };

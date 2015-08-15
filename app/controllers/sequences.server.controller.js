@@ -16,14 +16,9 @@ exports.create = function(req, res) {
 	// Check course
 	var serial = req.body.courseSerial;
 	Course.findOne({'serial': serial}, 'serial sequences').exec(function(err, course) {
-		if (err) {
+		if (err || ! course) {
 			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		}
-		if (! course) {
-			return res.status(400).send({
-				message: 'Failed to load course ' + serial
+				message: errorHandler.getLoadErrorMessage(err, 'course', serial)
 			});
 		}
 		var sequence = new Sequence({
@@ -112,11 +107,8 @@ exports.list = function(req, res) {
  */
 exports.sequenceByIndex = function(req, res, next, index) {
 	Sequence.findById({'_id': req.course.sequences[index - 1]._id}, 'name description start end lessons user').populate('lessons', 'name').exec(function(err, sequence) {
-		if (err) {
-			return next(err);
-		}
-		if (! sequence) {
-			return next(new Error('Failed to load sequence ' + index + ' of course ' + req.course.serial));
+		if (err || ! sequence) {
+			return errorHandler.getLoadErrorMessage(err, 'sequence', index + ' of course ' + req.course.serial, next);
 		}
 		req.sequence = sequence;
 		next();

@@ -35,11 +35,8 @@ exports.list = function(req, res) {
  */
 exports.userByUsername = function(req, res, next, username) {
 	User.findOne({'username': username}, 'firstname lastname username').exec(function(err, user) {
-		if (err) {
-			return next(err);
-		}
-		if (! user) {
-			return next(new Error('Failed to load user ' + username));
+		if (err || ! user) {
+			return errorHandler.getLoadErrorMessage(err, 'user', username, next);
 		}
 		req.userprofile = user;
 		next();

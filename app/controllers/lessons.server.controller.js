@@ -19,14 +19,9 @@ exports.create = function(req, res) {
 	// Check course
 	var courseSerial = req.body.courseSerial;
 	Course.findOne({'serial': courseSerial}, 'serial sequences').populate('sequences', 'lessons').exec(function(err, course) {
-		if (err) {
+		if (err || ! course) {
 			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		}
-		if (! course) {
-			return res.status(400).send({
-				message: 'Failed to load course ' + courseSerial
+				message: errorHandler.getLoadErrorMessage(err, 'course', courseSerial)
 			});
 		}
 		var sequence = course.sequences[req.body.sequenceIndex - 1];
@@ -119,11 +114,8 @@ exports.list = function(req, res) {
  */
 exports.lessonByIndex = function(req, res, next, index) { 
 	Lesson.findById({'_id': req.sequence.lessons[index - 1]._id}, 'name start end context problems user').populate('problems', 'name description').exec(function(err, lesson) {
-		if (err) {
-			return next(err);
-		}
-		if (! lesson) {
-			return next(new Error('Failed to load lesson ' + index + ' of sequence ' + req.sequence.name + ' of course ' + req.course.serial));
+		if (err || ! lesson) {
+			return errorHandler.getLoadErrorMessage(err, 'lesson', index + ' of sequence ' + req.sequence.name + ' of course ' + req.course.serial, next);
 		}
 		req.lesson = lesson;
 		next();
@@ -135,11 +127,8 @@ exports.lessonByIndex = function(req, res, next, index) {
  */
 exports.problemByIndex = function(req, res, next, index) {
 	Problem.findById({'_id': req.lesson.problems[index - 1]}).exec(function(err, problem) {
-		if (err) {
-			return next(err);
-		}
-		if (! problem) {
-			return next(new Error('Failed to load problem ' + index + ' of lesson ' + req.lesson.name + ' of sequence ' + req.sequence.name + ' of course ' + req.course.serial));
+		if (err || ! problem) {
+			return errorHandler.getLoadErrorMessage(err, 'problem', index + ' of lesson ' + req.lesson.name + ' of sequence ' + req.sequence.name + ' of course ' + req.course.serial, next);
 		}
 		req.problem = problem;
 		next();
@@ -155,40 +144,25 @@ exports.submit = function(req, res) {
 	// Check course
 	var courseSerial = req.params.courseSerial;
 	Course.findOne({'serial': courseSerial}, 'sequences').populate('sequences', 'lessons').exec(function(err, course) {
-		if (err) {
+		if (err || ! course) {
 			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		}
-		if (! course) {
-			return res.status(400).send({
-				message: 'Failed to load course ' + courseSerial
+				message: errorHandler.getLoadErrorMessage(err, 'course', courseSerial)
 			});
 		}
 		// Load the lesson
 		var lessonId = course.sequences[req.params.sequenceIndex - 1].lessons[req.params.lessonIndex - 1];
 		Lesson.findById({'_id': lessonId}).exec(function(err, lesson) {
-			if (err) {
+			if (err || ! lesson) {
 				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			}
-			if (! lesson) {
-				return res.status(400).send({
-					message: 'Failed to load lesson ' + lessonId
+					message: errorHandler.getLoadErrorMessage(err, 'lesson', lessonId)
 				});
 			}
 			// Load the problem
 			var problemId = lesson.problems[req.params.problemIndex - 1];
 			Problem.findById({'_id': problemId}, 'task').exec(function(err, problem) {
-				if (err) {
+				if (err || ! problem) {
 					return res.status(400).send({
-						message: errorHandler.getErrorMessage(err)
-					});
-				}
-				if (! problem) {
-					return res.status(400).send({
-						message: 'Failed to load problem ' + problemId
+						message: errorHandler.getLoadErrorMessage(err, 'problem', problemId)
 					});
 				}
 				console.log('Found problem: ' + problem);
