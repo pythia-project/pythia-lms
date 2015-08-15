@@ -38,6 +38,10 @@ div.context p {
 	text-align: justify;
 }
 
+div.feedback {
+	margin: 15px 0 0 0;
+}
+
 /* Bootstrap change */
 .navbar-inverse .navbar-brand > img {
 	margin-top: -7px;

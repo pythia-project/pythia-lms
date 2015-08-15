@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
+	net = require('net'),
 	Course = mongoose.model('Course'),
 	Sequence = mongoose.model('Sequence'),
 	Lesson = mongoose.model('Lesson'),
@@ -133,5 +134,27 @@ exports.lessonByIndex = function(req, res, next, index) {
  */
 exports.submit = function(req, res) {
 	console.log('Submission of a problem...');
-	res.send('OK');
+	// Trying to reach Pythia queue
+	var client = net.createConnection(9000, '127.0.0.1');
+	client.on('connect', function() {
+		console.log('Connected!');
+		client.destroy();
+	});
+	client.on('close', function(had_error) {
+		console.log('Connexion closed!');
+		if (! had_error) {
+			res.jsonp({
+				'status': 'success'
+			});
+		}
+	});
+	client.on('error', function(err) {
+		console.log('Error: ');
+		console.log(err);
+		var message = 'An error occurred during the grading of your submission, please try again later.';
+		res.jsonp({
+			'status': 'error',
+			'message': message
+		});
+	});
 };
