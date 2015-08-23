@@ -182,7 +182,7 @@ exports.hasAuthorization = function(req, res, next) {
 };
 
 /*
- * Test registration station of the user to the course
+ * Test registration status of the user to the course
  */
 exports.isRegistered = function(check) {
 	var _this = this;
