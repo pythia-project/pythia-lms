@@ -104,20 +104,22 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 	// Submit a problem
 	$scope.submitProblem = function(index) {
 		if (! $scope.submissionInProgress[index - 1]) {
-			// Disable submission button
+			// Disable submission button and clean feedback field
 			$scope.submissionInProgress[index - 1] = true;
 			$('#submit-p' + index).addClass('disabled');
+			var $feedback = $('#feedback-p' + index);
+			$feedback.removeClass();
+			$feedback.html('');
 			// Send the submission request to the server
 			var $form = $('#problem-p' + index + ' form');
 			$http.post('/courses/' + $scope.courseSerial + '/sequences/' + $scope.sequenceIndex + '/lessons/' + $scope.lessonIndex + '/problems/' + index + '/submit').success(function(data, status, headers, config) {
-				var $feedback = $('#feedback-p' + index);
-				$feedback.removeClass();
 				$feedback.addClass('feedback alert');
 				switch (data.status) {
 					case 'success':
 						$feedback.addClass('alert-success');
 					break;
 					case 'error':
+					case 'failed':
 						$feedback.addClass('alert-danger');
 					break;
 				}
@@ -125,7 +127,6 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 				// Enable submission button
 				$scope.submissionInProgress[index - 1] = false;
 				$('#submit-p' + index).removeClass('disabled');
-
 			});
 		}
 	};

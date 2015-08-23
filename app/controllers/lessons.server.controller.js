@@ -164,6 +164,7 @@ exports.submit = function(req, res) {
 					});
 				}
 				// Trying to reach Pythia queue
+				var status = 'failed';
 				var message = 'An error occurred during the grading of your submission, please try again later.';
 				var socket = net.createConnection(9000, '127.0.0.1');
 				socket.on('connect', function() {
@@ -171,17 +172,30 @@ exports.submit = function(req, res) {
 						'message': 'launch',
 						'id': 'test',
 						'task': problem.task,
-						'input': 'Hello, this is my input'
+						'input': JSON.stringify({
+							'tid': 'task1',
+							'fields': {
+								't1': 'print("Hello World online!")'
+							}
+						})
 					}));
 				});
 				socket.on('data', function(data) {
-					data = JSON.parse(data);
-					message = '<pre>' + data.output + '</pre>';
+					try {
+						data = JSON.parse(data);
+						var output = JSON.parse(data.output);
+						if (data.status === 'success') {
+							status = output.status;
+						}
+						if (output.feedback.message !== '') {
+							message = output.feedback.message;						
+						}
+					} catch (err) {}
 					socket.destroy();
 				});
 				socket.on('close', function(had_error) {
 					res.jsonp({
-						'status': had_error ? 'error' : 'success',
+						'status': had_error ? 'error' : status,
 						'message': message
 					});
 				});

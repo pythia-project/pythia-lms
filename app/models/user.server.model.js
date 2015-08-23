@@ -82,6 +82,29 @@ var UserSchema = new Schema({
 			registered: {
 				type: Date,
 				default: Date.now
+			},
+			sequences: {
+				type: [new Schema({
+					lessons: {
+						type: [new Schema({
+							problems: {
+								type: [new Schema({
+									submitted: {
+										type: Date,
+										default: Date.now
+									},
+									feedback: {
+										type: {},
+										default: {}
+									}
+								})],
+								default: []
+							}
+						})],
+						default: []
+					}
+				})],
+				default: []
 			}
 		})],
 		default: []
