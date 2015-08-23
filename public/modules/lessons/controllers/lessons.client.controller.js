@@ -3,6 +3,8 @@
 // Lessons controller
 angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Sequences', 'Lessons', '$sce', '$http', function($scope, $stateParams, $location, Authentication, Sequences, Lessons, $sce, $http) {
 	$scope.authentication = Authentication;
+	$scope.submissionInProgress = [];
+	$scope.progress = 0;
 
 	// Create new lesson
 	$scope.create = function() {
@@ -79,7 +81,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 				var problemcontent = '<div class="panel panel-default"><div class="panel-heading"><b>Problem ' + i + '</b>: ' + problem.name + '</div>';
 				// Generate problem structure to submit and retrieve feedback
 				problemcontent += '<div class="panel-body" id="problem-p' + i + '">' + problem.description;
-				problemcontent += '<div class="text-right"><a href="#" onclick="angular.element(document.getElementById(\'lessoncontent\')).scope().submitProblem(' + i + ');event.preventDefault();" class="btn btn-primary">Submit</a></div><div id="feedback-p' + i + '" class="feedback"></div>';
+				problemcontent += '<div class="text-right"><a id="submit-p' + i + '" href="#" onclick="angular.element(document.getElementById(\'lessoncontent\')).scope().submitProblem(' + i + ');event.preventDefault();" class="btn btn-primary">Submit</a></div><div id="feedback-p' + i + '" class="feedback"></div>';
 				// Insert problem into lesson 
 				problemcontent += '</div></div>';
 				content = content.replace('[[' + i + ']]', problemcontent);
@@ -101,23 +103,30 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 
 	// Submit a problem
 	$scope.submitProblem = function(index) {
-		console.log('Problem submission #' + index);
-		var $form = $('#problem-p' + index + ' form');
-		$http.post('/courses/' + $scope.courseSerial + '/sequences/' + $scope.sequenceIndex + '/lessons/' + $scope.lessonIndex + '/problems/' + index + '/submit').success(function(data, status, headers, config) {
-			console.log('Answer: ' + JSON.stringify(data));
-			console.log(data.message);
-			var $feedback = $('#feedback-p' + index);
-			$feedback.removeClass();
-			$feedback.addClass('feedback alert');
-			switch (data.status) {
-				case 'success':
-					$feedback.addClass('alert-success');
-				break;
-				case 'error':
-					$feedback.addClass('alert-danger');
-				break;
-			}
-			$feedback.html(data.message);
-		});
+		if (! $scope.submissionInProgress[index - 1]) {
+			// Disable submission button
+			$scope.submissionInProgress[index - 1] = true;
+			$('#submit-p' + index).addClass('disabled');
+			// Send the submission request to the server
+			var $form = $('#problem-p' + index + ' form');
+			$http.post('/courses/' + $scope.courseSerial + '/sequences/' + $scope.sequenceIndex + '/lessons/' + $scope.lessonIndex + '/problems/' + index + '/submit').success(function(data, status, headers, config) {
+				var $feedback = $('#feedback-p' + index);
+				$feedback.removeClass();
+				$feedback.addClass('feedback alert');
+				switch (data.status) {
+					case 'success':
+						$feedback.addClass('alert-success');
+					break;
+					case 'error':
+						$feedback.addClass('alert-danger');
+					break;
+				}
+				$feedback.html(data.message);
+				// Enable submission button
+				$scope.submissionInProgress[index - 1] = false;
+				$('#submit-p' + index).removeClass('disabled');
+
+			});
+		}
 	};
 }]);

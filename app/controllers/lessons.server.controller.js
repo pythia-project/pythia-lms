@@ -126,7 +126,7 @@ exports.lessonByIndex = function(req, res, next, index) {
  * Problem middleware
  */
 exports.problemByIndex = function(req, res, next, index) {
-	Problem.findById({'_id': req.lesson.problems[index - 1]}).exec(function(err, problem) {
+	Problem.findById({'_id': req.lesson.problems[index - 1]._id}, 'name').exec(function(err, problem) {
 		if (err || ! problem) {
 			return errorHandler.getLoadErrorMessage(err, 'problem', index + ' of lesson ' + req.lesson.name + ' of sequence ' + req.sequence.name + ' of course ' + req.course.serial, next);
 		}
@@ -139,8 +139,6 @@ exports.problemByIndex = function(req, res, next, index) {
  * Submit a problem
  */
 exports.submit = function(req, res) {
-	console.log('Submission of a problem...');
-	console.log(req.params);
 	// Check course
 	var courseSerial = req.params.courseSerial;
 	Course.findOne({'serial': courseSerial}, 'sequences').populate('sequences', 'lessons').exec(function(err, course) {
@@ -165,12 +163,10 @@ exports.submit = function(req, res) {
 						message: errorHandler.getLoadErrorMessage(err, 'problem', problemId)
 					});
 				}
-				console.log('Found problem: ' + problem);
 				// Trying to reach Pythia queue
 				var message = 'An error occurred during the grading of your submission, please try again later.';
 				var socket = net.createConnection(9000, '127.0.0.1');
 				socket.on('connect', function() {
-					console.log('Connected!');
 					socket.write(JSON.stringify({
 						'message': 'launch',
 						'id': 'test',
@@ -179,21 +175,17 @@ exports.submit = function(req, res) {
 					}));
 				});
 				socket.on('data', function(data) {
-					console.log('Received: ' + data);
 					data = JSON.parse(data);
 					message = '<pre>' + data.output + '</pre>';
 					socket.destroy();
 				});
 				socket.on('close', function(had_error) {
-					console.log('Connexion closed!');
 					res.jsonp({
 						'status': had_error ? 'error' : 'success',
 						'message': message
 					});
 				});
 				socket.on('error', function(err) {
-					console.log('Error: ');
-					console.log(err);
 					switch (err.errno) {
 						case 'ECONNREFUSED':
 							message = 'The grading server is not reachable, please try again later.';

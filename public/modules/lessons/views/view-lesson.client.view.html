@@ -31,7 +31,9 @@
 					</dl>
 					<dl>
 						<dt>Progress</dt>
-						<dd>&mdash;</dd>
+						<dd>
+							<progressbar animate="false" max="100" value="progress" type="primary"><span data-ng-hide="progress < 15" data-ng-bind="progress + '%'"></span></progressbar>
+						</dd>
 					</dl>
 				</div>
 			</div>
