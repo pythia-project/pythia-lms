@@ -67,6 +67,16 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 	};
 
 	// Find existing lesson
+	var buildProblem = function(index, problem) {
+		var problemcontent = '<div class="panel panel-default"><div class="panel-heading"><b>Problem ' + index + '</b>: ' + problem.name + '<span class="pull-right"><i>(' + problem.points + ' points)</i></span></div>';
+		problemcontent += '<div class="panel-body" id="problem-p' + index + '">' + problem.description;
+		problemcontent += '<div class="text-right">'
+			+ '<a id="submit-p' + index + '" href="#" onclick="angular.element(document.getElementById(\'lessoncontent\')).scope().submitProblem(' + index + ');event.preventDefault();" class="btn btn-primary">Submit</a>'
+			+ '</div><div id="feedback-p' + index + '" class="feedback">'
+		+ '</div>';
+		problemcontent += '</div></div>';
+		return problemcontent;
+	};
 	$scope.findOne = function() {
 		$scope.findSequence();$scope.lesson = Lessons.get({ 
 			courseSerial: $stateParams.courseSerial,
@@ -76,15 +86,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			// Generate the context, replacing placeholders with problems
 			var content = $scope.lesson.context;
 			for (var i = 1; i <= $scope.lesson.problems.length; i++) {
-				// Get the problem description and title
-				var problem = $scope.lesson.problems[i - 1];
-				var problemcontent = '<div class="panel panel-default"><div class="panel-heading"><b>Problem ' + i + '</b>: ' + problem.name + '</div>';
-				// Generate problem structure to submit and retrieve feedback
-				problemcontent += '<div class="panel-body" id="problem-p' + i + '">' + problem.description;
-				problemcontent += '<div class="text-right"><a id="submit-p' + i + '" href="#" onclick="angular.element(document.getElementById(\'lessoncontent\')).scope().submitProblem(' + i + ');event.preventDefault();" class="btn btn-primary">Submit</a></div><div id="feedback-p' + i + '" class="feedback"></div>';
-				// Insert problem into lesson 
-				problemcontent += '</div></div>';
-				content = content.replace('[[' + i + ']]', problemcontent);
+				content = content.replace('[[' + i + ']]', buildProblem(i, $scope.lesson.problems[i - 1]));
 			}
 			$scope.lessonContext = $sce.trustAsHtml(content);
 		});

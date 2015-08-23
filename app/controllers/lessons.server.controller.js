@@ -113,7 +113,7 @@ exports.list = function(req, res) {
  * Lesson middleware
  */
 exports.lessonByIndex = function(req, res, next, index) { 
-	Lesson.findById({'_id': req.sequence.lessons[index - 1]._id}, 'name start end context problems user').populate('problems', 'name description').exec(function(err, lesson) {
+	Lesson.findById({'_id': req.sequence.lessons[index - 1]._id}, 'name start end context problems user').populate('problems', 'name description points authors').exec(function(err, lesson) {
 		if (err || ! lesson) {
 			return errorHandler.getLoadErrorMessage(err, 'lesson', index + ' of sequence ' + req.sequence.name + ' of course ' + req.course.serial, next);
 		}

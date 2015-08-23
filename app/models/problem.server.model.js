@@ -19,6 +19,9 @@ var ProblemSchema = new Schema({
 	authors: [{
 		type: String
 	}],
+	points : {
+		type: Number
+	},
 	task: {
 		environment: {
 			type: String,
