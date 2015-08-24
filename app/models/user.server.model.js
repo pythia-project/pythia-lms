@@ -89,23 +89,45 @@ var UserSchema = new Schema({
 						type: [new Schema({
 							problems: {
 								type: [new Schema({
-									submitted: {
-										type: Date,
-										default: Date.now
-									},
-									feedback: {
-										type: {},
-										default: {}
+									submissions: {
+										type: [new Schema({
+											answer: {
+												type: String
+											},
+											feedback: {
+												type: {}
+											},
+											submitted: {
+												type: Date,
+												default: Date.now
+											}
+										}, {
+											id: false,
+											_id: false
+										})],
+										default: []
 									}
+								}, {
+									id: false,
+									_id: false
 								})],
 								default: []
 							}
+						}, {
+							id: false,
+							_id: false
 						})],
 						default: []
 					}
+				}, {
+					id: false,
+					_id: false
 				})],
 				default: []
 			}
+		}, {
+			id: false,
+			_id: false
 		})],
 		default: []
 	},

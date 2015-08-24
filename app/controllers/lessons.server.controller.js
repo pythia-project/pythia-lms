@@ -141,7 +141,7 @@ exports.problemByIndex = function(req, res, next, index) {
 exports.submit = function(req, res) {
 	// Check course
 	var courseSerial = req.params.courseSerial;
-	Course.findOne({'serial': courseSerial}, 'sequences').populate('sequences', 'lessons').exec(function(err, course) {
+	Course.findOne({'serial': courseSerial}, '_id sequences').populate('sequences', 'lessons').exec(function(err, course) {
 		if (err || ! course) {
 			return res.status(400).send({
 				message: errorHandler.getLoadErrorMessage(err, 'course', courseSerial)
@@ -164,9 +164,12 @@ exports.submit = function(req, res) {
 					});
 				}
 				// Trying to reach Pythia queue
+				var input = 'print("Hello World online!")';
 				var status = 'failed';
-				var message = 'An error occurred during the grading of your submission, please try again later.';
-				var socket = net.createConnection(9000, '127.0.0.1');
+				var message = '<p>An error occurred during the grading of your submission, please try again later.</p>';
+				var data = '';
+				var socket = new net.Socket();
+				socket.setEncoding('utf8');
 				socket.on('connect', function() {
 					socket.write(JSON.stringify({
 						'message': 'launch',
@@ -175,23 +178,66 @@ exports.submit = function(req, res) {
 						'input': JSON.stringify({
 							'tid': 'task1',
 							'fields': {
-								't1': 'print("Hello World online!")'
+								'f1': input
 							}
 						})
 					}));
 				});
-				socket.on('data', function(data) {
+				socket.on('data', function(chunk) {
+					data += chunk;
 					try {
-						data = JSON.parse(data);
-						var output = JSON.parse(data.output);
-						if (data.status === 'success') {
+						// Get and analyse result provided by Pythia
+						var result = JSON.parse(data);
+						var output = JSON.parse(result.output);
+						if (result.status === 'success') {
 							status = output.status;
 						}
-						if (output.feedback.message !== '') {
+						if (output.feedback.message !== undefined) {
 							message = output.feedback.message;						
+						} else if (output.feedback.example !== undefined) {
+							message = '<p>Your code did not produced the good result.</p><ul>' +
+								'<li>Expected result: ' + output.feedback.example.expected + '</li>' +
+								'<li>Your result: ' + output.feedback.example.actual + '</li>' +
+							'</ul>';
 						}
+						// Save submission in user
+						// Get registration for this course
+						var registration = null;
+						for (var i = 0; i < req.user.registrations.length; i++) {
+							registration = req.user.registrations[i];
+							if (registration.course.toString() === course._id) {
+								break;
+							}
+						}
+						// Get the sequence
+						while (registration.sequences.length < req.params.sequenceIndex) {
+							registration.sequences.push([]);
+						}
+						var sequence = registration.sequences[req.params.sequenceIndex - 1];
+						// Get the lesson
+						while (sequence.lessons.length < req.params.lessonIndex) {
+							sequence.lessons.push([]);
+						}
+						var lesson = sequence.lessons[req.params.lessonIndex - 1];
+						// Get the problem
+						while (lesson.problems.length < req.params.problemIndex) {
+							lesson.problems.push([]);
+						}
+						var problem = lesson.problems[req.params.problemIndex - 1];
+						problem.submissions.push({
+							answer: input,
+							feedback: output.feedback
+						});
+						req.user.save(function(err) {
+							if (err) {
+								console.log(err);
+								return res.status(400).send({
+									message: errorHandler.getErrorMessage(err)
+								});
+							}
+							socket.destroy();
+						});
 					} catch (err) {}
-					socket.destroy();
 				});
 				socket.on('close', function(had_error) {
 					res.jsonp({
@@ -206,6 +252,7 @@ exports.submit = function(req, res) {
 						break;
 					}
 				});
+				socket.connect(9000, '127.0.0.1');
 			});
 		});
 	});
