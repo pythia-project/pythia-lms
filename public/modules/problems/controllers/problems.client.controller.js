@@ -1,7 +1,7 @@
 'use strict';
 
 // Problems controller
-angular.module('problems').controller('ProblemsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Problems', function($scope, $stateParams, $location, Authentication, Problems) {
+angular.module('problems').controller('ProblemsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Problems', '$sce', function($scope, $stateParams, $location, Authentication, Problems, $sce) {
 	$scope.authentication = Authentication;
 
 	// Create new problem
@@ -23,5 +23,10 @@ angular.module('problems').controller('ProblemsController', ['$scope', '$statePa
 
 	// Find existing problem
 	$scope.findOne = function() {
+		$scope.problem = Problems.get({
+			problemId: $stateParams.problemId
+		}, function() {
+			$scope.problemDescription = $sce.trustAsHtml($scope.problem.description);
+		});
 	};
 }]);

@@ -1,0 +1,49 @@
+<section data-ng-controller="ProblemsController" data-ng-init="findOne()">
+	<ol class="breadcrumb">
+		<li><a href="#!/problems/manage">Problems</a></li>
+	</ol>
+
+	<h2 data-ng-bind="problem.name"></h2>
+
+	<div class="row">
+		<div class="col-md-9">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Problem<span class="pull-right"><i>({{problem.points}} points)</i></span>
+				</div>
+				<div class="panel-body" data-ng-bind-html="problemDescription"></div>
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="panel panel-info">
+				<div class="panel-heading"><h3 class="panel-title">Information</h3></div>
+				<div class="panel-body">
+					<dl>
+						<dt>Authors</dt>
+						<dd><span data-ng-repeat="author in problem.authors" data-ng-bind="author + ($last ? '' : ', ')"></span></dd>
+					</dl>
+					<dl>
+						<dt>Environment</dt>
+						<dd data-ng-bind="problem.task.environment"></dd>
+					</dl>
+					<dl>
+						<dt>Taskfs</dt>
+						<dd data-ng-bind="problem.task.taskfs"></dd>
+					</dl>
+					<dl>
+						<dt>Constraints</dt>
+						<dd>
+							<ul>
+								<li>Time: {{problem.task.limits.time}} seconds</li>
+								<li>Memory: {{problem.task.limits.memory}} Mo</li>
+								<li>Disk: {{problem.task.limits.disk}}</li>
+								<li>Output: {{problem.task.limits.output}} characters</li>
+							</dl>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

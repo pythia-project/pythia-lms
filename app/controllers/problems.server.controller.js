@@ -14,12 +14,19 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 };
 
+/**
+ * Show the current problem
+ */
+exports.read = function(req, res) {
+	res.jsonp(req.problem);
+};
+
 
 /**
  * List of problems
  */
 exports.list = function(req, res) { 
-	Problem.find().sort('-created').populate('user', 'displayName').exec(function(err, problems) {
+	Problem.find().exec(function(err, problems) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -27,5 +34,18 @@ exports.list = function(req, res) {
 		} else {
 			res.jsonp(problems);
 		}
+	});
+};
+
+/**
+ * Problem middleware
+ */
+exports.problemByID = function(req, res, next, id) {
+	Problem.findOne(id, 'name description authors points task').exec(function(err, problem) {
+		if (err || ! problem) {
+			return errorHandler.getLoadErrorMessage(err, 'problem', id, next);
+		}
+		req.problem = problem;
+		next();
 	});
 };
