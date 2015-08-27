@@ -1,0 +1,10 @@
+<section data-ng-controller="ProblemsController" data-ng-init="find()">
+	<h2>Problems</h2>
+
+	<div data-ng-if="problems && problems.length > 0" class="list-group">
+		<a data-ng-repeat="problem in problems" data-ng-href="#!/problems/{{problem._id}}" class="list-group-item" data-ng-bind="problem.name"></a>
+	</div>
+	<div data-ng-if="! problems || problems.length === 0" class="alert alert-warning" role="alert">
+		No problems yet.
+	</div>
+</section>
