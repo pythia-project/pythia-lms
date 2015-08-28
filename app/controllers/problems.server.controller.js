@@ -51,7 +51,7 @@ exports.list = function(req, res) {
  * Problem middleware
  */
 exports.problemByID = function(req, res, next, id) {
-	Problem.findOne(id, 'name description authors points task').exec(function(err, problem) {
+	Problem.findById(id, 'name description authors points task').exec(function(err, problem) {
 		if (err || ! problem) {
 			return errorHandler.getLoadErrorMessage(err, 'problem', id, next);
 		}
