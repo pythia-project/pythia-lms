@@ -1,5 +1,6 @@
 h2 {
 	font-size: 30px;
+	margin-bottom: 25px;
 }
 h3 {
 	font-size: 20px;
@@ -21,10 +22,6 @@ img.iconuserpic {
 div.action-box {
 	margin-bottom: 15px;
 	text-align: right;
-}
-
-div.description {
-	margin: 15px 0;
 }
 
 .list-group {
