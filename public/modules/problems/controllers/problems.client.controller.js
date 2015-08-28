@@ -6,6 +6,29 @@ angular.module('problems').controller('ProblemsController', ['$scope', '$statePa
 
 	// Create new problem
 	$scope.create = function() {
+		// Create new problem object
+		var authors = [];
+		for (var i = 0; i < this.authors.length; i++) {
+			authors.push(this.authors[i].text);
+		}
+		var problem = new Problems ({
+			name: this.name,
+			description: this.description,
+			authors: authors,
+			task: this.task
+		});
+
+		// Redirect after save
+		problem.$save(function(response) {
+			$location.path('problems/' + response._id);
+			// Clear form fields
+			$scope.name = '';
+			$scope.description = '';
+			$scope.authors = [];
+			$scope.task = {};
+		}, function(errorResponse) {
+			$scope.error = errorResponse.data.message;
+		});
 	};
 
 	// Remove existing problem

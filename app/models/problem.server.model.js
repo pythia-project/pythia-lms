@@ -11,38 +11,59 @@ var mongoose = require('mongoose'),
  */
 var ProblemSchema = new Schema({
 	name: {
-		type: String
+		type: String,
+		required: 'Please select a name for the problem.',
+		trim: true
 	},
 	description: {
-		type: String
+		type: String,
+		required: 'Please select a description for the problem.'
 	},
-	authors: [{
-		type: String
-	}],
+	authors: {
+		type: [{
+			type: String
+		}],
+		required: 'Please choose at least one author for the problem.'
+	},
 	points : {
-		type: Number
+		type: Number,
+		default: 0
 	},
 	task: {
 		environment: {
 			type: String,
+			required: 'Please select an environment for the problem.'
 		},
 		taskfs: {
 			type: String,
+			required: 'Please select a taskfs for the problem.'
 		},
 		limits: {
 			time: {
 				type: Number,
+				default: 60
 			},
 			memory: {
 				type: Number,
+				default: 32
 			},
 			disk: {
 				type: Number,
+				default: 50
 			},
 			output: {
 				type: Number,
+				default: 1024
 			}
 		}
+	},
+	created: {
+		type: Date,
+		default: Date.now
+	},
+	user: {
+		type: Schema.ObjectId,
+		ref: 'User'
 	}
 });
 

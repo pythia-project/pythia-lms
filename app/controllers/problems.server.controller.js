@@ -12,6 +12,16 @@ var mongoose = require('mongoose'),
  * Create a problem
  */
 exports.create = function(req, res) {
+	var problem = new Problem(req.body);
+	problem.user = req.user;
+	problem.save(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+		res.jsonp(problem);
+	});
 };
 
 /**

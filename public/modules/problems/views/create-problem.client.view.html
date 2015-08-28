@@ -1,0 +1,78 @@
+<section data-ng-controller="ProblemsController">
+	<ol class="breadcrumb">
+		<li><a href="#!/problems/manage">Problems</a></li>
+	</ol>
+
+	<h2>Create problem</h2>
+
+	<div class="col-md-12">
+		<form class="form-horizontal" data-ng-submit="create()" novalidate>
+			<fieldset>
+				<div class="form-group">
+					<label class="control-label" for="name">Name</label>
+					<div class="controls">
+						<input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="description">Description</label>
+					<div class="controls">
+						<textarea data-ng-model="description" id="description" class="form-control" placeholder="Description" rows="10"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="authors">Authors</label>
+					<tags-input data-ng-model="authors" add-on-blur="false" placeholder="Add an author"></tags-input>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="points">Points</label>
+					<div class="controls">
+						<input type="number" data-ng-model="points" id="points" class="form-control" placeholder="Points" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="environment">Environment</label>
+					<div class="controls">
+						<input type="text" data-ng-model="task.environment" id="environment" class="form-control" placeholder="busybox" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="taskfs">Taskfs</label>
+					<div class="controls">
+						<input type="text" data-ng-model="task.taskfs" id="taskfs" class="form-control" placeholder="task.sfs" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="time">Time</label>
+					<div class="controls">
+						<input type="number" data-ng-model="task.limits.time" id="time" class="form-control" placeholder="60" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="memory">Memory</label>
+					<div class="controls">
+						<input type="number" data-ng-model="task.limits.memory" id="memory" class="form-control" placeholder="32" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="disk">Disk</label>
+					<div class="controls">
+						<input type="number" data-ng-model="task.limits.disk" id="disk" class="form-control" placeholder="50" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="output">Output</label>
+					<div class="controls">
+						<input type="number" data-ng-model="task.limits.output" id="output" class="form-control" placeholder="1024" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Create</button>
+				</div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</section>
