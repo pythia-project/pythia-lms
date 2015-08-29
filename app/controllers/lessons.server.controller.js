@@ -140,6 +140,7 @@ exports.problemByIndex = function(req, res, next, index) {
  * Submit a problem
  */
 var getProblem = function(registrations, course, sequenceIndex, lessonIndex, problemIndex) {
+	// Get the registration for the specified course
 	var registration = null;
 	for (var i = 0; i < registrations.length; i++) {
 		registration = registrations[i];
@@ -147,6 +148,7 @@ var getProblem = function(registrations, course, sequenceIndex, lessonIndex, pro
 			break;
 		}
 	}
+	// Fill the registration object if necessary
 	// Get the sequence
 	while (registration.sequences.length < sequenceIndex) {
 		registration.sequences.push([]);
@@ -182,7 +184,7 @@ exports.submit = function(req, res) {
 			}
 			// Load the problem
 			var problemId = lesson.problems[req.params.problemIndex - 1];
-			Problem.findById({'_id': problemId}, 'task').exec(function(err, problem) {
+			Problem.findById({'_id': problemId}, 'points task').exec(function(err, problem) {
 				if (err || ! problem) {
 					return res.status(400).send({
 						message: errorHandler.getLoadErrorMessage(err, 'problem', problemId)
@@ -194,7 +196,9 @@ exports.submit = function(req, res) {
 				var data = '';
 				var submissions = [];
 				var socket = new net.Socket();
+				var score = 0;
 				socket.setEncoding('utf8');
+				// On connexion, send the request to the Pythia grader
 				socket.on('connect', function() {
 					socket.write(JSON.stringify({
 						'message': 'launch',
@@ -206,15 +210,23 @@ exports.submit = function(req, res) {
 						})
 					}));
 				});
+				// On data reception, if complete JSON object, handle it
 				socket.on('data', function(chunk) {
 					data += chunk;
 					try {
 						// Get and analyse result provided by Pythia
 						var result = JSON.parse(data);
 						var output = JSON.parse(result.output);
+						// Check whether the problem has been solved
 						if (result.status === 'success') {
 							status = output.status;
+							message = '<p>You succeeded!</p>';
 						}
+						// Get the score, if any
+						if (output.feedback.score !== undefined) {
+							score = Math.round(output.feedback.score * problem.points);
+						}
+						// Build the feedback message
 						if (output.feedback.message !== undefined) {
 							message = output.feedback.message;						
 						} else if (output.feedback.example !== undefined) {
@@ -229,13 +241,15 @@ exports.submit = function(req, res) {
 							// Get the problem
 							var problem = getProblem(user.registrations, course, req.params.sequenceIndex, req.params.lessonIndex, req.params.problemIndex);
 							problem.submissions.push({
+								status: status,
 								answer: req.body.input,
 								feedback: output.feedback
 							});
+							// Set the score
+							problem.score = score;
 							// Save submission in database
 							user.save(function(err) {
 								if (err) {
-									console.log(err);
 									return res.status(400).send({
 										message: errorHandler.getErrorMessage(err)
 									});
@@ -245,16 +259,19 @@ exports.submit = function(req, res) {
 							});
 						});
 					} catch (err) {
-						console.log(err);
+						console.log('Pythia error: ' + err);
 					}
 				});
+				// On close, send back answer to the client
 				socket.on('close', function(had_error) {
 					res.jsonp({
 						'status': had_error ? 'error' : status,
 						'message': message,
-						'submissions': submissions
+						'submissions': submissions,
+						'score': score
 					});
 				});
+				// On error, generate an error message
 				socket.on('error', function(err) {
 					switch (err.errno) {
 						case 'ECONNREFUSED':

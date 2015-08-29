@@ -91,6 +91,9 @@ var UserSchema = new Schema({
 								type: [new Schema({
 									submissions: {
 										type: [new Schema({
+											status: {
+												type: String
+											},
 											answer: {
 												type: String
 											},

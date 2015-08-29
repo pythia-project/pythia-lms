@@ -5,6 +5,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 	$scope.authentication = Authentication;
 	$scope.submissionInProgress = [];
 	$scope.progress = 0;
+	$scope.score = 0;
 
 	// Create new lesson
 	$scope.create = function() {
@@ -68,17 +69,35 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 
 	// Find existing lesson
 	var buildProblem = function(index, problem) {
-		var problemcontent = '<div class="panel panel-default"><div class="panel-heading"><b>Problem ' + index + '</b>: ' + problem.name + '<span class="pull-right"><i>(' + problem.points + ' points)</i></span></div>';
-		problemcontent += '<div class="panel-body" id="problem-p' + index + '">' + problem.description;
-		problemcontent += '<div class="text-right">' +
+		var content = '<div class="panel panel-default"><div class="panel-heading"><b>Problem ' + index + '</b>: ' + problem.name + '<span class="pull-right"><i>(' + problem.points + ' points)</i></span></div>';
+		content += '<div class="panel-body" id="problem-p' + index + '">' + problem.description;
+		content += '<div class="text-right">' +
 			'<a id="submit-p' + index + '" href="#" onclick="angular.element(document.getElementById(\'lessoncontent\')).scope().submitProblem(' + index + ');event.preventDefault();" class="btn btn-primary">Submit</a>' +
 			'</div><div id="feedback-p' + index + '" class="feedback">' +
 		'</div>';
-		problemcontent += '</div></div>';
-		return problemcontent;
+		content += '</div></div>';
+		return content;
+	};
+	var updateProgress = function() {
+		var score = 0;
+		var nbSucceeded = 0;
+		for (var i = 1; i <= $scope.lesson.problems.length; i++) {
+			var problem = $scope.registration.sequences[$stateParams.sequenceIndex - 1].lessons[$stateParams.lessonIndex - 1].problems[i];
+			if (problem !== undefined) {
+				score += problem.score;
+				if (problem.submissions.length > 0) {
+					if (problem.submissions[problem.submissions.length - 1].status === 'success') {
+						nbSucceeded++;
+					}
+				}
+			}
+		}
+		$scope.score = score;
+		$scope.progress = Math.round(nbSucceeded / $scope.lesson.problems.length * 100.0);;
 	};
 	$scope.findOne = function() {
-		$scope.findSequence();$scope.lesson = Lessons.get({ 
+		$scope.findSequence();
+		$scope.lesson = Lessons.get({ 
 			courseSerial: $stateParams.courseSerial,
 			sequenceIndex: $stateParams.sequenceIndex,
 			lessonIndex: $stateParams.lessonIndex
@@ -86,13 +105,15 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			// Get the registration information
 			$http.get('/registrations/' + $stateParams.courseSerial).success(function(data, status, header, config) {
 				$scope.registration = data;
+				// Update progress and score information
+				updateProgress();
+				// Generate the context, replacing placeholders with problems
+				var content = $scope.lesson.context;
+				for (var i = 1; i <= $scope.lesson.problems.length; i++) {
+					content = content.replace('[[' + i + ']]', buildProblem(i, $scope.lesson.problems[i - 1]));
+				}
+				$scope.lessonContext = $sce.trustAsHtml(content);
 			});
-			// Generate the context, replacing placeholders with problems
-			var content = $scope.lesson.context;
-			for (var i = 1; i <= $scope.lesson.problems.length; i++) {
-				content = content.replace('[[' + i + ']]', buildProblem(i, $scope.lesson.problems[i - 1]));
-			}
-			$scope.lessonContext = $sce.trustAsHtml(content);
 		});
 	};
 
@@ -128,6 +149,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			var $form = $('#problem-p' + index + ' form');
 			$http.post('/courses/' + $scope.courseSerial + '/sequences/' + $scope.sequenceIndex + '/lessons/' + $scope.lessonIndex + '/problems/' + index + '/submit', {'input': serializeFormToJSON($form)}).success(function(data, status, headers, config) {
 				$feedback.addClass('feedback alert');
+				// Get the status
 				switch (data.status) {
 					case 'success':
 						$feedback.addClass('alert-success');
@@ -137,8 +159,13 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 						$feedback.addClass('alert-danger');
 					break;
 				}
+				// Get the feedback
 				$feedback.html(data.message);
-				$scope.registration.sequences[$scope.sequenceIndex - 1].lessons[$scope.lessonIndex - 1].problems[index - 1].submissions = data.submissions;
+				// Update scope objects
+				var problem = $scope.registration.sequences[$scope.sequenceIndex - 1].lessons[$scope.lessonIndex - 1].problems[index - 1];
+				problem.score = data.score;
+				problem.submissions = data.submissions;
+				updateProgress();
 				// Enable submission button
 				$scope.submissionInProgress[index - 1] = false;
 				$('#submit-p' + index).removeClass('disabled');
