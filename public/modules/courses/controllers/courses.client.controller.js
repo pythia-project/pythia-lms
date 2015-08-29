@@ -109,13 +109,6 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 		}
 	};
 
-/*	// Test whether the user is already registered to a course
-	$scope.isRegistered = function(course) {
-		return $scope.authentication.user.registrations.some(function(element, index, array) {
-			return element.course.toString() === course._id;
-		});
-	};*/
-
 	// Build an array of consecutive integers from 0 to n-1
 	$scope.getNumber = function(n) {
 		var tab = [];

@@ -1,5 +1,5 @@
 <section data-ng-controller="CoursesController" data-ng-init="findOne()">
-	<div data-ng-if="course !== {} && course._id !== undefined">
+	<div data-ng-if="course.$resolved && course._id !== undefined">
 		<ol class="breadcrumb">
 			<li><a href="#!/courses">Courses</a></li>
 			<li class="active"><a data-ng-href="#!/courses/{{course.serial}}" data-ng-bind="course.serial"></a></li>
@@ -41,7 +41,7 @@
 		</div>
 	</div>
 
-	<div data-ng-if="course === {} && course._id === undefined">
+	<div data-ng-if="course.$resolved && course._id === undefined">
 		<h2>Error</h2>
 		<div class="alert alert-danger" role="alert">
 			You are not allowed to access this course.
