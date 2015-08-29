@@ -83,6 +83,10 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			sequenceIndex: $stateParams.sequenceIndex,
 			lessonIndex: $stateParams.lessonIndex
 		}, function() {
+			// Get the registration information
+			$http.get('/registrations/' + $stateParams.courseSerial).success(function(data, status, header, config) {
+				$scope.registration = data;
+			});
 			// Generate the context, replacing placeholders with problems
 			var content = $scope.lesson.context;
 			for (var i = 1; i <= $scope.lesson.problems.length; i++) {
@@ -92,7 +96,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		});
 	};
 
-	// Find existing course
+	// Find existing sequence
 	$scope.findSequence = function() {
 		$scope.courseSerial = $stateParams.courseSerial;
 		$scope.sequenceIndex = $stateParams.sequenceIndex;
@@ -126,6 +130,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 					break;
 				}
 				$feedback.html(data.message);
+				$scope.registration.sequences[$scope.sequenceIndex - 1].lessons[$scope.lessonIndex - 1].problems[index - 1].submissions = data.submissions;
 				// Enable submission button
 				$scope.submissionInProgress[index - 1] = false;
 				$('#submit-p' + index).removeClass('disabled');

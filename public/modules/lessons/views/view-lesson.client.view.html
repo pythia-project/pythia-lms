@@ -23,17 +23,22 @@
 				<div class="panel-body">
 					<dl data-ng-if="lesson.start !== null">
 						<dt>Start date</dt>
-						<dd>{{lesson.start | amDateFormat:'ddd, D MMM YYYY, H:mm'}}</dd>
+						<dd data-ng-bind="lesson.start | amDateFormat:'ddd, D MMM YYYY, H:mm'"></dd>
 					</dl>
 					<dl data-ng-if="lesson.end !== null">
 						<dt>End date</dt>
-						<dd>{{lesson.end | amDateFormat:'ddd, D MMM YYYY, H:mm'}}</dd>
+						<dd data-ng-bind="lesson.end | amDateFormat:'ddd, D MMM YYYY, H:mm'"></dd>
 					</dl>
 					<dl>
 						<dt>Progress</dt>
 						<dd>
 							<progressbar animate="false" max="100" value="progress" type="primary"><span data-ng-hide="progress < 15" data-ng-bind="progress + '%'"></span></progressbar>
 						</dd>
+					</dl>
+					<dl>
+						<dt>Score</dt>
+						<dd data-ng-if="registration.sequences[sequenceIndex - 1].lessons[lessonIndex - 1].score">{{registration.sequences[sequenceIndex - 1].lessons[lessonIndex - 1].score}} points</dd>
+						<dd data-ng-if="! registration.sequences[sequenceIndex - 1].lessons[lessonIndex - 1].score">0 point</dd>
 					</dl>
 				</div>
 			</div>

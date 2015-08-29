@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
 	Sequence = mongoose.model('Sequence'),
 	Lesson = mongoose.model('Lesson'),
 	Problem = mongoose.model('Problem'),
+	User = mongoose.model('User'),
 	_ = require('lodash');
 
 /**
@@ -168,6 +169,7 @@ exports.submit = function(req, res) {
 				var status = 'failed';
 				var message = '<p>An error occurred during the grading of your submission, please try again later.</p>';
 				var data = '';
+				var submissions = [];
 				var socket = new net.Socket();
 				socket.setEncoding('utf8');
 				socket.on('connect', function() {
@@ -202,47 +204,53 @@ exports.submit = function(req, res) {
 						}
 						// Save submission in user
 						// Get registration for this course
-						var registration = null;
-						for (var i = 0; i < req.user.registrations.length; i++) {
-							registration = req.user.registrations[i];
-							if (registration.course.toString() === course._id) {
-								break;
+						User.findById(req.user._id, function(err, user) {
+							var registration = null;
+							for (var i = 0; i < user.registrations.length; i++) {
+								registration = user.registrations[i];
+								if (registration.course.toString() === course._id) {
+									break;
+								}
 							}
-						}
-						// Get the sequence
-						while (registration.sequences.length < req.params.sequenceIndex) {
-							registration.sequences.push([]);
-						}
-						var sequence = registration.sequences[req.params.sequenceIndex - 1];
-						// Get the lesson
-						while (sequence.lessons.length < req.params.lessonIndex) {
-							sequence.lessons.push([]);
-						}
-						var lesson = sequence.lessons[req.params.lessonIndex - 1];
-						// Get the problem
-						while (lesson.problems.length < req.params.problemIndex) {
-							lesson.problems.push([]);
-						}
-						var problem = lesson.problems[req.params.problemIndex - 1];
-						problem.submissions.push({
-							answer: input,
-							feedback: output.feedback
-						});
-						req.user.save(function(err) {
-							if (err) {
-								console.log(err);
-								return res.status(400).send({
-									message: errorHandler.getErrorMessage(err)
-								});
+							// Get the sequence
+							while (registration.sequences.length < req.params.sequenceIndex) {
+								registration.sequences.push([]);
 							}
-							socket.destroy();
+							var sequence = registration.sequences[req.params.sequenceIndex - 1];
+							// Get the lesson
+							while (sequence.lessons.length < req.params.lessonIndex) {
+								sequence.lessons.push([]);
+							}
+							var lesson = sequence.lessons[req.params.lessonIndex - 1];
+							// Get the problem
+							while (lesson.problems.length < req.params.problemIndex) {
+								lesson.problems.push([]);
+							}
+							var problem = lesson.problems[req.params.problemIndex - 1];
+							problem.submissions.push({
+								answer: input,
+								feedback: output.feedback
+							});
+							user.save(function(err) {
+								if (err) {
+									console.log(err);
+									return res.status(400).send({
+										message: errorHandler.getErrorMessage(err)
+									});
+								}
+								submissions = problem.submissions;
+								socket.destroy();
+							});
 						});
-					} catch (err) {}
+					} catch (err) {
+						console.log(err);
+					}
 				});
 				socket.on('close', function(had_error) {
 					res.jsonp({
 						'status': had_error ? 'error' : status,
-						'message': message
+						'message': message,
+						'submissions': submissions
 					});
 				});
 				socket.on('error', function(err) {

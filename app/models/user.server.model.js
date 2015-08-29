@@ -106,6 +106,10 @@ var UserSchema = new Schema({
 											_id: false
 										})],
 										default: []
+									},
+									score: {
+										type: Number,
+										default: 0
 									}
 								}, {
 									id: false,
