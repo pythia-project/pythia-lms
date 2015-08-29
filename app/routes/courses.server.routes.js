@@ -14,6 +14,9 @@ module.exports = function(app) {
 		.put(users.requiresLogin, courses.hasAuthorization, courses.update)
 		.delete(users.requiresLogin, users.hasAuthorization(['admin']), courses.delete);
 
+	app.route('/registrations/:courseSerial')
+		.get(users.requiresLogin, courses.isRegistered(true), courses.getRegistration);
+
 	app.route('/courses/:courseSerial/switchvisibility')
 		.post(users.requiresLogin, courses.hasAuthorization, courses.switchVisibility);
 

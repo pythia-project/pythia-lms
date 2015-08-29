@@ -2,7 +2,7 @@
 	<h2>Register to a course</h2>
 
 	<ul data-ng-if="courses && courses.length > 0" class="list-group">
-		<li data-ng-repeat="course in courses" class="list-group-item">{{course.serial}} &mdash; {{course.title}}<span class="pull-right"><img src="images/register.png" alt="Register" width="25" height="25" data-ng-class="{grayscale: isRegistered(course)}" data-ng-click="register($index);$event.preventDefault();" /></span></li>
+		<li data-ng-repeat="course in courses" class="list-group-item">{{course.serial}} &mdash; {{course.title}}<span class="pull-right"><img src="images/register.png" alt="Register" width="25" height="25" data-ng-click="register($index);$event.preventDefault();" /></span></li>
 	</ul>
 	<div data-ng-if="! courses || courses.length === 0" class="alert alert-warning" role="alert">
 		No courses yet.
