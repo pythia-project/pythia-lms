@@ -5,10 +5,10 @@
 		<a href="#!/problems/create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New problem</a>
 	</div>
 
-	<div data-ng-if="problems && problems.length > 0" class="list-group">
+	<div data-ng-if="problems.$resolved && problems.length > 0" class="list-group">
 		<a data-ng-repeat="problem in problems" data-ng-href="#!/problems/{{problem._id}}" class="list-group-item" data-ng-bind="problem.name"></a>
 	</div>
-	<div data-ng-if="! problems || problems.length === 0" class="alert alert-warning" role="alert">
+	<div data-ng-if="problems.$resolved && problems.length === 0" class="alert alert-warning" role="alert">
 		No problems yet.
 	</div>
 </section>

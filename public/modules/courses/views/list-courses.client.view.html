@@ -1,10 +1,10 @@
 <section data-ng-controller="CoursesController" data-ng-init="find('registered')">
 	<h2>My courses</h2>
 
-	<div data-ng-if="courses && courses.length > 0" class="list-group">
+	<div data-ng-if="courses.$resolved && courses.length > 0" class="list-group">
 		<a data-ng-repeat="course in courses" data-ng-href="#!/courses/{{course.serial}}" class="list-group-item">{{course.serial}} &mdash; {{course.title}}</a>
 	</div>
-	<div data-ng-if="! courses || courses.length === 0" class="alert alert-warning" role="alert">
+	<div data-ng-if="courses.$resolved && courses.length === 0" class="alert alert-warning" role="alert">
 		No courses yet.
 	</div>
 </section>
