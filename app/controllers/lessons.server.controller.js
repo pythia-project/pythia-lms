@@ -139,6 +139,30 @@ exports.problemByIndex = function(req, res, next, index) {
 /*
  * Submit a problem
  */
+var getProblem = function(registrations, course, sequenceIndex, lessonIndex, problemIndex) {
+	var registration = null;
+	for (var i = 0; i < registrations.length; i++) {
+		registration = registrations[i];
+		if (registration.course.toString() === course._id) {
+			break;
+		}
+	}
+	// Get the sequence
+	while (registration.sequences.length < sequenceIndex) {
+		registration.sequences.push([]);
+	}
+	var sequence = registration.sequences[sequenceIndex - 1];
+	// Get the lesson
+	while (sequence.lessons.length < lessonIndex) {
+		sequence.lessons.push([]);
+	}
+	var lesson = sequence.lessons[lessonIndex - 1];
+	// Get the problem
+	while (lesson.problems.length < problemIndex) {
+		lesson.problems.push([]);
+	}
+	return lesson.problems[problemIndex - 1];
+};
 exports.submit = function(req, res) {
 	// Check course
 	var courseSerial = req.params.courseSerial;
@@ -165,7 +189,6 @@ exports.submit = function(req, res) {
 					});
 				}
 				// Trying to reach Pythia queue
-				var input = 'print("Hello World online!")';
 				var status = 'failed';
 				var message = '<p>An error occurred during the grading of your submission, please try again later.</p>';
 				var data = '';
@@ -179,9 +202,7 @@ exports.submit = function(req, res) {
 						'task': problem.task,
 						'input': JSON.stringify({
 							'tid': 'task1',
-							'fields': {
-								'f1': input
-							}
+							'fields': JSON.parse(req.body.input)
 						})
 					}));
 				});
@@ -205,32 +226,13 @@ exports.submit = function(req, res) {
 						// Save submission in user
 						// Get registration for this course
 						User.findById(req.user._id, function(err, user) {
-							var registration = null;
-							for (var i = 0; i < user.registrations.length; i++) {
-								registration = user.registrations[i];
-								if (registration.course.toString() === course._id) {
-									break;
-								}
-							}
-							// Get the sequence
-							while (registration.sequences.length < req.params.sequenceIndex) {
-								registration.sequences.push([]);
-							}
-							var sequence = registration.sequences[req.params.sequenceIndex - 1];
-							// Get the lesson
-							while (sequence.lessons.length < req.params.lessonIndex) {
-								sequence.lessons.push([]);
-							}
-							var lesson = sequence.lessons[req.params.lessonIndex - 1];
 							// Get the problem
-							while (lesson.problems.length < req.params.problemIndex) {
-								lesson.problems.push([]);
-							}
-							var problem = lesson.problems[req.params.problemIndex - 1];
+							var problem = getProblem(user.registrations, course, req.params.sequenceIndex, req.params.lessonIndex, req.params.problemIndex);
 							problem.submissions.push({
-								answer: input,
+								answer: req.body.input,
 								feedback: output.feedback
 							});
+							// Save submission in database
 							user.save(function(err) {
 								if (err) {
 									console.log(err);

@@ -108,6 +108,14 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 	};
 
 	// Submit a problem
+	var serializeFormToJSON = function($form) {
+		var fields = $form.serializeArray();
+		var postdata = {};
+		for (var i = 0; i < fields.length; i++) {
+			postdata[fields[i].name] = fields[i].value;
+		}
+		return JSON.stringify(postdata);
+	};
 	$scope.submitProblem = function(index) {
 		if (! $scope.submissionInProgress[index - 1]) {
 			// Disable submission button and clean feedback field
@@ -118,7 +126,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			$feedback.html('');
 			// Send the submission request to the server
 			var $form = $('#problem-p' + index + ' form');
-			$http.post('/courses/' + $scope.courseSerial + '/sequences/' + $scope.sequenceIndex + '/lessons/' + $scope.lessonIndex + '/problems/' + index + '/submit').success(function(data, status, headers, config) {
+			$http.post('/courses/' + $scope.courseSerial + '/sequences/' + $scope.sequenceIndex + '/lessons/' + $scope.lessonIndex + '/problems/' + index + '/submit', {'input': serializeFormToJSON($form)}).success(function(data, status, headers, config) {
 				$feedback.addClass('feedback alert');
 				switch (data.status) {
 					case 'success':
