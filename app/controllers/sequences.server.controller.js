@@ -7,7 +7,8 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Course = mongoose.model('Course'),
 	Sequence = mongoose.model('Sequence'),
-	_ = require('lodash');
+	_ = require('lodash'),
+	moment = require('moment');
 
 /**
  * Create a sequence
@@ -113,4 +114,20 @@ exports.sequenceByIndex = function(req, res, next, index) {
 		req.sequence = sequence;
 		next();
 	});
+};
+
+/**
+ * Sequence authorization middleware
+ */
+exports.hasAuthorization = function(req, res, next) {
+	// Authorized sequence if current date between start and end date
+	// for registered user, not for admin nor coordinator
+	var isCoordinator = req.course.coordinators.some(function(element, index, array) {
+		return element.id === req.user.id;
+	});
+	if ((req.user.roles.indexOf('admin') === -1 && ! isCoordinator) && (req.sequence.start !== null && moment().isBefore(moment(req.sequence.start)) ||
+		req.sequence.end !== null && moment().isAfter(moment(req.sequence.end)))) {
+		return res.status(403).send('Sequence not accessible.');
+	}
+	next();
 };

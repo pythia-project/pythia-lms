@@ -11,7 +11,7 @@ module.exports = function(app) {
 		.post(users.requiresLogin, courses.hasAuthorization, sequences.create);
 
 	app.route('/courses/:courseSerial/sequences/:sequenceIndex')
-		.get(users.requiresLogin, courses.isRegistered(true), sequences.read)
+		.get(users.requiresLogin, courses.isRegistered(true), sequences.hasAuthorization, sequences.read)
 		.put(users.requiresLogin, courses.hasAuthorization, sequences.update)
 		.delete(users.requiresLogin, courses.hasAuthorization, sequences.delete);
 
