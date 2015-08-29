@@ -12,11 +12,10 @@ module.exports = function() {
 	passport.use(new LocalStrategy({
 			usernameField: 'username',
 			passwordField: 'password'
-		},
-		function(username, password, done) {
+		}, function(username, password, done) {
 			User.findOne({
 				username: username
-			}, function(err, user) {
+			}, '_id firstname lastname password salt displayname picture roles', function(err, user) {
 				if (err) {
 					return done(err);
 				}
