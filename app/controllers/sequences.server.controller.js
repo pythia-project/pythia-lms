@@ -107,7 +107,7 @@ exports.list = function(req, res) {
  * Sequence middleware
  */
 exports.sequenceByIndex = function(req, res, next, index) {
-	Sequence.findById({'_id': req.course.sequences[index - 1]._id}, 'name description start end lessons user').populate('lessons', 'name').exec(function(err, sequence) {
+	Sequence.findById({'_id': req.course.sequences[index - 1]._id}, 'name description start end lessons user').populate('lessons', 'name start end').exec(function(err, sequence) {
 		if (err || ! sequence) {
 			return errorHandler.getLoadErrorMessage(err, 'sequence', index + ' of course ' + req.course.serial, next);
 		}

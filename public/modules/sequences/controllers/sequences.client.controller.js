@@ -82,4 +82,14 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 		}
 		return tab;
 	};
+
+	// Test whether the specified date is before now
+	$scope.isBefore = function(date) {
+		return moment().isBefore(moment(date));
+	};
+
+	// Test whether the specified date is after now
+	$scope.isAfter = function(date) {
+		return moment().isAfter(moment(date));
+	};
 }]);

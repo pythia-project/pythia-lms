@@ -11,7 +11,8 @@ var mongoose = require('mongoose'),
 	Lesson = mongoose.model('Lesson'),
 	Problem = mongoose.model('Problem'),
 	User = mongoose.model('User'),
-	_ = require('lodash');
+	_ = require('lodash'),
+	moment = require('moment');
 
 /**
  * Create a lesson
@@ -134,6 +135,22 @@ exports.problemByIndex = function(req, res, next, index) {
 		req.problem = problem;
 		next();
 	});
+};
+
+/**
+ * Sequence authorization middleware
+ */
+exports.hasAuthorization = function(req, res, next) {
+	// Authorized lesson if current date between start and end date
+	// for registered user, not for admin nor coordinator
+	var isCoordinator = req.course.coordinators.some(function(element, index, array) {
+		return element.id === req.user.id;
+	});
+	if ((req.user.roles.indexOf('admin') === -1 && ! isCoordinator) && (req.lesson.start !== null && moment().isBefore(moment(req.lesson.start)) ||
+		req.lesson.end !== null && moment().isAfter(moment(req.lesson.end)))) {
+		return res.status(403).send('Lesson not accessible.');
+	}
+	next();
 };
 
 /*

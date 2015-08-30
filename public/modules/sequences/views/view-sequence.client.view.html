@@ -16,10 +16,10 @@
 
 				<div data-ng-if="sequence.description" class="description" data-ng-bind="sequence.description"></div>
 
-				<div data-ng-if="sequence.lessons && sequence.lessons.length > 0" class="list-group" >
-					<a data-ng-repeat="i in getNumber(sequence.lessons.length) track by $index" data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/lessons/{{$index + 1}}" class="list-group-item" data-ng-bind="sequence.lessons[$index].name"></a>
+				<div data-ng-if="sequence.$resolved && sequence.lessons.length > 0" class="list-group" >
+					<a data-ng-init="available = ! ((sequence.lessons[$index].start === null || isAfter(sequence.lessons[$index].start)) && (sequence.lessons[$index].end === null || isBefore(sequence.lessons[$index].end)))" data-ng-repeat="i in getNumber(sequence.lessons.length) track by $index" data-ng-href="{{available ? '' : '#!/courses/' + courseSerial + '/sequences/' + sequenceIndex + '/lessons/' + ($index + 1)}}" data-ng-class="{'list-group-item': true, 'disabled': available}" data-ng-bind="sequence.lessons[$index].name"></a>
 				</div>
-				<div data-ng-if="! sequence.lessons || sequence.lessons.length === 0" class="alert alert-warning" role="alert">
+				<div data-ng-if="sequence.$resolved && sequence.lessons.length === 0" class="alert alert-warning" role="alert">
 					No lessons in this sequence yet.
 				</div>
 			</div>
