@@ -187,21 +187,36 @@ exports.switchVisibility = function(req, res, next) {
  * Register to a course
  */
 exports.register = function(req, res, next) {
+	// Get the course
 	var serial = req.course.serial;
 	Course.findOne({'serial': serial}, '_id').exec(function(err, course) {
 		if (err || ! course) {
-			return errorHandler.getLoadErrorMessage(err, 'course', serial, next);
+			return res.status(400).send({
+				message: errorHandler.getLoadErrorMessage(err, 'course', serial, next)
+			});
 		}
-		req.user.registrations.push({
-			'course': course._id
-		});
-		req.user.save(function(err) {
-			if (err) {
+		// Get the registrations
+		User.findById(req.user._id, 'registrations', function(err, user) {
+			if (err || ! user) {
 				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
+					message: errorHandler.getLoadErrorMessage(err, 'user', req.user._id, next)
 				});
 			}
-			res.jsonp(req.user.registrations[req.user.registrations.length - 1]);
+			// Find if already registered
+			if (findRegistration(user.registrations, course) !== null) {
+				return res.status(400).send('User is already registered.');
+			}
+			user.registrations.push({
+				'course': course._id
+			});
+			user.save(function(err) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				}
+				res.jsonp(user.registrations[user.registrations.length - 1]);
+			});
 		});
 	});
 };

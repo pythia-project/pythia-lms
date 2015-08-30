@@ -102,11 +102,9 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 	// Register to a course
 	$scope.register = function(index) {
 		var course = $scope.courses[index];
-		if (! $scope.isRegistered(course)) {
-			$http.post('/courses/' + course.serial + '/register').success(function(data, status, headers, config) {
-				$scope.authentication.user.registrations.push(data);
-			});
-		}
+		$http.post('/courses/' + course.serial + '/register').success(function(data, status, headers, config) {
+			$scope.courses.splice(index, 1);
+		});
 	};
 
 	// Build an array of consecutive integers from 0 to n-1
