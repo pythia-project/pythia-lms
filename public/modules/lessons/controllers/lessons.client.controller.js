@@ -142,6 +142,24 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		}
 		return JSON.stringify(postdata);
 	};
+	var getProblem = function(registration, sequenceIndex, lessonIndex, problemIndex) {
+		// Fill the registration object if necessary
+		// Get the sequence
+		while (registration.sequences.length < sequenceIndex) {
+			registration.sequences.push({'lessons': []});
+		}
+		var sequence = registration.sequences[sequenceIndex - 1];
+		// Get the lesson
+		while (sequence.lessons.length < lessonIndex) {
+			sequence.lessons.push({'problems': []});
+		}
+		var lesson = sequence.lessons[lessonIndex - 1];
+		// Get the problem
+		while (lesson.problems.length < problemIndex) {
+			lesson.problems.push({'score': 0, 'submissions': []});
+		}
+		return lesson.problems[problemIndex - 1];
+	};
 	$scope.submitProblem = function(index) {
 		if (! $scope.submissionInProgress[index - 1]) {
 			// Disable submission button and clean feedback field
@@ -167,7 +185,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 				// Get the feedback
 				$feedback.html(data.message);
 				// Update scope objects
-				var problem = $scope.registration.sequences[$scope.sequenceIndex - 1].lessons[$scope.lessonIndex - 1].problems[index - 1];
+				var problem = getProblem($scope.registration, $scope.sequenceIndex, $scope.lessonIndex, index);
 				problem.score = data.score;
 				problem.submissions = data.submissions;
 				updateProgress();
