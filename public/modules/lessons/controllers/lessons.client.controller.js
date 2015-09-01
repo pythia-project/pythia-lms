@@ -81,7 +81,8 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 	var updateProgress = function() {
 		var score = 0;
 		var nbSucceeded = 0;
-		if ($scope.registration.sequences.length > 0) {
+		// If admin and not registered, registration will be null
+		if ($scope.registration !== null && $scope.registration.sequences.length > 0) {
 			for (var i = 1; i <= $scope.lesson.problems.length; i++) {
 				var problem = $scope.registration.sequences[$stateParams.sequenceIndex - 1].lessons[$stateParams.lessonIndex - 1].problems[i];
 				if (problem !== undefined) {
