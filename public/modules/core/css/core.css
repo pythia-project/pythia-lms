@@ -14,6 +14,13 @@ footer > div {
 	padding: 20px 0;
 }
 
+span.success-icon {
+	color: #090;
+}
+span.failed-icon {
+	color: #900;
+}
+
 img.grayscale, input[type="image"].grayscale {
 	filter: grayscale(1);
 	-webkit-filter: grayscale(1);

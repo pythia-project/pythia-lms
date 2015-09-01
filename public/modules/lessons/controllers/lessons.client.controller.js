@@ -68,31 +68,35 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 	};
 
 	// Find existing lesson
+	// Build a problem
 	var buildProblem = function(index, problem) {
-		var content = '<div class="panel panel-default"><div class="panel-heading"><b>Problem ' + index + '</b>: ' + problem.name + '<span class="pull-right"><i>(' + problem.points + ' points)</i></span></div>';
-		content += '<div class="panel-body" id="problem-p' + index + '">' + problem.description;
-		content += '<div class="text-right">';
+		var content = '<div class="panel panel-default"><div class="panel-heading"><b>Problem ' + index + '</b>: ' + problem.name + '<span class="pull-right"><i>(' + problem.points + ' points)</i>';
+		content += ' <span style="display: none" id="success-p' + index + '" class="glyphicon glyphicon-ok success-icon" aria-hidden="true"></span>';
+		content += ' <span style="display: none" id="failed-p' + index + '" class="glyphicon glyphicon-remove failed-icon" aria-hidden="true"></span>';
+		content += '</span></div><div class="panel-body" id="problem-p' + index + '">' + problem.description + '<div class="text-right">';
 		if ($scope.registration !== null) {
 			content += '<a id="submit-p' + index + '" href="#" onclick="angular.element(document.getElementById(\'lessoncontent\')).scope().submitProblem(' + index + ');event.preventDefault();" class="btn btn-primary">Submit</a>';
 		}
-		content += '</div><div id="feedback-p' + index + '" class="feedback">' +
-		'</div>';
-		content += '</div></div>';
+		content += '</div><div id="feedback-p' + index + '" class="feedback"></div></div></div>';
 		return content;
 	};
+	// Update the progress and success/failed icons
 	var updateProgress = function() {
 		var score = 0;
 		var nbSucceeded = 0;
 		// If admin and not registered, registration will be null
 		if ($scope.registration !== null && $scope.registration.sequences.length > 0) {
 			for (var i = 1; i <= $scope.lesson.problems.length; i++) {
-				var problem = $scope.registration.sequences[$stateParams.sequenceIndex - 1].lessons[$stateParams.lessonIndex - 1].problems[i];
+				var problem = $scope.registration.sequences[$stateParams.sequenceIndex - 1].lessons[$stateParams.lessonIndex - 1].problems[i - 1];
 				if (problem !== undefined) {
 					score += problem.score;
 					if (problem.submissions.length > 0) {
-						if (problem.submissions[problem.submissions.length - 1].status === 'success') {
+						var succeeded = problem.submissions[problem.submissions.length - 1].status === 'success';
+						if (succeeded) {
 							nbSucceeded++;
 						}
+						$('#success-p' + i).css('display', succeeded ? 'inline-block' : 'none');
+						$('#failed-p' + i).css('display', succeeded ? 'none' : 'inline-block');
 					}
 				}
 			}
@@ -110,14 +114,14 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			// Get the registration information
 			$http.get('/registrations/' + $stateParams.courseSerial).success(function(data, status, header, config) {
 				$scope.registration = data;
-				// Update progress and score information
-				updateProgress();
 				// Generate the context, replacing placeholders with problems
 				var content = $scope.lesson.context;
 				for (var i = 1; i <= $scope.lesson.problems.length; i++) {
 					content = content.replace('[[' + i + ']]', buildProblem(i, $scope.lesson.problems[i - 1]));
 				}
 				$scope.lessonContext = $sce.trustAsHtml(content);
+				// Update progress and score information
+				updateProgress();
 			});
 		});
 	};
