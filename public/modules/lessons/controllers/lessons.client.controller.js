@@ -71,9 +71,11 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 	var buildProblem = function(index, problem) {
 		var content = '<div class="panel panel-default"><div class="panel-heading"><b>Problem ' + index + '</b>: ' + problem.name + '<span class="pull-right"><i>(' + problem.points + ' points)</i></span></div>';
 		content += '<div class="panel-body" id="problem-p' + index + '">' + problem.description;
-		content += '<div class="text-right">' +
-			'<a id="submit-p' + index + '" href="#" onclick="angular.element(document.getElementById(\'lessoncontent\')).scope().submitProblem(' + index + ');event.preventDefault();" class="btn btn-primary">Submit</a>' +
-			'</div><div id="feedback-p' + index + '" class="feedback">' +
+		content += '<div class="text-right">';
+		if ($scope.registration !== null) {
+			content += '<a id="submit-p' + index + '" href="#" onclick="angular.element(document.getElementById(\'lessoncontent\')).scope().submitProblem(' + index + ');event.preventDefault();" class="btn btn-primary">Submit</a>';
+		}
+		content += '</div><div id="feedback-p' + index + '" class="feedback">' +
 		'</div>';
 		content += '</div></div>';
 		return content;
