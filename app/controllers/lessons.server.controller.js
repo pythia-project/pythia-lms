@@ -258,9 +258,12 @@ exports.submit = function(req, res) {
 							// Get the problem
 							var problem = getProblem(user.registrations, course, req.params.sequenceIndex, req.params.lessonIndex, req.params.problemIndex);
 							problem.submissions.push({
-								status: status,
-								answer: req.body.input,
-								feedback: output.feedback
+								'status': status,
+								'answer': req.body.input,
+								'feedback': {
+									'message': message,
+									'raw': output.feedback
+								}
 							});
 							// Set the score
 							problem.score = score;
