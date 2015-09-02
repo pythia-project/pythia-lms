@@ -10,7 +10,8 @@ module.exports = function(app) {
 		.post(users.requiresLogin, users.hasAuthorization(['admin']), problems.create);
 
 	app.route('/problems/:problemId')
-		.get(users.requiresLogin, users.hasAuthorization(['admin']), problems.read);
+		.get(users.requiresLogin, users.hasAuthorization(['admin']), problems.read)
+		.put(users.requiresLogin, users.hasAuthorization(['admin']), problems.update);
 
 	// Finish by binding the problem middleware
 	app.param('problemId', problems.problemByID);

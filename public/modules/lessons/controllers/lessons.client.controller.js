@@ -83,7 +83,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		}
 		// Get the feedback
 		$feedback.html(message);
-	}
+	};
 	// Build a problem
 	var buildProblem = function(index, problem) {
 		// Build the content

@@ -17,7 +17,6 @@ angular.module('problems').controller('ProblemsController', ['$scope', '$statePa
 			authors: authors,
 			task: this.task
 		});
-
 		// Redirect after save
 		problem.$save(function(response) {
 			$location.path('problems/' + response._id);
@@ -37,6 +36,21 @@ angular.module('problems').controller('ProblemsController', ['$scope', '$statePa
 
 	// Update existing problem
 	$scope.update = function() {
+		var problem = $scope.problem;
+		// Get list of authors
+		var authors = [];
+		for (var i = 0; i < problem.authors.length; i++) {
+			authors.push(problem.authors[i].text);
+		}
+		problem.authors = authors;
+		// Save the problem
+		problem.$update({
+			'problemId': problem._id
+		}, function() {
+			$location.path('problems/' + problem._id);
+		}, function(errorResponse) {
+			$scope.error = errorResponse.data.message;
+		});
 	};
 
 	// Find a list of problems

@@ -31,6 +31,22 @@ exports.read = function(req, res) {
 	res.jsonp(req.problem);
 };
 
+/**
+ * Update a problem
+ */
+exports.update = function(req, res) {
+	var problem = req.problem;
+	problem = _.extend(problem, req.body);
+	problem.save(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+		res.jsonp(problem);
+	});
+};
+
 
 /**
  * List of problems

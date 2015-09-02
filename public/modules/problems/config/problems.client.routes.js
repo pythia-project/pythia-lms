@@ -15,5 +15,9 @@ angular.module('problems').config(['$stateProvider', function($stateProvider) {
 	.state('viewProblem', {
 		url: '/problems/:problemId',
 		templateUrl: 'modules/problems/views/view-problem.client.view.html'
+	})
+	.state('editProblem', {
+		url: '/problems/:problemId/edit',
+		templateUrl: 'modules/problems/views/edit-problem.client.view.html'
 	});
 }]);
