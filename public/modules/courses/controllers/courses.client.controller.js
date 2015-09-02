@@ -103,7 +103,8 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 	$scope.register = function(index) {
 		var course = $scope.courses[index];
 		$http.post('/courses/' + course.serial + '/register').success(function(data, status, headers, config) {
-			$scope.courses.splice(index, 1);
+			// $scope.courses.splice(index, 1);
+			$('#courses li:nth-child(' + (index + 1) + ') span').html('<span class="success-icon">Registered <i class="glyphicon glyphicon-ok" aria-hidden="true"></i></span>');
 		});
 	};
 
