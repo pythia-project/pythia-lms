@@ -1,45 +1,54 @@
 <section data-ng-controller="CoursesController" data-ng-init="findOne()">
-	<ol class="breadcrumb">
-		<li><a href="#!/courses">Courses</a></li>
-		<li class="active"><a data-ng-href="#!/courses/{{course.serial}}">{{course.serial}}</a></li>
-	</ol>
+	<div data-ng-if="course.$resolved && course._id !== undefined">
+		<ol class="breadcrumb">
+			<li><a href="#!/courses">Courses</a></li>
+			<li class="active"><a data-ng-href="#!/courses/{{course.serial}}">{{course.serial}}</a></li>
+		</ol>
 
-	<h2>Edit course</h2>
+		<h2>Edit course</h2>
 
-	<div class="col-md-12" data-ng-init="initCourseForm()">
-		<form class="form-horizontal" data-ng-submit="update()" novalidate>
-			<fieldset>
-				<div class="form-group">
-					<label class="control-label" for="serial">Serial</label>
-					<div class="controls">
-						<input type="text" data-ng-model="course.serial" id="serial" class="form-control" placeholder="Serial" disabled>
+		<div class="col-md-12" data-ng-init="initCourseForm()">
+			<form class="form-horizontal" data-ng-submit="update()" novalidate>
+				<fieldset>
+					<div class="form-group">
+						<label class="control-label" for="serial">Serial</label>
+						<div class="controls">
+							<input type="text" data-ng-model="course.serial" id="serial" class="form-control" placeholder="Serial" disabled>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label" for="title">Title</label>
-					<div class="controls">
-						<input type="text" data-ng-model="course.title" id="title" class="form-control" placeholder="Title" required>
+					<div class="form-group">
+						<label class="control-label" for="title">Title</label>
+						<div class="controls">
+							<input type="text" data-ng-model="course.title" id="title" class="form-control" placeholder="Title" required>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label" for="coordinators">Coordinators</label>
-					<tags-input data-ng-model="course.coordinators" add-on-blur="false" add-from-autocomplete-only display-property="displayname" placeholder="Add a coordinator">
-						<auto-complete source="loadTeachers($query)" min-length="0"></auto-complete>
-					</tags-input>
-				</div>
-				<div class="form-group">
-					<label class="control-label" for="description">Description</label>
-					<div class="controls">
-						<textarea data-ng-model="course.description" id="description" class="form-control" placeholder="Description"></textarea>
+					<div class="form-group">
+						<label class="control-label" for="coordinators">Coordinators</label>
+						<tags-input data-ng-model="course.coordinators" add-on-blur="false" add-from-autocomplete-only display-property="displayname" placeholder="Add a coordinator">
+							<auto-complete source="loadTeachers($query)" min-length="0"></auto-complete>
+						</tags-input>
 					</div>
-				</div>
-				<div class="form-group">
-					<button type="submit" class="btn btn-primary">Update</button>
-				</div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-			</fieldset>
-		</form>
+					<div class="form-group">
+						<label class="control-label" for="description">Description</label>
+						<div class="controls">
+							<textarea data-ng-model="course.description" id="description" class="form-control" placeholder="Description"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">Update</button>
+					</div>
+					<div data-ng-show="error" class="text-danger">
+						<strong data-ng-bind="error"></strong>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+	<div data-ng-if="course.$resolved && course._id === undefined">
+		<h2>Error</h2>
+		<div class="alert alert-danger" role="alert">
+			You are not allowed to access this course.
+		</div>
 	</div>
 </section>
