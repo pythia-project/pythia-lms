@@ -21,7 +21,7 @@ module.exports = function() {
 	passport.deserializeUser(function(id, done) {
 		User.findOne({
 			_id: id
-		}, '-salt -password -registrations -provider -username -created -email -__v', function(err, user) {
+		}, '-salt -password -registrations -provider -created -__v -resetPasswordToken -resetPasswordExpires', function(err, user) {
 			done(err, user);
 		});
 	});
