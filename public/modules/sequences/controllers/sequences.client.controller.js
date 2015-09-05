@@ -1,7 +1,7 @@
 'use strict';
 
 // Sequences controller
-angular.module('sequences').controller('SequencesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Courses', 'Sequences', function($scope, $stateParams, $location, Authentication, Courses, Sequences) {
+angular.module('sequences').controller('SequencesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Courses', 'Sequences', '$http', function($scope, $stateParams, $location, Authentication, Courses, Sequences, $http) {
 	$scope.authentication = Authentication;
 
 	// Create new sequence
@@ -64,6 +64,11 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 		$scope.sequence = Sequences.get({
 			courseSerial: $stateParams.courseSerial,
 			sequenceIndex: $stateParams.sequenceIndex
+		}, function() {
+			// Get the registration information
+			$http.get('/registrations/' + $stateParams.courseSerial).success(function(data, status, header, config) {
+				$scope.registration = data;
+			});
 		});
 	};
 
