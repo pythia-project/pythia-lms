@@ -21,7 +21,7 @@
 		"jasmine": true,
 		"angular": true,
 		"ApplicationConfiguration": true,
-		"moment": false,
+		"moment": true,
 		"$": false
 	},
 	"predef": [ // Extra globals.
