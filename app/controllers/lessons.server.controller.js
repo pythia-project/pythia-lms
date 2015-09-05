@@ -156,7 +156,7 @@ exports.hasAuthorization = function(req, res, next) {
 /*
  * Submit a problem
  */
-var getProblem = function(registrations, course, sequenceIndex, lessonIndex, problemIndex) {
+var getRegistration = function(registrations, course, sequenceIndex, lessonIndex, problemIndex) {
 	// Get the registration for the specified course
 	var registration = null;
 	for (var i = 0; i < registrations.length; i++) {
@@ -180,7 +180,7 @@ var getProblem = function(registrations, course, sequenceIndex, lessonIndex, pro
 	while (lesson.problems.length < problemIndex) {
 		lesson.problems.push([]);
 	}
-	return lesson.problems[problemIndex - 1];
+	return registration;
 };
 exports.submit = function(req, res) {
 	// Check course
@@ -256,7 +256,10 @@ exports.submit = function(req, res) {
 						// Get registration for this course
 						User.findById(req.user._id, function(err, user) {
 							// Get the problem
-							var problem = getProblem(user.registrations, course, req.params.sequenceIndex, req.params.lessonIndex, req.params.problemIndex);
+							var registration = getRegistration(user.registrations, course, req.params.sequenceIndex, req.params.lessonIndex, req.params.problemIndex);
+							var sequence = registration.sequences[req.params.sequenceIndex - 1];
+							var lesson = sequence.lessons[req.params.lessonIndex - 1];
+							var problem = lesson.problems[req.params.problemIndex - 1];
 							problem.submissions.push({
 								'status': status,
 								'answer': req.body.input,
@@ -267,6 +270,13 @@ exports.submit = function(req, res) {
 							});
 							// Set the score
 							problem.score = score;
+							// Check if lesson succeeded
+							var succeeded = true;
+							for (var i = 0; i < lesson.problems.length && succeeded; i++) {
+								var s = lesson.problems[i].submissions;
+								succeeded = ! (s.length === 0 || s[s.length - 1].status !== 'success');
+							}
+							lesson.succeeded = succeeded;
 							// Save submission in database
 							user.save(function(err) {
 								if (err) {
