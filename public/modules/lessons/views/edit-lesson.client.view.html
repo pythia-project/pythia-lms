@@ -51,6 +51,12 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="control-label">Problems</label>
+						<div class="list-group">
+							<a data-ng-repeat="i in getNumber(lesson.problems.length) track by $index" class="list-group-item" data-ng-href="#!/problems/{{lesson.problems[$index]._id}}">{{($index + 1) + ': ' + lesson.problems[$index].name}}</a>
+						</div>
+					</div>
+					<div class="form-group">
 						<button type="submit" class="btn btn-primary">Update</button>
 					</div>
 					<div data-ng-show="error" class="text-danger">
