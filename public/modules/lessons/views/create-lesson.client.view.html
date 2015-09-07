@@ -7,7 +7,7 @@
 
 	<h2>New lesson</h2>
 	
-	<div class="col-md-12">
+	<div class="col-md-12" data-ng-init="initLessonForm()">
 		<form class="form-horizontal" data-ng-submit="create()" novalidate>
 			<fieldset>
 				<div class="form-group">
@@ -47,6 +47,12 @@
 					<div class="controls">
 						<textarea data-ng-model="context" id="context" class="form-control" placeholder="Context" rows="10"></textarea>
 					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="problems">Problems</label>
+					<tags-input data-ng-model="problems" add-on-blur="false" add-from-autocomplete-only display-property="name" placeholder="Add a problem">
+						<auto-complete source="loadProblems($query)" min-length="0"></auto-complete>
+					</tags-input>
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary">Create</button>

@@ -1,20 +1,27 @@
 'use strict';
 
 // Lessons controller
-angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Sequences', 'Lessons', '$sce', '$http', function($scope, $stateParams, $location, Authentication, Sequences, Lessons, $sce, $http) {
+angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Sequences', 'Lessons', '$sce', '$http', '$filter', function($scope, $stateParams, $location, Authentication, Sequences, Lessons, $sce, $http, $filter) {
 	$scope.authentication = Authentication;
 	$scope.submissionInProgress = [];
 	$scope.progress = 0;
 	$scope.score = 0;
+	$scope.problems = [];
+	var problemsList = [];
 
 	// Create new lesson
 	$scope.create = function() {
 		// Create new lesson object
+		var problemsIDs = [];
+		for (var i = 0; i < this.problems.length; i++) {
+			problemsIDs.push(this.problems[i]._id);
+		}
 		var lesson = new Lessons ({
 			name: this.name,
 			start: this.start,
 			end: this.end,
 			context: this.context,
+			problems: problemsIDs,
 			courseSerial: $scope.courseSerial,
 			sequenceIndex: $scope.sequenceIndex
 		});
@@ -67,6 +74,18 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		$scope.lessons = Lessons.query();
 	};
 
+	// Load the list of problems, for autocompletion of problems field
+	$scope.initLessonForm = function() {
+		$http.get('/problems').success(function(data, status, headers, config) {
+			problemsList = data;
+		});
+	};
+
+	// Filter list of available problems
+	$scope.loadProblems = function(query) {
+		return $filter('filter')(problemsList, query);
+	};
+
 	// Find existing lesson
 	// Show feedback
 	var showFeedback = function($feedback, status, message) {
@@ -98,8 +117,8 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		// If submission, update the form to the last submission
 		if ($scope.registration !== null && $scope.registration.sequences.length > 0) {
 			var $content = $(content);
-			var p = $scope.registration.sequences[$stateParams.sequenceIndex - 1].lessons[$stateParams.lessonIndex - 1].problems[index - 1];
-			if (p !== undefined) {
+			var p = getProblem($scope.registration, $stateParams.sequenceIndex, $stateParams.lessonIndex, index);
+			if (p !== undefined && p.submissions.length > 0) {
 				var lastsubmission = p.submissions[p.submissions.length - 1];
 				// Success/fail icon
 				var succeeded = lastsubmission.status === 'success';

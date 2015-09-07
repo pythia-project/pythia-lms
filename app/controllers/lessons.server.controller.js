@@ -31,7 +31,8 @@ exports.create = function(req, res) {
 			'name': req.body.name,
 			'start': req.body.start,
 			'end': req.body.end,
-			'context': req.body.context
+			'context': req.body.context,
+			'problems': req.body.problems
 		});
 		lesson.user = req.user;
 		lesson.save(function(err) {
