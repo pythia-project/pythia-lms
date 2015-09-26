@@ -45,8 +45,8 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your email.'],
-		match: [/.+\@.+\..+/, 'Please fill a valid email address.']
+		validate: [validateLocalStrategyProperty, 'Please fill in your email address.'],
+		match: [/.+\@.+\..+/, 'Please fill in a valid email address.']
 	},
 	username: {
 		type: String,
@@ -57,7 +57,7 @@ var UserSchema = new Schema({
 	password: {
 		type: String,
 		default: '',
-		validate: [validateLocalStrategyPassword, 'Password should be longer.']
+		validate: [validateLocalStrategyPassword, 'Password should contain at least six characters.']
 	},
 	salt: {
 		type: String
@@ -72,75 +72,6 @@ var UserSchema = new Schema({
 			enum: ['user', 'teacher', 'admin']
 		}],
 		default: ['user']
-	},
-	registrations: {
-		type: [new Schema({
-			course: {
-				type: Schema.ObjectId,
-				ref: 'Course'
-			},
-			registered: {
-				type: Date,
-				default: Date.now
-			},
-			sequences: {
-				type: [new Schema({
-					lessons: {
-						type: [new Schema({
-							problems: {
-								type: [new Schema({
-									submissions: {
-										type: [new Schema({
-											status: {
-												type: String
-											},
-											answer: {
-												type: String
-											},
-											feedback: {
-												type: {}
-											},
-											submitted: {
-												type: Date,
-												default: Date.now
-											}
-										}, {
-											id: false,
-											_id: false
-										})],
-										default: []
-									},
-									score: {
-										type: Number,
-										default: 0
-									}
-								}, {
-									id: false,
-									_id: false
-								})],
-								default: []
-							},
-							succeeded: {
-								type: Boolean,
-								default: false
-							}
-						}, {
-							id: false,
-							_id: false
-						})],
-						default: []
-					}
-				}, {
-					id: false,
-					_id: false
-				})],
-				default: []
-			}
-		}, {
-			id: false,
-			_id: false
-		})],
-		default: []
 	},
 	picture: {
 		type: Boolean,
@@ -201,8 +132,8 @@ UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
 	_this.findOne({
 		username: possibleUsername
 	}, function(err, user) {
-		if (!err) {
-			if (!user) {
+		if (! err) {
+			if (! user) {
 				callback(possibleUsername);
 			} else {
 				return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);
