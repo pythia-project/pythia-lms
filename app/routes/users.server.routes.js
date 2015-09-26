@@ -14,6 +14,8 @@ module.exports = function(app) {
 		.put(users.requiresLogin, users.update);
 	app.route('/users/:username')
 		.get(users.requiresLogin, users.hasAuthorization(['admin']), users.read);
+	app.route('/users/:username/switchactive')
+		.post(users.requiresLogin, users.hasAuthorization(['admin']), users.switchActive);
 
 	// Setting up the users password api
 	app.route('/users/password').post(users.changePassword);

@@ -20,7 +20,7 @@ exports.read = function(req, res) {
  * List of users
  */
 exports.list = function(req, res) {
-	User.find({}, 'firstname lastname displayname username picture').exec(function(err, users) {
+	User.find({}, 'firstname lastname displayname username picture active').exec(function(err, users) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -40,5 +40,28 @@ exports.userByUsername = function(req, res, next, username) {
 		}
 		req.userprofile = user;
 		next();
+	});
+};
+
+/**
+ * Switch the active status of a user
+ */
+exports.switchActive = function(req, res, next) {
+	var username = req.userprofile.username;
+	User.findOne({'username': username}, 'username active').exec(function(err, user) {
+		if (err || ! user) {
+			return errorHandler.getLoadErrorMessage(err, 'user', username, next);
+		}
+		user.active = ! user.active;
+		user.save(function(err) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			}
+			res.jsonp({
+				'active': user.active
+			});
+		});
 	});
 };

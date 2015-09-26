@@ -15,4 +15,11 @@ angular.module('users').controller('UsersController', ['$scope', '$stateParams',
 			username: $stateParams.username
 		});
 	};
+
+	// Change the active status of a user
+	$scope.changeActive = function(user) {
+		$http.post('/users/' + user.username + '/switchactive').success(function(data, status, headers, config) {
+			user.active = data.active;
+		});
+	};
 }]);

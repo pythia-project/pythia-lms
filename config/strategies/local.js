@@ -29,6 +29,11 @@ module.exports = function() {
 						message: 'Unknown user or invalid password.'
 					});
 				}
+				if (! user.active) {
+					return done(null, false, {
+						message: 'User account is not active yet.'
+					});
+				}
 
 				return done(null, user);
 			});
