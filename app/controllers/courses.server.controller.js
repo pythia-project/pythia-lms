@@ -6,7 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Course = mongoose.model('Course'),
-	User = mongoose.model('User'),
+	Registration = mongoose.model('Registration'),
 	_ = require('lodash');
 
 /**
@@ -88,12 +88,12 @@ exports.list = function(req, res) {
 						message: errorHandler.getErrorMessage(err)
 					});
 				}
-				User.findById(req.user._id, 'registrations', function(err, user) {
-					if (err || ! user) {
-						return errorHandler.getLoadErrorMessage(err, 'user', req.user._id);
+				Registration.find({'user': req.user.id}, function(err, registrations) {
+					if (err) {
+						return errorHandler.getLoadErrorMessage(err, 'registration', 'for user ' + req.user.id);
 					}
 					res.jsonp(courses.filter(function(value) {
-						return ! user.registrations.some(function(element, index, array) {
+						return ! registrations.some(function(element, index, array) {
 							return element.course.toString() === value.id;
 						});
 					}));
@@ -103,22 +103,15 @@ exports.list = function(req, res) {
 
 		// Get courses the user is registered to
 		case 'registered':
-			User.findById(req.user._id, 'registrations', function(err, user) {
-				if (err || ! user) {
-					return errorHandler.getLoadErrorMessage(err, 'user', req.user._id);
+			Registration.find({'user': req.user.id}).populate('course', 'serial title visible').exec(function(err, registrations) {
+				if (err) {
+					return errorHandler.getLoadErrorMessage(err, 'registration', 'for user ' + req.user.id);
 				}
-				User.populate(user, {path: 'registrations.course', select: 'serial title', model: 'Course'}, function(err, user) {
-					if (err) {
-						return res.status(400).send({
-							message: errorHandler.getErrorMessage(err)
-						});
-					}
-					var courses = [];
-					for (var i = 0; i < user.registrations.length; i++) {
-						courses.push(user.registrations[i].course);
-					}
-					res.jsonp(courses);
-				});
+				var courses = [];
+				for (var i = 0; i < registrations.length; i++) {
+					courses.push(registrations[i].course);
+				}
+				res.jsonp(courses);
 			});
 		return;
 	}
@@ -128,14 +121,6 @@ exports.list = function(req, res) {
 /**
  * Course middleware
  */
-var findRegistration = function(registrations, course) {
-	for (var i = 0; i < registrations.length; i++) {
-		if (registrations[i].course.toString() === course.id) {
-			return registrations[i];
-		}
-	}
-	return null;
-};
 exports.courseBySerial = function(req, res, next, serial) {
 	Course.findOne({'serial': serial}, '_id serial title coordinators description sequences user').populate('coordinators', 'displayname').populate('sequences', 'name start end').exec(function(err, course) {
 		if (err || ! course) {
@@ -143,11 +128,11 @@ exports.courseBySerial = function(req, res, next, serial) {
 		}
 		req.course = course;
 		// Load registration to this course, if any
-		User.findById(req.user._id, 'registrations', function(err, user) {
-			if (err || ! user) {
-				return errorHandler.getLoadErrorMessage(err, 'user', req.user._id, next);
+		Registration.findOne({'course': course.id, 'user': req.user.id}, function(err, registration) {
+			if (err) {
+				return errorHandler.getLoadErrorMessage(err, 'registration', 'for course ' + course.id + ' and user ' + req.user.id, next);
 			}
-			req.registration = findRegistration(user.registrations, course);
+			req.registration = registration;
 			next();
 		});
 	});
@@ -196,26 +181,27 @@ exports.register = function(req, res, next) {
 			});
 		}
 		// Get the registrations
-		User.findById(req.user._id, 'registrations', function(err, user) {
-			if (err || ! user) {
+		Registration.findOne({'course': course.id, 'user': req.user.id}, function(err, registration) {
+			if (err) {
 				return res.status(400).send({
-					message: errorHandler.getLoadErrorMessage(err, 'user', req.user._id, next)
+					message: errorHandler.getLoadErrorMessage(err, 'registration', 'for course ' + course.id + ' and user ' + req.user.id, next)
 				});
 			}
 			// Find if already registered
-			if (findRegistration(user.registrations, course) !== null) {
+			if (registration !== null) {
 				return res.status(400).send('User is already registered.');
 			}
-			user.registrations.push({
-				'course': course._id
+			registration = new Registration({
+				'course': course,
+				'user': req.user
 			});
-			user.save(function(err) {
+			registration.save(function(err) {
 				if (err) {
 					return res.status(400).send({
 						message: errorHandler.getErrorMessage(err)
 					});
 				}
-				res.jsonp(user.registrations[user.registrations.length - 1]);
+				res.jsonp(registration);
 			});
 		});
 	});
