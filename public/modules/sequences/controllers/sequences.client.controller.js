@@ -69,15 +69,17 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 			// Get the registration information
 			$http.get('/registrations/' + $stateParams.courseSerial).success(function(data, status, header, config) {
 				$scope.registration = data;
-				// Compute the total score
-				var sequence = $scope.registration.sequences[$scope.sequenceIndex - 1];
-				var nbSucceeded = 0;
-				for (var i = 0; i < sequence.lessons.length; i++) {
-					if (sequence.lessons[i].succeeded) {
-						nbSucceeded++;
+				if ($scope.registration !== null) {
+					// Compute the total score
+					var sequence = $scope.registration.sequences[$scope.sequenceIndex - 1];
+					var nbSucceeded = 0;
+					for (var i = 0; i < sequence.lessons.length; i++) {
+						if (sequence.lessons[i].succeeded) {
+							nbSucceeded++;
+						}
 					}
+					$scope.progress = Math.round(nbSucceeded / $scope.sequence.lessons.length * 100.0);
 				}
-				$scope.progress = Math.round(nbSucceeded / $scope.sequence.lessons.length * 100.0);
 			});
 		});
 	};

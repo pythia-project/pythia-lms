@@ -36,7 +36,7 @@
 							<dt>End date</dt>
 							<dd>{{sequence.end | amDateFormat:'ddd, D MMM YYYY, H:mm'}}</dd>
 						</dl>
-						<dl>
+						<dl data-ng-if="registration !== null">
 							<dt>Progress</dt>
 							<dd>
 								<progressbar animate="false" max="100" value="progress" type="primary"><span data-ng-hide="progress < 15" data-ng-bind="progress + '%'"></span></progressbar>
