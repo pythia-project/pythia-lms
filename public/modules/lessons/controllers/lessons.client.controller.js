@@ -231,7 +231,6 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			$feedback.html('');
 			// Send the submission request to the server
 			var $form = $('#problem-p' + index + ' form');
-			console.log(serializeFormToJSON($form));
 			$http.post('/courses/' + $scope.courseSerial + '/sequences/' + $scope.sequenceIndex + '/lessons/' + $scope.lessonIndex + '/problems/' + index + '/submit', {'input': serializeFormToJSON($form)}).success(function(data, status, headers, config) {
 				showFeedback($feedback, data.status, data.message);
 				// Update scope objects
