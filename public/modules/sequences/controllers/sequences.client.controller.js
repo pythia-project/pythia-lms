@@ -69,7 +69,7 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 			// Get the registration information
 			$http.get('/registrations/' + $stateParams.courseSerial).success(function(data, status, header, config) {
 				$scope.registration = data;
-				if ($scope.registration !== null) {
+				if ($scope.registration !== null && $scope.registration.sequences.length >= $scope.sequenceIndex) {
 					// Compute the total score
 					var sequence = $scope.registration.sequences[$scope.sequenceIndex - 1];
 					var nbSucceeded = 0;

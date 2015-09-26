@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
 	Sequence = mongoose.model('Sequence'),
 	Lesson = mongoose.model('Lesson'),
 	Problem = mongoose.model('Problem'),
-	User = mongoose.model('User'),
+	Registration = mongoose.model('Registration'),
 	_ = require('lodash'),
 	moment = require('moment');
 
@@ -157,15 +157,7 @@ exports.hasAuthorization = function(req, res, next) {
 /*
  * Submit a problem
  */
-var getRegistration = function(registrations, course, sequenceIndex, lessonIndex, problemIndex) {
-	// Get the registration for the specified course
-	var registration = null;
-	for (var i = 0; i < registrations.length; i++) {
-		registration = registrations[i];
-		if (registration.course.toString() === course._id) {
-			break;
-		}
-	}
+var getRegistration = function(registration, course, sequenceIndex, lessonIndex, problemIndex) {
 	// Fill the registration object if necessary
 	// Get the sequence
 	while (registration.sequences.length < sequenceIndex) {
@@ -255,9 +247,9 @@ exports.submit = function(req, res) {
 						}
 						// Save submission in user
 						// Get registration for this course
-						User.findById(req.user._id, function(err, user) {
+						Registration.findOne({'course': course.id, 'user': req.user.id}, function(err, registration) {
 							// Get the problem
-							var registration = getRegistration(user.registrations, course, req.params.sequenceIndex, req.params.lessonIndex, req.params.problemIndex);
+							registration = getRegistration(registration, course, req.params.sequenceIndex, req.params.lessonIndex, req.params.problemIndex);
 							var sequence = registration.sequences[req.params.sequenceIndex - 1];
 							var lesson = sequence.lessons[req.params.lessonIndex - 1];
 							var problem = lesson.problems[req.params.problemIndex - 1];
@@ -279,7 +271,7 @@ exports.submit = function(req, res) {
 							}
 							lesson.succeeded = succeeded;
 							// Save submission in database
-							user.save(function(err) {
+							registration.save(function(err) {
 								if (err) {
 									return res.status(400).send({
 										message: errorHandler.getErrorMessage(err)

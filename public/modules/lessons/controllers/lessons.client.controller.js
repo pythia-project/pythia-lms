@@ -109,11 +109,11 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		var content = '<div><div class="panel panel-default problem"><div class="panel-heading"><b>Problem ' + index + '</b>: ' + problem.name + '<span class="pull-right"><i>(' + problem.points + ' points)</i>';
 		content += ' <span style="display: none" id="success-p' + index + '" class="glyphicon glyphicon-ok success-icon" aria-hidden="true"></span>';
 		content += ' <span style="display: none" id="failed-p' + index + '" class="glyphicon glyphicon-remove failed-icon" aria-hidden="true"></span>';
-		content += '</span></div><div class="panel-body" id="problem-p' + index + '">' + problem.description + '<div class="text-right">';
+		content += '</span></div><div class="panel-body" id="problem-p' + index + '"><form>' + problem.description + '<div class="text-right">';
 		if ($scope.registration !== null) {
 			content += '<a id="submit-p' + index + '" href="#" onclick="angular.element(document.getElementById(\'lessoncontent\')).scope().submitProblem(' + index + ');event.preventDefault();" class="btn btn-primary">Submit</a>';
 		}
-		content += '</div><div id="feedback-p' + index + '" class="feedback"></div></div></div></div>';
+		content += '</div><div id="feedback-p' + index + '" class="feedback"></div></form></div></div></div>';
 		// If submission, update the form to the last submission
 		if ($scope.registration !== null && $scope.registration.sequences.length > 0) {
 			var $content = $(content);
@@ -231,6 +231,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			$feedback.html('');
 			// Send the submission request to the server
 			var $form = $('#problem-p' + index + ' form');
+			console.log(serializeFormToJSON($form));
 			$http.post('/courses/' + $scope.courseSerial + '/sequences/' + $scope.sequenceIndex + '/lessons/' + $scope.lessonIndex + '/problems/' + index + '/submit', {'input': serializeFormToJSON($form)}).success(function(data, status, headers, config) {
 				showFeedback($feedback, data.status, data.message);
 				// Update scope objects
