@@ -23,6 +23,9 @@ module.exports = function(app) {
 	app.route('/courses/:courseSerial/register')
 		.post(users.requiresLogin, courses.isRegistered(false), courses.register);
 
+	app.route('/courses/:courseSerial/registrations')
+		.get(users.requiresLogin, courses.hasAuthorization, courses.getRegistrations);
+
 	// Finish by binding the course middleware
 	app.param('courseSerial', courses.courseBySerial);
 };

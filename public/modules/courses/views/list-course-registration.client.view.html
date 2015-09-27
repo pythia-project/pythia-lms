@@ -1,0 +1,25 @@
+<section data-ng-controller="CoursesController" data-ng-init="findRegistrations()">
+	<div data-ng-if="registrations !== null && course._id !== undefined">
+		<ol class="breadcrumb">
+			<li><a href="#!/courses">Courses</a></li>
+			<li><a data-ng-href="#!/courses/{{course.serial}}" data-ng-bind="course.serial"></a></li>
+			<li class="active"><a data-ng-href="#!/courses/{{course.serial}}/registrations">Registrations</a></li>
+		</ol>
+
+		<h2 data-ng-bind="course.title"></h2>
+
+		<ul data-ng-if="registrations.length > 0" class="list-group">
+			<li data-ng-repeat="registration in registrations | orderBy: '+user.lastname'" class="list-group-item"><img data-ng-src="/images/users/{{user._id}}.jpg" width="25" height="25" class="iconuserpic" data-ng-if="user.picture" /> {{registration.user.firstname}} {{registration.user.lastname}}</li>
+		</ul>
+		<div data-ng-if="registrations.length === 0" class="alert alert-warning" role="alert">
+			No registered users yet.
+		</div>
+	</div>
+
+	<div data-ng-if="registrations !== null && course._id === undefined">
+		<h2>Error</h2>
+		<div class="alert alert-danger" role="alert">
+			You are not allowed to access this page.
+		</div>
+	</div>
+</section>

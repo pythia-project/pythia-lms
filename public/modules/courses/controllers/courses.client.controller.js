@@ -1,7 +1,7 @@
 'use strict';
 
 // Courses controller
-angular.module('courses').controller('CoursesController', ['$scope', '$stateParams', '$location', '$http', '$filter', 'Authentication', 'Courses', function($scope, $stateParams, $location, $http, $filter, Authentication, Courses) {
+angular.module('courses').controller('CoursesController', ['$scope', '$stateParams', '$location', '$http', '$filter', 'Authentication', 'Courses', '$q', function($scope, $stateParams, $location, $http, $filter, Authentication, Courses, $q) {
 	$scope.authentication = Authentication;
 	$scope.coordinators = [];
 	var teachersList = [];
@@ -76,6 +76,15 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 			$http.get('/registrations/' + $stateParams.courseSerial).success(function(data, status, header, config) {
 				$scope.registration = data;
 			});
+		});
+	};
+
+	// Find registrations for a course
+	$scope.findRegistrations = function() {
+		$scope.registrations = null;
+		$http.get('/courses/' + $stateParams.courseSerial + '/registrations').success(function(data, status, header, config) {
+			$scope.course = data.course;
+			$scope.registrations = data.registrations;
 		});
 	};
 

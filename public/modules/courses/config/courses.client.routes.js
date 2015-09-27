@@ -27,5 +27,9 @@ angular.module('courses').config(['$stateProvider', function($stateProvider) {
 	.state('editCourse', {
 		url: '/courses/:courseSerial/edit',
 		templateUrl: 'modules/courses/views/edit-course.client.view.html'
+	})
+	.state('listCourseRegistrations', {
+		url: '/courses/:courseSerial/registrations',
+		templateUrl: 'modules/courses/views/list-course-registration.client.view.html'
 	});
 }]);

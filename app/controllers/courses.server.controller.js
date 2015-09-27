@@ -146,6 +146,21 @@ exports.getRegistration = function(req, res) {
 };
 
 /**
+ * Get all the registrations to a course
+ */
+exports.getRegistrations = function(req, res) {
+	Registration.find({'course': req.course}, 'user').populate('user', 'firstname lastname').exec(function(err, registrations) {
+		if (err) {
+			return errorHandler.getLoadErrorMessage(err, 'registration', 'for course ' + req.course.id);
+		}
+		res.jsonp({
+			'registrations': registrations,
+			'course': req.course
+		});
+	});
+};
+
+/**
  * Switch the visibility of a course
  */
 exports.switchVisibility = function(req, res, next) {
