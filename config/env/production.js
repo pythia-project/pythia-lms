@@ -9,8 +9,7 @@ module.exports = {
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
 				'public/lib/ng-tags-input/ng-tags-input.css',
 				'public/lib/ng-tags-input/ng-tags-input.bootstrap.css',
-				'public/lib/angular-bootstrap-datetimepicker/src/css/datetimepicker.css',
-				'public/lib/allmighty-autocomplete/style/autocomplete.css'
+				'public/lib/angular-bootstrap-datetimepicker/src/css/datetimepicker.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
@@ -35,8 +34,7 @@ module.exports = {
 				'public/lib/jquery/dist/jquery.js',
 				'public/lib/ng-tags-input/ng-tags-input.js',
 				'public/lib/bootstrap/dist/js/bootstrap.js',
-				'public/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.js',
-				'public/lib/allmighty-autocomplete/script/autocomplete.js'
+				'public/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.js'
 			]
 		},
 		css: 'public/dist/application.min.css',
