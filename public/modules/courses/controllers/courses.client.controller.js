@@ -1,10 +1,11 @@
 'use strict';
 
 // Courses controller
-angular.module('courses').controller('CoursesController', ['$scope', '$stateParams', '$location', '$http', '$filter', 'Authentication', 'Courses', '$q', function($scope, $stateParams, $location, $http, $filter, Authentication, Courses, $q) {
+angular.module('courses').controller('CoursesController', ['$scope', '$stateParams', '$location', '$http', '$filter', 'Authentication', 'Courses', function($scope, $stateParams, $location, $http, $filter, Authentication, Courses) {
 	$scope.authentication = Authentication;
 	$scope.coordinators = [];
 	var teachersList = [];
+	$scope.studentsList = [];
 
 	// Create new course
 	$scope.create = function() {
@@ -100,6 +101,22 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 		return $filter('filter')(teachersList, query);
 	};
 
+	// Load the list of students, for autocompletion of register student field
+	$scope.initStudentsForm = function() {
+		$http.get('/users').success(function(data, status, headers, config) {
+			$scope.studentsList = data;
+		});
+	};
+
+	// Add a student to the registered students for this course
+	$scope.addStudent = function(student) {
+		if (student !== undefined) {
+			$http.post('/courses/' + $scope.course.serial + '/register', {'student': student}).success(function(data, status, headers, config) {
+				$scope.registrations.push(data);
+			});
+		}
+	};
+
 	// Change the visibility of a course
 	$scope.changeVisibility = function(index) {
 		var course = $scope.courses[index];
@@ -112,7 +129,6 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 	$scope.register = function(index) {
 		var course = $scope.courses[index];
 		$http.post('/courses/' + course.serial + '/register').success(function(data, status, headers, config) {
-			// $scope.courses.splice(index, 1);
 			$('#courses li:nth-child(' + (index + 1) + ') span').html('<span class="success-icon">Registered <i class="glyphicon glyphicon-ok" aria-hidden="true"></i></span>');
 		});
 	};

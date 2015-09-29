@@ -189,6 +189,7 @@ exports.switchVisibility = function(req, res, next) {
 exports.register = function(req, res, next) {
 	// Get the course
 	var serial = req.course.serial;
+	var student = req.body.student !== undefined ? req.body.student : req.user;
 	Course.findOne({'serial': serial}, '_id').exec(function(err, course) {
 		if (err || ! course) {
 			return res.status(400).send({
@@ -196,10 +197,10 @@ exports.register = function(req, res, next) {
 			});
 		}
 		// Get the registrations
-		Registration.findOne({'course': course.id, 'user': req.user.id}, function(err, registration) {
+		Registration.findOne({'course': course.id, 'user': student._id}, function(err, registration) {
 			if (err) {
 				return res.status(400).send({
-					message: errorHandler.getLoadErrorMessage(err, 'registration', 'for course ' + course.id + ' and user ' + req.user.id, next)
+					message: errorHandler.getLoadErrorMessage(err, 'registration', 'for course ' + course.id + ' and user ' + student._id, next)
 				});
 			}
 			// Find if already registered
@@ -208,7 +209,7 @@ exports.register = function(req, res, next) {
 			}
 			registration = new Registration({
 				'course': course,
-				'user': req.user
+				'user': student
 			});
 			registration.save(function(err) {
 				if (err) {
@@ -216,7 +217,14 @@ exports.register = function(req, res, next) {
 						message: errorHandler.getErrorMessage(err)
 					});
 				}
-				res.jsonp(registration);
+				Registration.populate(registration, {path: 'user', select: 'firstname lastname', model: 'User'}, function (err, registration) {
+					if (err) {
+						return res.status(400).send({
+							message: errorHandler.getErrorMessage(err)
+						});
+					}
+					res.jsonp(registration);
+				});
 			});
 		});
 	});
