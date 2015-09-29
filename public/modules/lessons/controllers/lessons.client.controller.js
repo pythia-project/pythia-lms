@@ -176,7 +176,17 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 				for (var i = 1; i <= $scope.lesson.problems.length; i++) {
 					content = content.replace('[[' + i + ']]', buildProblem(i, $scope.lesson.problems[i - 1]));
 				}
-				$scope.lessonContext = $sce.trustAsHtml(content);
+				var $div = $('<div>');
+				$div.append(content);
+				// Replace textarea's with CodeMirror
+				$div.find('textarea[rel="code"]').each(function() {
+					var lang = $(this).attr('data-language');
+					CodeMirror.fromTextArea($(this)[0], {
+						lineNumbers: true,
+						readOnly: true
+					});
+				});
+				$scope.lessonContext = $sce.trustAsHtml($div.html());
 				// Update progress and score information
 				updateProgress();
 			});

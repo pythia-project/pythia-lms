@@ -22,7 +22,8 @@
 		"angular": true,
 		"ApplicationConfiguration": true,
 		"moment": true,
-		"$": false
+		"$": false,
+		"CodeMirror": false
 	},
 	"predef": [ // Extra globals.
 		"define",
