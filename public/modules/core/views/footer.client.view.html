@@ -1,3 +1,12 @@
-<div class="container">
-	By <a href="https://github.com/pythia-project/pythia-lms/blob/master/AUTHORS">the Pythia LMS authors</a>.
+<div class="container" data-ng-controller="LanguageController">
+	{{'BY' | translate}} <a href="https://github.com/pythia-project/pythia-lms/blob/master/AUTHORS">{{'PYTHIA_AUTHORS' | translate}}</a>.
+
+	<div class="pull-right">
+		<form>
+			<ol class="nya-bs-select" data-ng-model="lang">
+				<li class="nya-bs-option" value="en_GB"><a data-ng-click="changeLanguage('en_GB')"><span><span class="flag-gb"></span>English</span></a></li>
+				<li class="nya-bs-option" value="fr_BE"><a data-ng-click="changeLanguage('fr_BE')"><span><span class="flag-be"></span>Français</span></a></li>
+			</ol>
+		</form>
+	</div>
 </div>

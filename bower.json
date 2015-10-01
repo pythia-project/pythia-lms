@@ -19,7 +19,12 @@
 		"angular-bootstrap-datetimepicker": "~0.3.13",
 		"CodeMirror": "~5.7.0",
 		"angular-ui-codemirror": "~0.3.0",
-		"angular-bind-html-compile": "~1.1.0"
+		"angular-bind-html-compile": "~1.1.0",
+		"angular-translate": "~2.8.1",
+		"angular-translate-loader-static-files": "~2.8.1",
+		"angular-translate-storage-cookie": "~2.8.1",
+		"angular-translate-storage-local": "~2.8.1",
+		"nya-bootstrap-select": "~2.0.10"
 	},
 	"resolutions": {
 		"angular": ">=1.4.3"

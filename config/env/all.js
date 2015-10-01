@@ -18,6 +18,7 @@ module.exports = {
 				'public/lib/ng-tags-input/ng-tags-input.css',
 				'public/lib/ng-tags-input/ng-tags-input.bootstrap.css',
 				'public/lib/angular-bootstrap-datetimepicker/src/css/datetimepicker.css',
+				'public/lib/nya-bootstrap-select/dist/css/nya-bs-select.css',
 				'public/lib/CodeMirror/lib/codemirror.css',
 				'public/lib/CodeMirror/theme/neo.css'
 			],
@@ -26,6 +27,7 @@ module.exports = {
 				'public/lib/angular-animate/angular-animate.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 				'public/lib/CodeMirror/lib/codemirror.js',
+				'public/lib/CodeMirror/mode/clike/clike.js',
 				'public/lib/CodeMirror/mode/python/python.js',
 				'public/lib/angular-cookies/angular-cookies.js',
 				'public/lib/angular-mocks/angular-mocks.js',
@@ -45,11 +47,16 @@ module.exports = {
 				'public/lib/angular-ui-utils/index.js',
 				'public/lib/jquery/dist/jquery.js',
 				'public/lib/ng-tags-input/ng-tags-input.js',
-				'public/lib/bootstrap/dist/js/bootstrap.js',
+				'public/lib/nya-bootstrap-select/dist/js/nya-bs-select.js',
 				'public/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.js',
+				'public/lib/bootstrap/dist/js/bootstrap.js',
 				'public/lib/CodeMirror/addon/selection/active-line.js',
 				'public/lib/angular-ui-codemirror/ui-codemirror.js',
-				'public/lib/angular-bind-html-compile/angular-bind-html-compile.js'
+				'public/lib/angular-bind-html-compile/angular-bind-html-compile.js',
+				'public/lib/angular-translate/angular-translate.js',
+				'public/lib/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
+				'public/lib/angular-translate-storage-cookie/angular-translate-storage-cookie.js',
+				'public/lib/angular-translate-storage-local/angular-translate-storage-local.js'
 			]
 		},
 		css: [

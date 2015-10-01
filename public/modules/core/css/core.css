@@ -96,3 +96,12 @@ div.problem {
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
 }
+
+span.flag-gb::before {
+	content:url('/images/gb.png');
+	margin-right: 10px;
+}
+span.flag-be::before {
+	content:url('/images/be.png');
+	margin-right: 10px;
+}
