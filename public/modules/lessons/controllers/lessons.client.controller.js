@@ -109,7 +109,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		var content = '<div><div class="panel panel-default problem"><div class="panel-heading"><b>Problem ' + index + '</b>: ' + problem.name + '<span class="pull-right"><i>(' + problem.points + ' points)</i>';
 		content += ' <span style="display: none" id="success-p' + index + '" class="glyphicon glyphicon-ok success-icon" aria-hidden="true"></span>';
 		content += ' <span style="display: none" id="failed-p' + index + '" class="glyphicon glyphicon-remove failed-icon" aria-hidden="true"></span>';
-		content += '</span></div><div class="panel-body" id="problem-p' + index + '"><form>' + problem.description + '<div class="text-right">';
+		content += '</span></div><div class="panel-body" id="problem-p' + index + '"><form>' + problem.description + '<div class="form-group text-right">';
 		if ($scope.registration !== null) {
 			content += '<a id="submit-p' + index + '" href="#" onclick="angular.element(document.getElementById(\'lessoncontent\')).scope().submitProblem(' + index + ');event.preventDefault();" class="btn btn-primary">Submit</a>';
 		}
