@@ -48,6 +48,7 @@ div.action-box {
 }
 p {
 	text-align: justify;
+	line-height: 1.6em;
 }
 
 div.feedback {
