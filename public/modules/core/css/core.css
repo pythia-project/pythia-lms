@@ -74,6 +74,13 @@ div.problem {
 	background-image: linear-gradient(to bottom, #396B0B 0%, #1A2F07 100%);
 }
 
+/* CodeMirror change */
+.CodeMirror {
+	border: 1px solid #ccc;
+	font-size: 9pt;
+	height: auto;
+}
+
 /* MEAN.js generated */
 
 .undecorated-link:hover {

@@ -17,6 +17,8 @@ module.exports = {
 				'public/lib/angular/angular.js',
 				'public/lib/angular-animate/angular-animate.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+				'public/lib/CodeMirror/lib/codemirror.js',
+				'public/lib/CodeMirror/mode/python/python.js',
 				'public/lib/angular-cookies/angular-cookies.js',
 				'public/lib/angular-mocks/angular-mocks.js',
 				'public/lib/moment/moment.js',
@@ -37,8 +39,9 @@ module.exports = {
 				'public/lib/ng-tags-input/ng-tags-input.js',
 				'public/lib/bootstrap/dist/js/bootstrap.js',
 				'public/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.js',
-				'public/lib/CodeMirror/lib/codemirror.js',
-				'public/lib/CodeMirror/mode/python/python.js'
+				'public/lib/CodeMirror/addon/selection/active-line.js',
+				'public/lib/angular-ui-codemirror/ui-codemirror.js',
+				'public/lib/angular-bind-html-compile/angular-bind-html-compile.js'
 			]
 		},
 		css: 'public/dist/application.min.css',

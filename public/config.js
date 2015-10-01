@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'pythia-lms';
-	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils', 'ngTagsInput', 'angularMoment', 'ui.bootstrap.datetimepicker'];
+	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils', 'ngTagsInput', 'angularMoment', 'ui.bootstrap.datetimepicker', 'ui.codemirror', 'angular-bind-html-compile'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
