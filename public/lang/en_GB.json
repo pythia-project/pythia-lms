@@ -135,7 +135,10 @@
 		"SIGNUP": "Sign up",
 		"PASSWORD": "Password",
 		"PASSWORD_FORGOTTEN": "Forgot your password?",
-		"OR": "or"
+		"OR": "or",
+		"ROLES": "Roles",
+		"PICTURE": "Picture",
+		"ACTIVE": "Active"
 	},
 	"BY": "By",
 	"PYTHIA_AUTHORS": "the Pythia LMS authors"

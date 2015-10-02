@@ -34,7 +34,7 @@ exports.list = function(req, res) {
  * User middleware
  */
 exports.userByUsername = function(req, res, next, username) {
-	User.findOne({'username': username}, 'firstname lastname username').exec(function(err, user) {
+	User.findOne({'username': username}, 'email firstname lastname username roles picture active').exec(function(err, user) {
 		if (err || ! user) {
 			return errorHandler.getLoadErrorMessage(err, 'user', username, next);
 		}
