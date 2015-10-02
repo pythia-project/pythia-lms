@@ -3,7 +3,7 @@
 // Set up the menu for the users module
 angular.module('users').run(['Menus', function(Menus) {
 	// Set manage menu items
-	Menus.addSubMenuItem('topbar', 'manage', 'Users', 'users/manage', 'users/manage', false, ['admin']);
+	Menus.addSubMenuItem('topbar', 'manage', 'MENU.USERS', 'users/manage', 'users/manage', false, ['admin']);
 }]);
 
 // Config HTTP Error Handling

@@ -12,23 +12,23 @@
 		<ul class="nav navbar-nav" data-ng-if="menu.shouldRender(authentication.user)">
 			<li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(authentication.user)" data-ng-switch="item.menuItemType" ui-route="{{item.uiRoute}}" class="{{item.menuItemClass}}" data-ng-class="{active: ($uiRoute)}" dropdown="item.menuItemType === 'dropdown'">
 				<a href="#" data-ng-switch-when="dropdown" class="dropdown-toggle" data-toggle="dropdown">
-					<span data-ng-bind="item.title"></span> <b class="caret"></b>
+					<span data-ng-bind="item.title | translate"></span> <b class="caret"></b>
 				</a>
 				<ul data-ng-switch-when="dropdown" class="dropdown-menu">
 					<li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(authentication.user)" ui-route="{{subitem.uiRoute}}" data-ng-class="{active: $uiRoute}">
-						<a data-ng-href="/#!/{{subitem.link}}" data-ng-bind="subitem.title"></a>
+						<a data-ng-href="/#!/{{subitem.link}}" data-ng-bind="subitem.title | translate"></a>
 					</li>
 				</ul>
-				<a data-ng-switch-default href="/#!/{{item.link}}" data-ng-bind="item.title"></a>
+				<a data-ng-switch-default href="/#!/{{item.link}}" data-ng-bind="item.title | translate"></a>
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right" data-ng-if="! authentication.user">
 			<li ui-route="/signup" data-ng-class="{active: $uiRoute}">
-				<a href="/#!/signup">Sign Up</a>
+				<a href="/#!/signup" data-ng-bind="'MENU.SIGNUP' | translate"></a>
 			</li>
 			<li class="divider-vertical"></li>
 			<li ui-route="/signin" data-ng-class="{active: $uiRoute}">
-				<a href="/#!/signin">Sign In</a>
+				<a href="/#!/signin" data-ng-bind="'MENU.SIGNIN' | translate"></a>
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right" data-ng-if="authentication.user">
@@ -38,14 +38,14 @@
 				</a>
 				<ul class="dropdown-menu">
 					<li>
-						<a href="/#!/settings/profile">Edit Profile</a>
+						<a href="/#!/settings/profile" data-ng-bind="'MENU.EDIT_PROFILE' | translate"></a>
 					</li>
 					<li data-ng-if="authentication.user.provider === 'local'">
-						<a href="/#!/settings/password">Change Password</a>
+						<a href="/#!/settings/password" data-ng-bind="'MENU.CHANGE_PASSWORD' | translate"></a>
 					</li>
 					<li class="divider"></li>
 					<li>
-						<a href="/auth/signout">Signout</a>
+						<a href="/auth/signout" data-ng-bind="'MENU.SIGNOUT' | translate"></a>
 					</li>
 				</ul>
 			</li>

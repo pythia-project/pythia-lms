@@ -2,6 +2,20 @@
 	"DASHBOARD": {
 		"DASHBOARD": "Dashboard"
 	},
+	"MENU": {
+		"SIGNUP": "Sign up",
+		"SIGNIN": "Sign in",
+		"SIGNOUT": "Sign out",
+		"EDIT_PROFILE": "Edit Profile",
+		"CHANGE_PASSWORD": "Change Password",
+		"MANAGE": "Manage",
+		"DASHBOARD": "Dashboard",
+		"COURSES": "Courses",
+		"MY_COURSES": "My courses",
+		"REGISTER_COURSE": "Register to a course",
+		"PROBLEMS": "Problems",
+		"USERS": "Users"
+	},
 	"BY": "By",
 	"PYTHIA_AUTHORS": "the Pythia LMS authors"
 }
