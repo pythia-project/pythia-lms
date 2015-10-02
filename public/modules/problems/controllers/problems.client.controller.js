@@ -15,6 +15,7 @@ angular.module('problems').controller('ProblemsController', ['$scope', '$statePa
 			name: this.name,
 			description: this.description,
 			authors: authors,
+			points: points,
 			task: this.task
 		});
 		// Redirect after save
@@ -24,6 +25,7 @@ angular.module('problems').controller('ProblemsController', ['$scope', '$statePa
 			$scope.name = '';
 			$scope.description = '';
 			$scope.authors = [];
+			$scope.points = 0;
 			$scope.task = {};
 		}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;
