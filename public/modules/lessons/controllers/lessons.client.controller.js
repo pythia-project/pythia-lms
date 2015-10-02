@@ -202,6 +202,9 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		for (var i = 0; i < fields.length; i++) {
 			postdata[fields[i].name] = fields[i].value;
 		}
+		$('.codefield').each(function() {
+			postdata[$(this).attr('id')] = $(this).find('.CodeMirror')[0].CodeMirror.getValue();
+		});
 		return JSON.stringify(postdata);
 	};
 	var getProblem = function(registration, sequenceIndex, lessonIndex, problemIndex) {
@@ -232,6 +235,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			$feedback.html('');
 			// Send the submission request to the server
 			var $form = $('#problem-p' + index + ' form');
+			console.log(serializeFormToJSON($form));
 			$http.post('/courses/' + $scope.courseSerial + '/sequences/' + $scope.sequenceIndex + '/lessons/' + $scope.lessonIndex + '/problems/' + index + '/submit', {'input': serializeFormToJSON($form)}).success(function(data, status, headers, config) {
 				showFeedback($feedback, data.status, data.message);
 				// Update scope objects
