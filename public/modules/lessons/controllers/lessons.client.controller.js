@@ -128,7 +128,15 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 				var answer = JSON.parse(lastsubmission.answer);
 				var $form = $content.find('form').first();
 				for (var field in answer) {
-					$form.find('input[name="' + field + '"]').attr('value', answer[field]);
+					var $f = $form.find('input[name="' + field + '"]');
+					if ($f.length == 1) {
+						$f.attr('value', answer[field]);
+					} else {
+						$f = $form.find('#' + field + ' ui-codemirror');
+						if ($f.length == 1) {
+							$f.text('Kikoo');
+						}
+					}
 				}
 				// Feedback message
 				showFeedback($content.find('#feedback-p' + index).first(), lastsubmission.status, lastsubmission.feedback.message);
@@ -202,7 +210,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		for (var i = 0; i < fields.length; i++) {
 			postdata[fields[i].name] = fields[i].value;
 		}
-		$('.codefield').each(function() {
+		$form.find('.codefield').each(function() {
 			postdata[$(this).attr('id')] = $(this).find('.CodeMirror')[0].CodeMirror.getValue();
 		});
 		return JSON.stringify(postdata);
@@ -235,7 +243,6 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			$feedback.html('');
 			// Send the submission request to the server
 			var $form = $('#problem-p' + index + ' form');
-			console.log(serializeFormToJSON($form));
 			$http.post('/courses/' + $scope.courseSerial + '/sequences/' + $scope.sequenceIndex + '/lessons/' + $scope.lessonIndex + '/problems/' + index + '/submit', {'input': serializeFormToJSON($form)}).success(function(data, status, headers, config) {
 				showFeedback($feedback, data.status, data.message);
 				// Update scope objects
