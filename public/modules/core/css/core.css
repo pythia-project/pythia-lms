@@ -54,6 +54,13 @@ p {
 div.feedback {
 	margin: 15px 0 0 0;
 }
+div.feedback pre {
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+	margin: 10px 0 10px 0;
+	border-left: 5px solid #999;
+}
 
 div.problem {
 	margin: 25px 0;
