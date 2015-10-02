@@ -1,23 +1,23 @@
 <section data-ng-controller="LessonsController" data-ng-init="findSequence()">
 	<ol class="breadcrumb">
-		<li><a href="#!/courses">Courses</a></li>
+		<li><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
 		<li><a data-ng-href="#!/courses/{{courseSerial}}">{{courseSerial}}</a></li>
 		<li class="active"><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}">{{sequence.name}}</a></li>
 	</ol>
 
-	<h2>New lesson</h2>
+	<h2 data-ng-bind="'LESSON.NEW_LESSON' | translate"></h2>
 	
 	<div class="col-md-12" data-ng-init="initLessonForm()">
 		<form class="form-horizontal" data-ng-submit="create()" novalidate>
 			<fieldset>
 				<div class="form-group">
-					<label class="control-label" for="name">Name</label>
+					<label class="control-label" for="name" data-ng-bind="'LESSON.NAME' | translate"></label>
 					<div class="controls">
-						<input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+						<input type="text" data-ng-model="name" id="name" class="form-control" placeholder="{{'LESSON.NAME' | translate}}" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="start">Start date</label>
+					<label class="control-label" for="start" data-ng-bind="'LESSON.START_DATE' | translate"></label>
 					<div class="controls">
 						<div class="dropdown">
 							<a class="dropdown-toggle" id="startDropdown" role="button" data-toggle="dropdown" data-target="#" href="#">
@@ -30,7 +30,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="end">End date</label>
+					<label class="control-label" for="end" data-ng-bind="'LESSON.END_DATE' | translate"></label>
 					<div class="controls">
 						<div class="dropdown">
 							<a class="dropdown-toggle" id="endDropdown" role="button" data-toggle="dropdown" data-target="#" href="#">
@@ -43,19 +43,19 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="context">Context</label>
+					<label class="control-label" for="context" data-ng-bind="'LESSON.CONTEXT' | translate"></label>
 					<div class="controls">
-						<textarea data-ng-model="context" id="context" class="form-control" placeholder="Context" rows="10"></textarea>
+						<textarea data-ng-model="context" id="context" class="form-control" placeholder="{{'LESSON.CONTEXT' | translate}}" rows="10"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="problems">Problems</label>
-					<tags-input data-ng-model="problems" add-on-blur="false" add-from-autocomplete-only display-property="name" placeholder="Add a problem">
+					<label class="control-label" for="problems" data-ng-bind="'LESSON.PROBLEMS' | translate"></label>
+					<tags-input data-ng-model="problems" add-on-blur="false" add-from-autocomplete-only display-property="name" placeholder="{{'LESSON.ADD_PROBLEM' | translate}}">
 						<auto-complete source="loadProblems($query)" min-length="0"></auto-complete>
 					</tags-input>
 				</div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary">Create</button>
+					<button type="submit" class="btn btn-primary" data-ng-bind="'LESSON.CREATE' | translate"></button>
 				</div>
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>

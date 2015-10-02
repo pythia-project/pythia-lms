@@ -1,37 +1,37 @@
 <section data-ng-controller="ProblemsController">
 	<ol class="breadcrumb">
-		<li><a href="#!/problems/manage">Problems</a></li>
+		<li><a href="#!/problems/manage" data-ng-bind="'PROBLEM.PROBLEMS' | translate"></a></li>
 	</ol>
 
-	<h2>Create problem</h2>
+	<h2 data-ng-bind="'PROBLEM.CREATE_PROBLEM' | translate"></h2>
 
 	<div class="col-md-12">
 		<form class="form-horizontal" data-ng-submit="create()" novalidate>
 			<fieldset>
 				<div class="form-group">
-					<label class="control-label" for="name">Name</label>
+					<label class="control-label" for="name" data-ng-bind="'PROBLEM.NAME' | translate"></label>
 					<div class="controls">
-						<input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+						<input type="text" data-ng-model="name" id="name" class="form-control" placeholder="{{'PROBLEM.NAME' | translate}}" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="description">Description</label>
+					<label class="control-label" for="description" data-ng-bind="'PROBLEM.DESCRIPTION' | translate"></label>
 					<div class="controls">
-						<textarea data-ng-model="description" id="description" class="form-control" placeholder="Description" rows="10"></textarea>
+						<textarea data-ng-model="description" id="description" class="form-control" placeholder="{{'PROBLEM.DESCRIPTION' | translate}}" rows="10"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="authors">Authors</label>
-					<tags-input data-ng-model="authors" add-on-blur="false" placeholder="Add an author"></tags-input>
+					<label class="control-label" for="authors" data-ng-bind="'PROBLEM.AUTHORS' | translate"></label>
+					<tags-input data-ng-model="authors" add-on-blur="false" placeholder="{{'PROBLEM.ADD_AUTHOR' | translate}}"></tags-input>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="points">Points</label>
+					<label class="control-label" for="points" data-ng-bind="'PROBLEM.POINTS_MAJ' | translate"></label>
 					<div class="controls">
-						<input type="number" data-ng-model="points" id="points" class="form-control" placeholder="Points" required>
+						<input type="number" data-ng-model="points" id="points" class="form-control" placeholder="{{'PROBLEM.POINTS_MAJ' | translate}}" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="environment">Environment</label>
+					<label class="control-label" for="environment" data-ng-bind="'PROBLEM.ENVIRONMENT' | translate"></label>
 					<div class="controls">
 						<input type="text" data-ng-model="task.environment" id="environment" class="form-control" placeholder="busybox" required>
 					</div>
@@ -43,31 +43,31 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="time">Time</label>
+					<label class="control-label" for="time" data-ng-bind="'PROBLEM.TIME' | translate"></label>
 					<div class="controls">
 						<input type="number" data-ng-model="task.limits.time" id="time" class="form-control" placeholder="60" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="memory">Memory</label>
+					<label class="control-label" for="memory" data-ng-bind="'PROBLEM.MEMORY' | translate"></label>
 					<div class="controls">
 						<input type="number" data-ng-model="task.limits.memory" id="memory" class="form-control" placeholder="32" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="disk">Disk</label>
+					<label class="control-label" for="disk" data-ng-bind="'PROBLEM.DISK' | translate"></label>
 					<div class="controls">
 						<input type="number" data-ng-model="task.limits.disk" id="disk" class="form-control" placeholder="50" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="output">Output</label>
+					<label class="control-label" for="output" data-ng-bind="'PROBLEM.OUTPUT' | translate"></label>
 					<div class="controls">
 						<input type="number" data-ng-model="task.limits.output" id="output" class="form-control" placeholder="1024" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary">Create</button>
+					<button type="submit" class="btn btn-primary" data-ng-bind="'PROBLEM.CREATE' | translate"></button>
 				</div>
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>

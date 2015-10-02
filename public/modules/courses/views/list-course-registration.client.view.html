@@ -1,31 +1,27 @@
 <section data-ng-controller="CoursesController" data-ng-init="findRegistrations()">
 	<div data-ng-if="registrations !== null && course._id !== undefined">
 		<ol class="breadcrumb">
-			<li><a href="#!/courses">Courses</a></li>
+			<li><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
 			<li><a data-ng-href="#!/courses/{{course.serial}}" data-ng-bind="course.serial"></a></li>
-			<li class="active"><a data-ng-href="#!/courses/{{course.serial}}/registrations">Registrations</a></li>
+			<li class="active"><a data-ng-href="#!/courses/{{course.serial}}/registrations" data-ng-bind="'REGISTRATION.REGISTRATIONS' | translate"></a></li>
 		</ol>
 
 		<h2 data-ng-bind="course.title"></h2>
 
 		<div class="text-right" data-ng-init="initStudentsForm()">
 			<form class="form-inline">
-				<label class="control-label" for="student">Find a student</label> <input type="text" ng-model="student" typeahead="student as student.displayname for student in studentsList | filter:$viewValue | limitTo:8" class="form-control"> <button data-ng-click="addStudent(student)" id="student" class="btn btn-primary">Add</button>
+				<label class="control-label" for="student" data-ng-bind="'REGISTRATION.FIND_STUDENT' | translate"></label> <input type="text" ng-model="student" typeahead="student as student.displayname for student in studentsList | filter:$viewValue | limitTo:8" class="form-control"> <button data-ng-click="addStudent(student)" id="student" class="btn btn-primary" data-ng-bind="'REGISTRATION.ADD' | translate"></button>
 			</form>
 		</div>
 
 		<ul data-ng-if="registrations.length > 0" class="list-group">
 			<li data-ng-repeat="registration in registrations | orderBy: '+user.lastname'" class="list-group-item"><img data-ng-src="/images/users/{{user._id}}.jpg" width="25" height="25" class="iconuserpic" data-ng-if="user.picture" /> {{registration.user.firstname}} {{registration.user.lastname}}</li>
 		</ul>
-		<div data-ng-if="registrations.length === 0" class="alert alert-warning" role="alert">
-			No registered users yet.
-		</div>
+		<div data-ng-if="registrations.length === 0" class="alert alert-warning" role="alert" data-ng-bind="'REGISTRATION.NO_REGISTERED_USER' | translate"></div>
 	</div>
 
 	<div data-ng-if="registrations !== null && course._id === undefined">
 		<h2>Error</h2>
-		<div class="alert alert-danger" role="alert">
-			You are not allowed to access this page.
-		</div>
+		<div class="alert alert-danger" role="alert" data-ng-bind="'REGISTRATION.ACCESS_DENIED' | translate"></div>
 	</div>
 </section>

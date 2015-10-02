@@ -1,28 +1,28 @@
 <section data-ng-controller="SequencesController" data-ng-init="findCourse()">
 	<ol class="breadcrumb">
-		<li><a href="#!/courses">Courses</a></li>
+		<li><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
 		<li class="active"><a data-ng-href="#!/courses/{{course.serial}}">{{course.serial}}</a></li>
 	</ol>
 
-	<h2>Create sequence</h2>
+	<h2 data-ng-bind="'SEQUENCE.CREATE_SEQUENCE' | translate"></h2>
 
 	<div class="col-md-12">
 		<form class="form-horizontal" data-ng-submit="create()" novalidate>
 			<fieldset>
 				<div class="form-group">
-					<label class="control-label" for="course">Course</label>
+					<label class="control-label" for="course" data-ng-bind="'SEQUENCE.COURSE' | translate"></label>
 					<div class="controls">
-						<input type="text" data-ng-model="course.title" id="course" class="form-control" placeholder="Course" required disabled>
+						<input type="text" data-ng-model="course.title" id="course" class="form-control" placeholder="{{'SEQUENCE.COURSE' | translate}}" required disabled>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="name">Name</label>
+					<label class="control-label" for="name" data-ng-bind="'SEQUENCE.NAME' | translate"></label>
 					<div class="controls">
-						<input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+						<input type="text" data-ng-model="name" id="name" class="form-control" placeholder="{{'SEQUENCE.NAME' | translate}}" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="start">Start date</label>
+					<label class="control-label" for="start" data-ng-bind="'SEQUENCE.START_DATE' | translate"></label>
 					<div class="controls">
 						<div class="dropdown">
 							<a class="dropdown-toggle" id="startDropdown" role="button" data-toggle="dropdown" data-target="#" href="#">
@@ -35,7 +35,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="end">End date</label>
+					<label class="control-label" for="end" data-ng-bind="'SEQUENCE.END_DATE' | translate"></label>
 					<div class="controls">
 						<div class="dropdown">
 							<a class="dropdown-toggle" id="endDropdown" role="button" data-toggle="dropdown" data-target="#" href="#">
@@ -48,13 +48,13 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="description">Description</label>
+					<label class="control-label" for="description" data-ng-bind="'SEQUENCE.DESCRIPTION' | translate"></label>
 					<div class="controls">
-						<textarea data-ng-model="description" id="description" class="form-control" placeholder="Description"></textarea>
+						<textarea data-ng-model="description" id="description" class="form-control" placeholder="{{'SEQUENCE.DESCRIPTION' | translate}}"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary">Create</button>
+					<button type="submit" class="btn btn-primary" data-ng-bind="'SEQUENCE.CREATE' | translate"></button>
 				</div>
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>

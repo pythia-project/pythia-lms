@@ -1,14 +1,12 @@
 <section data-ng-controller="CoursesController" data-ng-init="find('all')">
-	<h2>Manage courses</h2>
+	<h2 data-ng-bind="'COURSE.MANAGE' | translate"></h2>
 
 	<div class="action-box" class="text-right">
-		<a href="#!/courses/create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New course</a>
+		<a href="#!/courses/create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{'COURSE.NEW_COURSE' | translate}}</a>
 	</div>
 
 	<div data-ng-if="courses.$resolved && courses.length > 0" class="list-group">
 		<a data-ng-repeat="i in getNumber(courses.length) track by $index" data-ng-href="#!/courses/{{courses[$index].serial}}" class="list-group-item">{{courses[$index].serial}} &mdash; {{courses[$index].title}} <span class="pull-right"><img src="images/visibility.png" alt="Visibility" width="25" height="17" data-ng-class="{grayscale: ! courses[$index].visible}" data-ng-click="changeVisibility($index);$event.preventDefault();" /></span></a>
 	</div>
-	<div data-ng-if="courses.$resolved && courses.length === 0" class="alert alert-warning" role="alert">
-		No courses yet.
-	</div>
+	<div data-ng-if="courses.$resolved && courses.length === 0" class="alert alert-warning" role="alert" data-ng-bind="'COURSE.NO_COURSE' | translate"></div>
 </section>

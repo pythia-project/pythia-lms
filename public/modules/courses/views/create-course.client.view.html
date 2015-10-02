@@ -1,39 +1,39 @@
 <section data-ng-controller="CoursesController">
 	<ol class="breadcrumb">
-		<li class="active"><a href="#!/courses">Courses</a></li>
+		<li class="active"><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
 	</ol>
 
-	<h2>Create course</h2>
+	<h2 data-ng-bind="'COURSE.CREATE_COURSE' | translate"></h2>
 
 	<div class="col-md-12" data-ng-init="initCourseForm()">
 		<form class="form-horizontal" data-ng-submit="create()" novalidate>
 			<fieldset>
 				<div class="form-group">
-					<label class="control-label" for="serial">Serial</label>
+					<label class="control-label" for="serial" data-ng-bind="'COURSE.SERIAL' | translate"></label>
 					<div class="controls">
-						<input type="text" data-ng-model="serial" id="serial" class="form-control" placeholder="Serial" required>
+						<input type="text" data-ng-model="serial" id="serial" class="form-control" placeholder="{{'COURSE.SERIAL' | translate}}" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="title">Title</label>
+					<label class="control-label" for="title" data-ng-bind="'COURSE.TITLE' | translate"></label>
 					<div class="controls">
-						<input type="text" data-ng-model="title" id="title" class="form-control" placeholder="Title" required>
+						<input type="text" data-ng-model="title" id="title" class="form-control" placeholder="{{'COURSE.TITLE' | translate}}" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="coordinators">Coordinators</label>
-					<tags-input data-ng-model="coordinators" add-on-blur="false" add-from-autocomplete-only display-property="displayname" placeholder="Add a coordinator">
+					<label class="control-label" for="coordinators" data-ng-bind="'COURSE.COORDINATORS' | translate"></label>
+					<tags-input data-ng-model="coordinators" add-on-blur="false" add-from-autocomplete-only display-property="displayname" placeholder="{{'COURSE.ADD_COORDINATOR' | translate}}">
 						<auto-complete source="loadTeachers($query)" min-length="0"></auto-complete>
 					</tags-input>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="description">Description</label>
+					<label class="control-label" for="description" data-ng-bind="'COURSE.DESCRIPTION' | translate"></label>
 					<div class="controls">
-						<textarea data-ng-model="description" id="description" class="form-control" placeholder="Description"></textarea>
+						<textarea data-ng-model="description" id="description" class="form-control" placeholder="{{'COURSE.DESCRIPTION' | translate}}"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary">Create</button>
+					<button type="submit" class="btn btn-primary" data-ng-bind="'COURSE.CREATE' | translate"></button>
 				</div>
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>

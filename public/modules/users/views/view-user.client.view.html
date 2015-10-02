@@ -1,6 +1,6 @@
 <section data-ng-controller="UsersController" data-ng-init="findOne()">
 	<ol class="breadcrumb">
-		<li><a href="#!/users/manage">Users</a></li>
+		<li><a href="#!/users/manage" data-ng-bind="'USER.USERS' | translate"></a></li>
 		<li class="active"><a data-ng-href="#!/users/{{user.username}}" data-ng-bind="user.firstname + ' ' + user.lastname"></a></li>
 	</ol>
 

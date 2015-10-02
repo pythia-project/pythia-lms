@@ -1,22 +1,22 @@
 <section class="row" data-ng-controller="AuthenticationController">
-	<h3 class="col-md-12 text-center">Sign in</h3>
+	<h3 class="col-md-12 text-center" data-ng-bind="'USER.SIGNIN' | translate"></h3>
 	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
 		<form data-ng-submit="signin()" class="signin form-horizontal" autocomplete="off">
 			<fieldset>
 				<div class="form-group">
-					<label for="username">Username</label>
-					<input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="Username">
+					<label for="username" data-ng-bind="'USER.USERNAME' | translate"></label>
+					<input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="{{'USER.USERNAME' | translate}}">
 				</div>
 				<div class="form-group">
-					<label for="password">Password</label>
-					<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
+					<label for="password" data-ng-bind="'USER.PASSWORD' | translate"></label>
+					<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="{{'USER.PASSWORD' | translate}}">
 				</div>
 				<div class="text-center form-group">
-					<button type="submit" class="btn btn-primary">Sign in</button>&nbsp; or&nbsp;
-					<a href="/#!/signup">Sign up</a>
+					<button type="submit" class="btn btn-primary" data-ng-bind="'USER.SIGNIN' | translate"></button>&nbsp; {{'USER.OR' | translate}}&nbsp;
+					<a href="/#!/signup" data-ng-bind="'USER.SIGNUP' | translate"></a>
 				</div>
 				<div class="forgot-password">
-					<a href="/#!/password/forgot">Forgot your password?</a>
+					<a href="/#!/password/forgot" data-ng-bind="'USER.PASSWORD_FORGOTTEN' | translate"></a>
 				</div>
 				<div data-ng-show="error" class="text-center text-danger">
 					<strong data-ng-bind="error"></strong>

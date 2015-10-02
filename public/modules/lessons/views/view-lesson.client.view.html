@@ -1,7 +1,7 @@
 <section id="lessoncontent" data-ng-controller="LessonsController" data-ng-init="findOne()">
 	<div data-ng-if="lesson.$resolved && lesson._id !== undefined">
 		<ol class="breadcrumb">
-			<li><a href="#!/courses">Courses</a></li>
+			<li><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
 			<li><a data-ng-href="#!/courses/{{courseSerial}}" data-ng-bind="courseSerial"></a></li>
 			<li><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}" data-ng-bind="sequence.name"></a></li>
 			<li class="active"><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/lessons/{{lessonIndex}}" data-ng-bind="lesson.name"></a></li>
@@ -12,7 +12,7 @@
 		<div class="row">
 			<div class="col-md-9">
 				<div class="action-box" data-ng-if="authentication.user && authentication.user.roles.indexOf('admin') !== -1">
-					<a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/lessons/{{lessonIndex}}/edit" class="btn btn-success"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit lesson</a>
+					<a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/lessons/{{lessonIndex}}/edit" class="btn btn-success"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> {{'LESSON.EDIT_LESSON' | translate}}</a>
 				</div>
 
 				<div class="context" data-bind-html-compile="lessonContext"></div>
@@ -20,22 +20,22 @@
 
 			<div class="col-md-3">
 				<div class="panel panel-info">
-					<div class="panel-heading"><h3 class="panel-title">Information</h3></div>
+					<div class="panel-heading"><h3 class="panel-title" data-ng-bind="'LESSON.INFORMATION' | translate"></h3></div>
 					<div class="panel-body">
 						<dl data-ng-if="lesson.start !== null">
-							<dt>Start date</dt>
+							<dt data-ng-bind="'LESSON.START_DATE' | translate"></dt>
 							<dd data-ng-bind="lesson.start | amDateFormat:'ddd, D MMM YYYY, H:mm'"></dd>
 						</dl>
 						<dl data-ng-if="lesson.end !== null">
-							<dt>End date</dt>
+							<dt data-ng-bind="'LESSON.END_DATE' | translate"></dt>
 							<dd data-ng-bind="lesson.end | amDateFormat:'ddd, D MMM YYYY, H:mm'"></dd>
 						</dl>
 						<dl data-ng-if="registration !== null">
-							<dt>Score</dt>
-							<dd>{{score}} points</dd>
+							<dt data-ng-bind="'LESSON.SCORE' | translate"></dt>
+							<dd>{{score}} {{'LESSON.POINTS' | translate}}</dd>
 						</dl>
 						<dl data-ng-if="registration !== null">
-							<dt>Progress</dt>
+							<dt data-ng-bind="'LESSON.PROGRESS' | translate"></dt>
 							<dd>
 								<progressbar animate="false" max="100" value="progress" type="primary"><span data-ng-hide="progress < 15" data-ng-bind="progress + '%'"></span></progressbar>
 							</dd>
@@ -47,9 +47,7 @@
 	</div>
 
 	<div data-ng-if="lesson.$resolved && lesson._id === undefined">
-		<h2>Error</h2>
-		<div class="alert alert-danger" role="alert">
-			You are not allowed to access this lesson.
-		</div>
+		<h2 data-ng-bind="'LESSON.ERROR' | translate"></h2>
+		<div class="alert alert-danger" role="alert" data-ng-bind="'LESSON.ACCESS_DENIED' | translate"></div>
 	</div>
 </section>

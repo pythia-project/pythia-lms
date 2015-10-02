@@ -1,7 +1,7 @@
 <section data-ng-controller="SequencesController" data-ng-init="findOne()">
 	<div data-ng-if="sequence.$resolved && sequence._id !== undefined">
 		<ol class="breadcrumb">
-			<li><a href="#!/courses">Courses</a></li>
+			<li><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
 			<li><a data-ng-href="#!/courses/{{courseSerial}}" data-ng-bind="courseSerial"></a></li>
 			<li class="active"><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}" data-ng-bind="sequence.name"></a></li>
 		</ol>
@@ -11,7 +11,7 @@
 		<div class="row">
 			<div class="col-md-9">
 				<div class="action-box" data-ng-if="authentication.user && authentication.user.roles.indexOf('admin') !== -1">
-					<a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/edit" class="btn btn-success"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit sequence</a> <a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/lessons/create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New lesson</a>
+					<a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/edit" class="btn btn-success"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> {{'SEQUENCE.EDIT_SEQUENCE' | translate}}</a> <a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/lessons/create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{'SEQUENCE.NEW_LESSON' | translate}}</a>
 				</div>
 
 				<div data-ng-if="sequence.description" class="description" data-ng-bind="sequence.description"></div>
@@ -19,25 +19,23 @@
 				<div data-ng-if="sequence.$resolved && sequence.lessons.length > 0" class="list-group" >
 					<a data-ng-init="available = (authentication.user && authentication.user.roles.indexOf('admin') !== -1) || ((sequence.lessons[$index].start === null || isAfter(sequence.lessons[$index].start)) && (sequence.lessons[$index].end === null || isBefore(sequence.lessons[$index].end)))" data-ng-repeat="i in getNumber(sequence.lessons.length) track by $index" data-ng-href="{{available ? '#!/courses/' + courseSerial + '/sequences/' + sequenceIndex + '/lessons/' + ($index + 1) : ''}}" data-ng-class="{'list-group-item': true, 'disabled': ! available}">{{sequence.lessons[$index].name}} <span data-ng-if="available" class="pull-right"><i data-ng-if="registration !== null && registration.sequences.length > 0 && registration.sequences[sequenceIndex - 1].lessons[$index].succeeded" class="glyphicon glyphicon-ok success-icon" aria-hidden="true"></i><i data-ng-if="! (registration !== null && registration.sequences.length > 0 && registration.sequences[sequenceIndex - 1].lessons[$index].succeeded)" class="glyphicon glyphicon-remove failed-icon" aria-hidden="true"></i></span></a>
 				</div>
-				<div data-ng-if="sequence.$resolved && sequence.lessons.length === 0" class="alert alert-warning" role="alert">
-					No lessons in this sequence yet.
-				</div>
+				<div data-ng-if="sequence.$resolved && sequence.lessons.length === 0" class="alert alert-warning" role="alert" data-ng-bind="'SEQUENCE.NO_LESSON' | translate"></div>
 			</div>
 
 			<div class="col-md-3">
 				<div class="panel panel-info">
-					<div class="panel-heading"><h3 class="panel-title">Information</h3></div>
+					<div class="panel-heading"><h3 class="panel-title" data-ng-bind="'SEQUENCE.INFORMATION' | translate"></h3></div>
 					<div class="panel-body">
 						<dl data-ng-if="sequence.start !== null">
-							<dt>Start date</dt>
+							<dt data-ng-bind="'SEQUENCE.START_DATE' | translate"></dt>
 							<dd>{{sequence.start | amDateFormat:'ddd, D MMM YYYY, H:mm'}}</dd>
 						</dl>
 						<dl data-ng-if="sequence.end !== null">
-							<dt>End date</dt>
+							<dt data-ng-bind="'SEQUENCE.END_DATE' | translate"></dt>
 							<dd>{{sequence.end | amDateFormat:'ddd, D MMM YYYY, H:mm'}}</dd>
 						</dl>
 						<dl data-ng-if="registration !== null">
-							<dt>Progress</dt>
+							<dt data-ng-bind="'SEQUENCE.PROGRESS' | translate"></dt>
 							<dd>
 								<progressbar animate="false" max="100" value="progress" type="primary"><span data-ng-hide="progress < 15" data-ng-bind="progress + '%'"></span></progressbar>
 							</dd>
@@ -49,9 +47,7 @@
 	</div>
 
 	<div data-ng-if="sequence.$resolved && sequence._id === undefined">
-		<h2>Error</h2>
-		<div class="alert alert-danger" role="alert">
-			You are not allowed to access this sequence.
-		</div>
+		<h2 data-ng-bind="'SEQUENCE.ERROR' | translate"></h2>
+		<div class="alert alert-danger" role="alert" data-ng-bind="'SEQUENCE.ACCESS_DENIED' | translate"></div>
 	</div>
 </section>

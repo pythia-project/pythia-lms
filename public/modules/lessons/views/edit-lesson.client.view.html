@@ -1,25 +1,25 @@
 <section data-ng-controller="LessonsController" data-ng-init="findOne()">
 	<div data-ng-if="lesson.$resolved && lesson._id !== undefined">
 		<ol class="breadcrumb">
-			<li><a href="#!/courses">Courses</a></li>
+			<li><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
 			<li><a data-ng-href="#!/courses/{{courseSerial}}" data-ng-bind="courseSerial"></a></li>
 			<li><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}" data-ng-bind="sequence.name"></a></li>
 			<li class="active"><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/lessons/{{lessonIndex}}" data-ng-bind="lesson.name"></a></li>
 		</ol>
 
-		<h2>Edit Lesson</h2>
+		<h2 data-ng-bind="'LESSON.EDIT_LESSON' | translate"></h2>
 
 		<div class="col-md-12" data-ng-init="initLessonForm()">
 			<form class="form-horizontal" data-ng-submit="update()" novalidate>
 				<fieldset>
 					<div class="form-group">
-						<label class="control-label" for="name">Name</label>
+						<label class="control-label" for="name" data-ng-bind="'LESSON.NAME' | translate"></label>
 						<div class="controls">
-							<input type="text" data-ng-model="lesson.name" id="name" class="form-control" placeholder="Name" required>
+							<input type="text" data-ng-model="lesson.name" id="name" class="form-control" placeholder="{{'LESSON.NAME' | translate}}" required>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label" for="start">Start date</label>
+						<label class="control-label" for="start" data-ng-bind="'LESSON.START_DATE' | translate"></label>
 						<div class="controls">
 							<div class="dropdown">
 								<a class="dropdown-toggle" id="startDropdown" role="button" data-toggle="dropdown" data-target="#" href="#">
@@ -32,7 +32,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label" for="end">End date</label>
+						<label class="control-label" for="end" data-ng-bind="'LESSON.END_DATE' | translate"></label>
 						<div class="controls">
 							<div class="dropdown">
 								<a class="dropdown-toggle" id="endDropdown" role="button" data-toggle="dropdown" data-target="#" href="#">
@@ -45,25 +45,25 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label" for="context">Context</label>
+						<label class="control-label" for="context" data-ng-bind="'LESSON.CONTEXT' | translate"></label>
 						<div class="controls">
-							<textarea data-ng-model="lesson.context" id="context" class="form-control" placeholder="Context" rows="10"></textarea>
+							<textarea data-ng-model="lesson.context" id="context" class="form-control" placeholder="{{'LESSON.CONTEXT' | translate}}" rows="10"></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label" for="problems">Problems</label>
-						<tags-input data-ng-model="lesson.problems" add-on-blur="false" add-from-autocomplete-only display-property="name" placeholder="Add a problem">
+						<label class="control-label" for="problems" data-ng-bind="'LESSON.PROBLEMS' | translate"></label>
+						<tags-input data-ng-model="lesson.problems" add-on-blur="false" add-from-autocomplete-only display-property="name" placeholder="{{'LESSON.ADD_PROBLEM' | translate}}">
 							<auto-complete source="loadProblems($query)" min-length="0"></auto-complete>
 						</tags-input>
 					</div>
 					<div class="form-group">
-						<label class="control-label">Problems</label>
+						<label class="control-label" data-ng-bind="'LESSON.PROBLEMS' | translate"></label>
 						<div class="list-group">
 							<a data-ng-repeat="i in getNumber(lesson.problems.length) track by $index" class="list-group-item" data-ng-href="#!/problems/{{lesson.problems[$index]._id}}">{{($index + 1) + ': ' + lesson.problems[$index].name}}</a>
 						</div>
 					</div>
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary">Update</button>
+						<button type="submit" class="btn btn-primary" data-ng-bind="'LESSON.UPDATE' | translate"></button>
 					</div>
 					<div data-ng-show="error" class="text-danger">
 						<strong data-ng-bind="error"></strong>
@@ -74,9 +74,7 @@
 	</div>
 
 	<div data-ng-if="lesson.$resolved && lesson._id === undefined">
-		<h2>Error</h2>
-		<div class="alert alert-danger" role="alert">
-			You are not allowed to access this lesson.
-		</div>
+		<h2 data-ng-bind="'LESSON.ERROR' | translate"></h2>
+		<div class="alert alert-danger" role="alert" data-ng-bind="'LESSON.ACCESS_DENIED' | translate"></div>
 	</div>
 </section>
