@@ -30,7 +30,7 @@
 							<dd><span data-ng-repeat="coordinator in course.coordinators" data-ng-bind="coordinator.displayname + ($last ? '' : ', ')"></span></dd>
 						</dl>
 						<dl data-ng-if="registration !== null">
-							<dt data-ng-bind="'REGISTRATION_DATE' | translate"></dt>
+							<dt data-ng-bind="'COURSE.REGISTRATION_DATE' | translate"></dt>
 							<dd data-ng-bind="registration.registered | amDateFormat:'ddd, D MMM YYYY, H:mm'"></dd>
 						</dl>
 					</div>
