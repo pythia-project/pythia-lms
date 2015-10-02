@@ -15,7 +15,7 @@ angular.module('problems').controller('ProblemsController', ['$scope', '$statePa
 			name: this.name,
 			description: this.description,
 			authors: authors,
-			points: points,
+			points: this.points,
 			task: this.task
 		});
 		// Redirect after save
