@@ -39,6 +39,14 @@ div.action-box {
 	text-align: right;
 }
 
+figure {
+	text-align: center;
+}
+figcaption {
+	font-size: 9.5pt;
+	text-align: center;
+}
+
 .list-group {
 	margin-top: 15px;
 }
