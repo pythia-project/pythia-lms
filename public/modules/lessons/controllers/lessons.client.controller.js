@@ -129,12 +129,12 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 				var $form = $content.find('form').first();
 				for (var field in answer) {
 					var $f = $form.find('input[name="' + field + '"]');
-					if ($f.length == 1) {
+					if ($f.length === 1) {
 						$f.attr('value', answer[field]);
 					} else {
 						$f = $form.find('#' + field + ' ui-codemirror');
-						if ($f.length == 1) {
-							$f.text('Kikoo');
+						if ($f.length === 1) {
+							$f.text(answer[field]);
 						}
 					}
 				}
