@@ -240,10 +240,12 @@ exports.submit = function(req, res) {
 						if (output.feedback.message !== undefined) {
 							message = output.feedback.message;						
 						} else if (output.feedback.example !== undefined) {
-							message = '<p>Your code did not produced the good result.</p><ul>' +
-								'<li>Expected result: ' + output.feedback.example.expected + '</li>' +
-								'<li>Your result: ' + output.feedback.example.actual + '</li>' +
-							'</ul>';
+							message = '<p>Your code did not produced the good result.</p><ul>';
+							if (output.feedback.example.input !== undefined) {
+								message += '<li>Input: ' + output.feedback.example.input + '</li>';
+							}
+							message += '<li>Expected result: ' + output.feedback.example.expected + '</li>' +
+							'<li>Your result: ' + output.feedback.example.actual + '</li></ul>';
 						}
 						// Save submission in user
 						// Get registration for this course
