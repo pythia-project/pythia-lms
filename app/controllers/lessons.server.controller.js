@@ -283,6 +283,7 @@ exports.submit = function(req, res) {
 						});
 					} catch (err) {
 						console.log('Pythia error: ' + err);
+						console.log('Current data: ' + data);
 					}
 				});
 				// On close, send back answer to the client
