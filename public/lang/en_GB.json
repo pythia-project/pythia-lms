@@ -74,7 +74,8 @@
 		"PROGRESS": "Progress",
 		"ERROR": "Error",
 		"ACCESS_DENIED": "You are not allowed to access this sequence.",
-		"UPDATE": "Update"
+		"UPDATE": "Update",
+		"OPENED": "Will be available on "
 	},
 	"LESSON": {
 		"NEW_LESSON": "New lesson",

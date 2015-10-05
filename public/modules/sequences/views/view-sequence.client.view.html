@@ -6,6 +6,8 @@
 			<li class="active"><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}" data-ng-bind="sequence.name"></a></li>
 		</ol>
 
+		<a href="#" tooltip="Coucou">Coucou</a>
+
 		<h2 data-ng-bind="sequence.name"></h2>
 
 		<div class="row">
@@ -17,7 +19,7 @@
 				<div data-ng-if="sequence.description" class="description" data-ng-bind="sequence.description"></div>
 
 				<div data-ng-if="sequence.$resolved && sequence.lessons.length > 0" class="list-group" >
-					<a data-ng-init="available = (authentication.user && authentication.user.roles.indexOf('admin') !== -1) || ((sequence.lessons[$index].start === null || isAfter(sequence.lessons[$index].start)) && (sequence.lessons[$index].end === null || isBefore(sequence.lessons[$index].end)))" data-ng-repeat="i in getNumber(sequence.lessons.length) track by $index" data-ng-href="{{available ? '#!/courses/' + courseSerial + '/sequences/' + sequenceIndex + '/lessons/' + ($index + 1) : ''}}" data-ng-class="{'list-group-item': true, 'disabled': ! available}">{{sequence.lessons[$index].name}} <span data-ng-if="available" class="pull-right"><i data-ng-if="registration !== null && registration.sequences.length > 0 && registration.sequences[sequenceIndex - 1].lessons[$index].succeeded" class="glyphicon glyphicon-ok success-icon" aria-hidden="true"></i><i data-ng-if="! (registration !== null && registration.sequences.length > 0 && registration.sequences[sequenceIndex - 1].lessons[$index].succeeded)" class="glyphicon glyphicon-remove failed-icon" aria-hidden="true"></i></span></a>
+					<a data-ng-init="available = (authentication.user && authentication.user.roles.indexOf('admin') !== -1) || ((sequence.lessons[$index].start === null || isAfter(sequence.lessons[$index].start)) && (sequence.lessons[$index].end === null || isBefore(sequence.lessons[$index].end)))" data-ng-repeat="i in getNumber(sequence.lessons.length) track by $index" data-ng-href="{{available ? '#!/courses/' + courseSerial + '/sequences/' + sequenceIndex + '/lessons/' + ($index + 1) : ''}}" data-ng-class="{'list-group-item': true, 'disabled': ! available}" tooltip-placement="bottom" tooltip="{{'SEQUENCE.OPENED' | translate}} {{sequence.lessons[$index].start | amDateFormat: 'ddd, D MMM, YYYY, H:mm'}}" tooltip-enable="! available">{{sequence.lessons[$index].name}} <span data-ng-if="available" class="pull-right"><i data-ng-if="registration !== null && registration.sequences.length > 0 && registration.sequences[sequenceIndex - 1].lessons[$index].succeeded" class="glyphicon glyphicon-ok success-icon" aria-hidden="true"></i><i data-ng-if="! (registration !== null && registration.sequences.length > 0 && registration.sequences[sequenceIndex - 1].lessons[$index].succeeded)" class="glyphicon glyphicon-remove failed-icon" aria-hidden="true"></i></span></a>
 				</div>
 				<div data-ng-if="sequence.$resolved && sequence.lessons.length === 0" class="alert alert-warning" role="alert" data-ng-bind="'SEQUENCE.NO_LESSON' | translate"></div>
 			</div>
@@ -28,11 +30,11 @@
 					<div class="panel-body">
 						<dl data-ng-if="sequence.start !== null">
 							<dt data-ng-bind="'SEQUENCE.START_DATE' | translate"></dt>
-							<dd>{{sequence.start | amDateFormat:'ddd, D MMM YYYY, H:mm'}}</dd>
+							<dd>{{sequence.start | amDateFormat: 'ddd, D MMM YYYY, H:mm'}}</dd>
 						</dl>
 						<dl data-ng-if="sequence.end !== null">
 							<dt data-ng-bind="'SEQUENCE.END_DATE' | translate"></dt>
-							<dd>{{sequence.end | amDateFormat:'ddd, D MMM YYYY, H:mm'}}</dd>
+							<dd>{{sequence.end | amDateFormat: 'ddd, D MMM YYYY, H:mm'}}</dd>
 						</dl>
 						<dl data-ng-if="registration !== null">
 							<dt data-ng-bind="'SEQUENCE.PROGRESS' | translate"></dt>

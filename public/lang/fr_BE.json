@@ -74,7 +74,8 @@
 		"PROGRESS": "Progrès",
 		"ERROR": "Erreur",
 		"ACCESS_DENIED": "Vous n'êtes pas autorisé à accéder à cette séquence.",
-		"UPDATE": "Mettre à jour"
+		"UPDATE": "Mettre à jour",
+		"OPENED": "Sera disponible le "
 	},
 	"LESSON": {
 		"NEW_LESSON": "Nouvelle leçon",
