@@ -28,9 +28,9 @@ angular.module('courses').config(['$stateProvider', function($stateProvider) {
 		url: '/courses/:courseSerial/edit',
 		templateUrl: 'modules/courses/views/edit-course.client.view.html'
 	})
-	.state('listCourseRegistrations', {
+	.state('courseRegistrations', {
 		url: '/courses/:courseSerial/registrations',
-		templateUrl: 'modules/courses/views/list-course-registration.client.view.html'
+		templateUrl: 'modules/courses/views/course-registration.client.view.html'
 	})
 	.state('courseStats', {
 		url: '/courses/:courseSerial/stats',
