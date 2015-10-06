@@ -158,4 +158,11 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 			return $scope.authentication.user.roles.indexOf(element) !== -1;
 		});
 	};
+
+	// Test whether the current user is a coordinator of this course
+	$scope.isCoordinator = function() {
+		return $scope.authentication.user && $scope.course.coordinators.some(function(element, index, array) {
+			return $scope.authentication.user._id === element._id;
+		});
+	};
 }]);
