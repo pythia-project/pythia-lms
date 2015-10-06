@@ -16,6 +16,10 @@ angular.module('lessons').config(['$stateProvider',
 		.state('editLesson', {
 			url: '/courses/:courseSerial/sequences/:sequenceIndex/lessons/:lessonIndex/edit',
 			templateUrl: 'modules/lessons/views/edit-lesson.client.view.html'
+		})
+		.state('lessonStats', {
+			url: '/courses/:courseSerial/sequences/:sequenceIndex/lessons/:lessonIndex/stats',
+			templateUrl: 'modules/lessons/views/lesson-stats.client.view.html'
 		});
 	}
 ]);

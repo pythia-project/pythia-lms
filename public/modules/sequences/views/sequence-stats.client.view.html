@@ -1,0 +1,16 @@
+<section data-ng-controller="SequencesController" data-ng-init="findOne()">
+	<div data-ng-if="sequence.$resolved && sequence._id !== undefined">
+		<ol class="breadcrumb">
+			<li><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
+			<li><a data-ng-href="#!/courses/{{courseSerial}}" data-ng-bind="courseSerial"></a></li>
+			<li class="active"><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}" data-ng-bind="sequence.name"></a></li>
+		</ol>
+
+		<h2 data-ng-bind="'SEQUENCE.STATS' | translate"></h2>
+	</div>
+
+	<div data-ng-if="sequence.$resolved && sequence._id === undefined">
+		<h2 data-ng-bind="'SEQUENCE.ERROR' | translate"></h2>
+		<div class="alert alert-danger" role="alert" data-ng-bind="'SEQUENCE.ACCESS_DENIED' | translate"></div>
+	</div>
+</section>

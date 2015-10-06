@@ -50,7 +50,8 @@
 		"CREATE": "Create",
 		"MY_COURSES": "My courses",
 		"REGISTER_COURSE": "Register to a course",
-		"NO_AVAILABLE_COURSE": "No available courses."
+		"NO_AVAILABLE_COURSE": "No available courses.",
+		"STATS": "Statistics"
 	},
 	"REGISTRATION": {
 		"REGISTRATIONS": "Registrations",
@@ -75,7 +76,8 @@
 		"ERROR": "Error",
 		"ACCESS_DENIED": "You are not allowed to access this sequence.",
 		"UPDATE": "Update",
-		"OPENED": "Will be available on "
+		"OPENED": "Will be available on ",
+		"STATS": "Statistics"
 	},
 	"LESSON": {
 		"NEW_LESSON": "New lesson",
@@ -93,7 +95,8 @@
 		"ACCESS_DENIED": "You are not allowed to access this lesson.",
 		"EDIT_LESSON": "Edit lesson",
 		"INFORMATION": "Information",
-		"UPDATE": "Update"
+		"UPDATE": "Update",
+		"STATS": "Statistics"
 	},
 	"PROBLEM": {
 		"PROBLEMS": "Problems",

@@ -1,0 +1,15 @@
+<section data-ng-controller="CoursesController" data-ng-init="findOne()">
+	<div data-ng-if="course.$resolved && course._id !== undefined">
+		<ol class="breadcrumb">
+			<li><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
+			<li class="active"><a data-ng-href="#!/courses/{{course.serial}}" data-ng-bind="course.serial"></a></li>
+		</ol>
+
+		<h2 data-ng-bind="'COURSE.STATS' | translate"></h2>
+	</div>
+
+	<div data-ng-if="course.$resolved && course._id === undefined">
+		<h2 data-ng-bind="'COURSE.ERROR' | translate"></h2>
+		<div class="alert alert-danger" role="alert" data-ng-bind="'COURSE.ACCESS_DENIED' | translate"></div>
+	</div>
+</section>										

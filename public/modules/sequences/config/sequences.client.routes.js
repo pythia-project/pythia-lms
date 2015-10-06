@@ -15,5 +15,9 @@ angular.module('sequences').config(['$stateProvider', function($stateProvider) {
 	.state('editSequence', {
 		url: '/courses/:courseSerial/sequences/:sequenceIndex/edit',
 		templateUrl: 'modules/sequences/views/edit-sequence.client.view.html'
+	})
+	.state('sequenceStats', {
+		url: '/courses/:courseSerial/sequences/:sequenceIndex/stats',
+		templateUrl: 'modules/sequences/views/sequence-stats.client.view.html'
 	});
 }]);

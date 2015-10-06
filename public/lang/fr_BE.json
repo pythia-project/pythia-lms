@@ -50,7 +50,8 @@
 		"CREATE": "Créer",
 		"MY_COURSES": "Mes cours",
 		"REGISTER_COURSE": "S'inscrire à un cours",
-		"NO_AVAILABLE_COURSE": "Aucun cours disponible."
+		"NO_AVAILABLE_COURSE": "Aucun cours disponible.",
+		"STATS": "Statistiques"
 	},
 	"REGISTRATION": {
 		"REGISTRATIONS": "Inscriptions",
@@ -75,7 +76,8 @@
 		"ERROR": "Erreur",
 		"ACCESS_DENIED": "Vous n'êtes pas autorisé à accéder à cette séquence.",
 		"UPDATE": "Mettre à jour",
-		"OPENED": "Sera disponible le "
+		"OPENED": "Sera disponible le ",
+		"STATS": "Statistics"
 	},
 	"LESSON": {
 		"NEW_LESSON": "Nouvelle leçon",
@@ -93,7 +95,8 @@
 		"ACCESS_DENIED": "Vous n'êtes pas autorisé à accéder à cette leçon.",
 		"EDIT_LESSON": "Éditer la leçon",
 		"INFORMATION": "Information",
-		"UPDATE": "Mettre à jour"
+		"UPDATE": "Mettre à jour",
+		"STATS": "Statistics"
 	},
 	"PROBLEM": {
 		"PROBLEMS": "Problèmes",
