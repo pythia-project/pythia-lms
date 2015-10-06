@@ -5,6 +5,7 @@
 			<li><a data-ng-href="#!/courses/{{courseSerial}}" data-ng-bind="courseSerial"></a></li>
 			<li><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}" data-ng-bind="sequence.name"></a></li>
 			<li class="active"><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/lessons/{{lessonIndex}}" data-ng-bind="lesson.name"></a></li>
+			<li class="active"><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/lessons/{{lessonIndex}}/stats" data-ng-bind="'LESSON.STATS' | translate"></a></li>
 		</ol>
 
 		<h2 data-ng-bind="'LESSON.STATS' | translate"></h2>
