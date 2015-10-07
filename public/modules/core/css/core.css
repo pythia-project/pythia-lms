@@ -74,6 +74,10 @@ div.problem {
 	margin: 25px 0;
 }
 
+.statsprogressbar {
+	min-width: 200px;
+}
+
 /* Bootstrap change */
 .navbar-inverse .navbar-brand > img {
 	margin-top: -7px;

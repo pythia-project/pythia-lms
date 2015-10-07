@@ -1,5 +1,5 @@
-<section data-ng-controller="CoursesController" data-ng-init="findOne()">
-	<div data-ng-if="course.$resolved && course._id !== undefined">
+<section data-ng-controller="CoursesController" data-ng-init="loadStats()">
+	<div data-ng-if="registrations !== null && course._id !== undefined">
 		<ol class="breadcrumb">
 			<li><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
 			<li class="active"><a data-ng-href="#!/courses/{{course.serial}}" data-ng-bind="course.serial"></a></li>
@@ -7,9 +7,29 @@
 		</ol>
 
 		<h2 data-ng-bind="'COURSE.STATS' | translate"></h2>
+
+		<div class="row">
+			<div class="col-md-9">
+				<ul class="list-group">
+					<li data-ng-repeat="registration in registrations | orderBy: '+user.lastname'" class="list-group-item">{{registration.user.firstname}} {{registration.user.lastname}} <progressbar data-ng-init="progress = getProgress(registration)" class="pull-right statsprogressbar" animate="false" max="100" value="progress" type="primary"><span data-ng-hide="progress < 15" data-ng-bind="progress + '%'"></span></progressbar></li>
+				</ul>
+			</div>
+
+			<div class="col-md-3">
+				<div class="panel panel-info">
+					<div class="panel-heading"><h3 class="panel-title" data-ng-bind="'LESSON.INFORMATION' | translate"></h3></div>
+					<div class="panel-body">
+						<dl>
+							<dt data-ng-bind="'COURSE.REGISTERED_USERS' | translate"></dt>
+							<dd data-ng-bind="registrations.length"></dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
-	<div data-ng-if="course.$resolved && course._id === undefined">
+	<div data-ng-if="registrations !== null && course._id === undefined">
 		<h2 data-ng-bind="'COURSE.ERROR' | translate"></h2>
 		<div class="alert alert-danger" role="alert" data-ng-bind="'COURSE.ACCESS_DENIED' | translate"></div>
 	</div>

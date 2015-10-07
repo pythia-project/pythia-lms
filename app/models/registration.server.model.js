@@ -68,6 +68,10 @@ var RegistrationSchema = new Schema({
 					_id: false
 				})],
 				default: []
+			},
+			succeeded: {
+				type: Boolean,
+				default: false
 			}
 		}, {
 			id: false,

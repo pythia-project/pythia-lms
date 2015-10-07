@@ -149,7 +149,7 @@ exports.getRegistration = function(req, res) {
  * Get all the registrations to a course
  */
 exports.getRegistrations = function(req, res) {
-	Registration.find({'course': req.course}, 'user').populate('user', 'firstname lastname').exec(function(err, registrations) {
+	Registration.find({'course': req.course}, 'user sequences').populate('user', 'firstname lastname').exec(function(err, registrations) {
 		if (err) {
 			return errorHandler.getLoadErrorMessage(err, 'registration', 'for course ' + req.course.id);
 		}
