@@ -128,13 +128,18 @@ exports.courseBySerial = function(req, res, next, serial) {
 		}
 		req.course = course;
 		// Load registration to this course, if any
-		Registration.findOne({'course': course.id, 'user': req.user.id}, function(err, registration) {
-			if (err) {
-				return errorHandler.getLoadErrorMessage(err, 'registration', 'for course ' + course.id + ' and user ' + req.user.id, next);
-			}
-			req.registration = registration;
+		if (req.user) {
+			Registration.findOne({'course': course.id, 'user': req.user.id}, function(err, registration) {
+				if (err) {
+					return errorHandler.getLoadErrorMessage(err, 'registration', 'for course ' + course.id + ' and user ' + req.user.id, next);
+				}
+				req.registration = registration;
+				next();
+			});
+		}
+		else {
 			next();
-		});
+		}
 	});
 };
 
