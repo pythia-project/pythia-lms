@@ -112,7 +112,7 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 			}
 		}
 		return succeeded / nbsequences;
-	}
+	};
 
 	// Load the list of teachers, for autocompletion of coordinators field
 	$scope.initCourseForm = function() {
