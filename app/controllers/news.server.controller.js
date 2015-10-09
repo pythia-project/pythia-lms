@@ -66,7 +66,7 @@ exports.list = function(req, res) {
  * News middleware
  */
 exports.newsByID = function(req, res, next, id) {
-	News.findById(id, 'title content').exec(function(err, news) {
+	News.findById(id, 'course title content created user').populate('course', 'serial').populate('user', 'displayname').exec(function(err, news) {
 		if (err || ! news) {
 			return errorHandler.getLoadErrorMessage(err, 'news', id, next);
 		}

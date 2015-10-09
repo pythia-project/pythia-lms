@@ -1,0 +1,42 @@
+<section data-ng-controller="NewsController" data-ng-init="findOne()">
+	<div data-ng-if="news.$resolved && news._id !== undefined">
+		<ol class="breadcrumb">
+			<li><a href="#!/news/manage" data-ng-bind="'NEWS.NEWS' | translate"></a></li>
+			<li><a href="#!/news/{{news._id}}" data-ng-bind="news.title"></a></li>
+		</ol>
+
+		<h2 data-ng-bind="news.title"></h2>
+
+		<div class="row">
+			<div class="col-md-9" data-ng-bind="news.content">
+			</div>
+
+			<div class="col-md-3">
+				<div class="panel panel-info">
+					<div class="panel-heading"><h3 class="panel-title" data-ng-bind="'NEWS.INFORMATION' | translate"></h3></div>
+					<div class="panel-body">
+						<dl data-ng-if="news.course">
+							<dt data-ng-bind="'NEWS.COURSE' | translate"></dt>
+							<dd data-ng-bind="news.course.serial"></dd>
+						</dl>
+						<dl>
+							<dt data-ng-bind="'NEWS.PUBLISHED_ON' | translate"></dt>
+							<dd data-ng-bind="news.created | amDateFormat : 'ddd, D MMM YYYY, H:mm'"></dd>
+						</dl>
+						<dl>
+							<dt data-ng-bind="'NEWS.PUBLISHED_BY' | translate"></dt>
+							<dd data-ng-bind="news.user.displayname"></dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div data-ng-if="news.$resolved && news._id === undefined">
+		<h2>Error</h2>
+		<div class="alert alert-danger" role="alert">
+			You are not allowed to access this news.
+		</div>
+	</div>
+</section>

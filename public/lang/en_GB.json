@@ -24,7 +24,8 @@
 		"MY_COURSES": "My courses",
 		"REGISTER_COURSE": "Register to a course",
 		"PROBLEMS": "Problems",
-		"USERS": "Users"
+		"USERS": "Users",
+		"NEWS": "News"
 	},
 	"COURSE": {
 		"MANAGE": "Manage courses",
@@ -143,6 +144,20 @@
 		"ROLES": "Roles",
 		"PICTURE": "Picture",
 		"ACTIVE": "Active"
+	},
+	"NEWS": {
+		"NEWS": "News",
+		"NEW_NEWS": "New news",
+		"NO_NEWS": "No news yet.",
+		"CREATE_NEWS": "Create news",
+		"TITLE": "Title",
+		"CONTENT": "Content",
+		"COURSE": "Course",
+		"SELECT_COURSE": "Select course",
+		"INFORMATION": "Information",
+		"CREATE": "Create",
+		"PUBLISHED_ON": "Published on",
+		"PUBLISHED_BY": "Published by"
 	},
 	"BY": "By",
 	"PYTHIA_AUTHORS": "the Pythia LMS authors"

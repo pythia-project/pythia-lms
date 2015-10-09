@@ -1,0 +1,86 @@
+<section data-ng-controller="ProblemsController" data-ng-init="findOne()">
+	<div data-ng-if="problem.$resolved && problem._id !== undefined">
+		<ol class="breadcrumb">
+			<li><a href="#!/problems/manage" data-ng-bind="'PROBLEM.PROBLEMS' | translate"></a></li>
+			<li><a href="#!/problems/{{problem._id}}">{{problem.name}}</a></li>
+		</ol>
+
+		<h2 data-ng-bind="'PROBLEM.EDIT_PROBLEM' | translate"></h2>
+
+		<div class="col-md-12">
+			<form class="form-horizontal" data-ng-submit="update()" novalidate>
+				<fieldset>
+					<div class="form-group">
+						<label class="control-label" for="name" data-ng-bind="'PROBLEM.NAME' | translate"></label>
+						<div class="controls">
+							<input type="text" data-ng-model="problem.name" id="name" class="form-control" placeholder="Name" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="description" data-ng-bind="'PROBLEM.DESCRIPTION' | translate"></label>
+						<div class="controls">
+							<textarea data-ng-model="problem.description" id="description" class="form-control" placeholder="Description" rows="10"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="authors" data-ng-bind="'PROBLEM.AUTHORS' | translate"></label>
+						<tags-input data-ng-model="problem.authors" placeholder="{{'PROBLEM.ADD_AUTHOR' | translate}}"></tags-input>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="points" data-ng-bind="'PROBLEM.POINTS_MAJ' | translate"></label>
+						<div class="controls">
+							<input type="number" data-ng-model="problem.points" id="points" class="form-control" placeholder="Points" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="environment" data-ng-bind="'PROBLEM.ENVIRONMENT' | translate"></label>
+						<div class="controls">
+							<input type="text" data-ng-model="problem.task.environment" id="environment" class="form-control" placeholder="busybox" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="taskfs">Taskfs</label>
+						<div class="controls">
+							<input type="text" data-ng-model="problem.task.taskfs" id="taskfs" class="form-control" placeholder="task.sfs" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="time" data-ng-bind="'PROBLEM.TIME' | translate"></label>
+						<div class="controls">
+							<input type="number" data-ng-model="problem.task.limits.time" id="time" class="form-control" placeholder="60" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="memory" data-ng-bind="'PROBLEM.MEMORY' | translate"></label>
+						<div class="controls">
+							<input type="number" data-ng-model="problem.task.limits.memory" id="memory" class="form-control" placeholder="32" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="disk" data-ng-bind="'PROBLEM.DISK' | translate"></label>
+						<div class="controls">
+							<input type="number" data-ng-model="problem.task.limits.disk" id="disk" class="form-control" placeholder="50" required>
+						</div>
+					</div>
+					<div class="form-group">
+					<label class="control-label" for="output" data-ng-bind="'PROBLEM.OUTPUT' | translate"></label>
+						<div class="controls">
+							<input type="number" data-ng-model="problem.task.limits.output" id="output" class="form-control" placeholder="1024" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary" data-ng-bind="'PROBLEM.UPDATE' | translate"></button>
+					</div>
+					<div data-ng-show="error" class="text-danger">
+						<strong data-ng-bind="error"></strong>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+	<div data-ng-if="problem.$resolved && problem._id === undefined">
+		<h2 data-ng-bind="'PROBLEM.ERROR' | translate"></h2>
+		<div class="alert alert-danger" role="alert" data-ng-bind="'PROBLEM.ACCESS_DENIED' | translate"></div>
+	</div>
+</section>

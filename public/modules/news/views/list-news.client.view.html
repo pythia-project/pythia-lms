@@ -1,0 +1,12 @@
+<section data-ng-controller="NewsController" data-ng-init="find()">
+	<h2 data-ng-bind="'NEWS.NEWS' | translate"></h2>
+
+	<div class="action-box" class="text-right">
+		<a href="#!/news/create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{'NEWS.NEW_NEWS' | translate}}</a>
+	</div>
+
+	<div data-ng-if="news.$resolved && news.length > 0" class="list-group">
+		<a data-ng-repeat="news in news" data-ng-href="#!/news/{{news._id}}" class="list-group-item" data-ng-bind="news.title"></a>
+	</div>
+	<div data-ng-if="news.$resolved && news.length === 0" class="alert alert-warning" role="alert" data-ng-bind="'NEWS.NO_NEWS' | translate"></div>
+</section>

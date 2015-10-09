@@ -144,6 +144,20 @@
 		"PICTURE": "Photo",
 		"ACTIVE": "Actif"
 	},
+	"NEWS": {
+		"NEWS": "News",
+		"NEW_NEWS": "Nouvelle news",
+		"NO_NEWS": "Aucune news.",
+		"CREATE_NEWS": "Créer une news",
+		"TITLE": "Titre",
+		"CONTENT": "Contenu",
+		"COURSE": "Cours",
+		"SELECT_COURSE": "Sélectionner un cours",
+		"INFORMATION": "Information",
+		"CREATE": "Créer",
+		"PUBLISHED_ON": "Publiée le",
+		"PUBLISHED_BY": "Publiée par"
+	},
 	"BY": "Par",
 	"PYTHIA_AUTHORS": "les auteurs de Pythia LMS"
 }
