@@ -55,9 +55,7 @@
 	</div>
 
 	<div data-ng-if="problem.$resolved && problem._id === undefined">
-		<h2>Error</h2>
-		<div class="alert alert-danger" role="alert">
-			You are not allowed to access this problem.
-		</div>
+		<h2 data-ng-bind="'PROBLEM.ERROR' | translate"></h2>
+		<div class="alert alert-danger" role="alert" data-ng-bind="'PROBLEM.ACCESS_DENIED' | translate"></div>
 	</div>
 </section>
