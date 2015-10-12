@@ -1,6 +1,8 @@
 {
 	"DASHBOARD": {
-		"DASHBOARD": "Tableau de bord"
+		"DASHBOARD": "Tableau de bord",
+		"NEWS": "News",
+		"NO_NEWS": "Aucune news."
 	},
 	"HOME": {
 		"JUMBOTRON": "Apprenez à coder et testez directement les nouveaux concepts appris avec les cours proposés sur la plateforme Pythia LMS. Progressez dans votre apprentissage grâce aux feedbacks intelligents et à une expérience d'apprentissage personnalisée.",

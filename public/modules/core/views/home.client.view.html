@@ -33,7 +33,24 @@
 		</div>
 	</div>
 
-	<div data-ng-if="authentication.user">
+	<div data-ng-if="authentication.user" data-ng-controller="DashboardController">
 		<h2>{{'DASHBOARD.DASHBOARD' | translate}}</h2>
+
+		<div class="row">
+			<div class="col-md-8">
+			</div>
+
+			<div class="col-md-4">
+				<div class="panel panel-info" data-ng-init="findNews()">
+					<div class="panel-heading"><h3 class="panel-title" data-ng-bind="'DASHBOARD.NEWS' | translate"></h3></div>
+					<div class="panel-body">
+						<p data-ng-if="news.$resolved && news.length == 0" data-ng-bind="'DASHBOARD.NO_NEWS' | translate"></p>
+						<ul>
+							<li data-ng-repeat="news in news"><a data-ng-href="/#!/news/{{news._id}}">{{news.title}}</a> <small>[{{news.created | amDateFormat:'ddd, D MMM YYYY, H:mm'}}]</small></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </section>

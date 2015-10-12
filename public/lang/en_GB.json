@@ -1,6 +1,8 @@
 {
 	"DASHBOARD": {
-		"DASHBOARD": "Dashboard"
+		"DASHBOARD": "Dashboard",
+		"NEWS": "News",
+		"NO_NEWS": "No news yet."
 	},
 	"HOME": {
 		"JUMBOTRON": "Learn to code and test directly the newly learned concepts with courses proposed on Pythia LMS. Make progress with the intelligent feedbacks and the customised learning experience.",
