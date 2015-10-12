@@ -145,7 +145,13 @@
 		"OR": "ou",
 		"ROLES": "Rôles",
 		"PICTURE": "Photo",
-		"ACTIVE": "Actif"
+		"ACTIVE": "Actif",
+		"CHANGE_PASSWORD": "Modifier mon mot de passe",
+		"CURRENT_PASSWORD": "Mot de passe actuel",
+		"NEW_PASSWORD": "Nouveau mot de passe",
+		"CONFIRM_PASSWORD": "Confirmer mot de passe",
+		"SAVE_PASSWORD": "Enregistrer",
+		"PASSWORD_CHANGE_SUCCESS": "Mot de passe modifié avec succès."
 	},
 	"NEWS": {
 		"NEWS": "News",
