@@ -165,7 +165,8 @@
 		"INFORMATION": "Information",
 		"CREATE": "Create",
 		"PUBLISHED_ON": "Published on",
-		"PUBLISHED_BY": "Published by"
+		"PUBLISHED_BY": "Published by",
+		"DASHBOARD": "Dashboard"
 	},
 	"BY": "By",
 	"PYTHIA_AUTHORS": "the Pythia LMS authors"

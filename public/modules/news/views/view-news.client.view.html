@@ -1,7 +1,8 @@
 <section data-ng-controller="NewsController" data-ng-init="findOne()">
 	<div data-ng-if="news.$resolved && news._id !== undefined">
 		<ol class="breadcrumb">
-			<li><a href="#!/news/manage" data-ng-bind="'NEWS.NEWS' | translate"></a></li>
+			<li data-ng-if="authentication.user && authentication.user.roles.indexOf('admin') !== -1"><a href="#!/news/manage" data-ng-bind="'NEWS.NEWS' | translate"></a></li>
+			<li data-ng-if="! authentication.user || authentication.user.roles.indexOf('admin') === -1"><a href="#!/dashboard" data-ng-bind="'NEWS.DASHBOARD' | translate"></a></li>
 			<li><a href="#!/news/{{news._id}}" data-ng-bind="news.title"></a></li>
 		</ol>
 

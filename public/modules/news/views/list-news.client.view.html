@@ -2,7 +2,7 @@
 	<h2 data-ng-bind="'NEWS.NEWS' | translate"></h2>
 
 	<div class="action-box" class="text-right">
-		<a href="#!/news/create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{'NEWS.NEW_NEWS' | translate}}</a>
+		<a data-ng-if="authentication.user && authentication.user.roles.indexOf('admin') !== -1" href="#!/news/create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{'NEWS.NEW_NEWS' | translate}}</a>
 	</div>
 
 	<div data-ng-if="news.$resolved && news.length > 0" class="list-group">
