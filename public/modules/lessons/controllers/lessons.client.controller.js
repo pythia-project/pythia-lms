@@ -230,14 +230,16 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		var users = 0;
 		var usersubmissions = [];
 		for (var i = 0; i < $scope.problemstats.length; i++) {
-			var submissions = $scope.problemstats[i].problems[problem].submissions;
-			if (submissions.length > 0) {
-				usersubmissions.push({
-					'user': $scope.problemstats[i].user,
-					'submissions': submissions
-				});
-				total += submissions.length;
-				users += 1;
+			if (problem < $scope.problemstats[i].problems.length) {
+				var submissions = $scope.problemstats[i].problems[problem].submissions;
+				if (submissions !== undefined && submissions.length > 0) {
+					usersubmissions.push({
+						'user': $scope.problemstats[i].user,
+						'submissions': submissions
+					});
+					total += submissions.length;
+					users += 1;
+				}
 			}
 		}
 		return {
