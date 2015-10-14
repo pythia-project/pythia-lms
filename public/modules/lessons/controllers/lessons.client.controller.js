@@ -225,6 +225,24 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		return score;
 	};
 
+	$scope.getSubmissions = function(problem) {
+		var usersubmissions = [];
+		for (var i = 0; i < $scope.problemstats.length; i++) {
+			var submissions = $scope.problemstats[i].problems[problem].submissions;
+			if (submissions.length > 0) {
+				usersubmissions.push({
+					'user': $scope.problemstats[i].user,
+					'submissions': submissions
+				});
+			}
+		}
+		return usersubmissions;
+	};
+
+	$scope.renderFeedback = function(feedback) {
+		return JSON.stringify(feedback);
+	};
+
 	// Find existing sequence
 	$scope.findSequence = function() {
 		$scope.courseSerial = $stateParams.courseSerial;

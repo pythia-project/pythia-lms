@@ -48,10 +48,6 @@ figcaption {
 	text-align: center;
 }
 
-.list-group {
-	margin-top: 15px;
-}
-
 .content {
 	margin-top: 50px;
 }
@@ -77,6 +73,14 @@ div.problem {
 
 .statsprogressbar {
 	min-width: 200px;
+}
+
+.tab-content {
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	padding: 20px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075);
 }
 
 /* Bootstrap change */

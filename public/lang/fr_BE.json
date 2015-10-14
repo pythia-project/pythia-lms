@@ -101,7 +101,9 @@
 		"UPDATE": "Mettre à jour",
 		"STATS": "Statistiques",
 		"PROBLEM_STATS": "Statistiques sur les problèmes",
-		"NB_PROBLEMS": "Nombre de problèmes"
+		"NB_PROBLEMS": "Nombre de problèmes",
+		"SUBMISSIONS": "soumissions",
+		"SUBMISSION": "Soumission"
 	},
 	"PROBLEM": {
 		"PROBLEMS": "Problèmes",
