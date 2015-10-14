@@ -310,3 +310,31 @@ exports.submit = function(req, res) {
 		});
 	});
 };
+
+/**
+ * Get all the registrations to a course
+ */
+exports.getRegistrations = function(req, res) {
+	Registration.find({'course': req.course}, 'user sequences').populate('user', 'firstname lastname').exec(function(err, registrations) {
+		if (err) {
+			return errorHandler.getLoadErrorMessage(err, 'registration', 'for course ' + req.course.id);
+		}
+		var problemstats = [];
+		for (var i = 0; i < registrations.length; i++) {
+			if (req.params.sequenceIndex - 1 < registrations[i].sequences.length) {
+				var sequence = registrations[i].sequences[req.params.sequenceIndex - 1];
+				if (req.params.lessonIndex - 1 < sequence.lessons.length) {
+					var lesson = sequence.lessons[req.params.lessonIndex - 1];
+					problemstats.push({
+						'user': registrations[i].user,
+						'problems': lesson.problems
+					});
+				}
+			}
+		}
+		res.jsonp({
+			'problemstats': problemstats,
+			'lesson': req.lesson
+		});
+	});
+};

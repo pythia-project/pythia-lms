@@ -192,6 +192,35 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		});
 	};
 
+	// Find stats about lesson
+	$scope.loadStats = function() {
+		$scope.findSequence();
+		$scope.problemstats = null;
+		$http.get('/courses/' + $stateParams.courseSerial + '/sequences/' + $stateParams.sequenceIndex + '/lessons/' + $stateParams.lessonIndex + '/stats').success(function(data, status, header, config) {
+			$scope.lesson = data.lesson;
+			$scope.problemstats = data.problemstats;
+		});
+	};
+
+	$scope.getProgress = function(problems) {
+		var succeeded = 0;
+		for (var i = 0; i < problems.length; i++) {
+			var lastsubmission = problems[i].submissions[problems[i].submissions.length - 1];
+			if (lastsubmission.status === 'success') {
+				succeeded += 1;
+			}
+		}
+		return succeeded / problems.length * 100.0;
+	};
+
+	$scope.getScore = function(problems) {
+		var score = 0;
+		for (var i = 0; i < problems.length; i++) {
+			score += problems[i].score;
+		}
+		return score;
+	};
+
 	// Find existing sequence
 	$scope.findSequence = function() {
 		$scope.courseSerial = $stateParams.courseSerial;

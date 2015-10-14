@@ -99,7 +99,9 @@
 		"EDIT_LESSON": "Edit lesson",
 		"INFORMATION": "Information",
 		"UPDATE": "Update",
-		"STATS": "Statistics"
+		"STATS": "Statistics",
+		"PROBLEM_STATS": "Statistics about problems",
+		"NB_PROBLEMS": "Number of problems"
 	},
 	"PROBLEM": {
 		"PROBLEMS": "Problems",

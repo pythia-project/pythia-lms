@@ -80,7 +80,7 @@
 		"ACCESS_DENIED": "Vous n'êtes pas autorisé à accéder à cette séquence.",
 		"UPDATE": "Mettre à jour",
 		"OPENED": "Sera disponible le ",
-		"STATS": "Statistics"
+		"STATS": "Statistiques"
 	},
 	"LESSON": {
 		"NEW_LESSON": "Nouvelle leçon",
@@ -99,7 +99,9 @@
 		"EDIT_LESSON": "Éditer la leçon",
 		"INFORMATION": "Information",
 		"UPDATE": "Mettre à jour",
-		"STATS": "Statistics"
+		"STATS": "Statistiques",
+		"PROBLEM_STATS": "Statistiques sur les problèmes",
+		"NB_PROBLEMS": "Nombre de problèmes"
 	},
 	"PROBLEM": {
 		"PROBLEMS": "Problèmes",

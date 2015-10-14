@@ -19,6 +19,9 @@ module.exports = function(app) {
 	app.route('/courses/:courseSerial/sequences/:sequenceIndex/lessons/:lessonIndex/problems/:problemIndex/submit')
 		.post(users.requiresLogin, courses.isRegistered(true), sequences.hasAuthorization, lessons.hasAuthorization, lessons.submit);
 
+	app.route('/courses/:courseSerial/sequences/:sequenceIndex/lessons/:lessonIndex/stats')
+		.get(users.requiresLogin, courses.hasAuthorization, sequences.hasAuthorization, lessons.hasAuthorization, lessons.getRegistrations);
+
 	// Finish by binding the lesson middleware
 	app.param('lessonIndex', lessons.lessonByIndex);
 	app.param('problemIndex', lessons.problemByIndex);
