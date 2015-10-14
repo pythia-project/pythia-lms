@@ -19,9 +19,17 @@
 				<h3 data-ng-bind="'LESSON.PROBLEM_STATS' | translate"></h3>
 
 				<tabset>
-					<tab data-ng-repeat="i in getNumber(lesson.problems.length) track by $index" heading="{{lesson.problems[$index].name}}">
-						<accordion data-ng-init="submissions = getSubmissions($index)">
-							<accordion-group data-ng-repeat="stats in submissions | orderBy: '+user.lastname'" heading="{{stats.user.firstname}} {{stats.user.lastname}} ({{stats.submissions.length}} {{'LESSON.SUBMISSIONS' | translate}})">
+					<tab data-ng-repeat="i in getNumber(lesson.problems.length) track by $index" heading="{{lesson.problems[$index].name}}" data-ng-init="submissions = getSubmissions($index)">
+						<h4 data-ng-bind="'LESSON.SUBMISSIONS_STATS' | translate"></h4>
+						<dl class="dl-horizontal">
+							<dt data-ng-bind="'LESSON.SUBMISSIONS_TOTAL' | translate"></dt>
+							<dd>{{submissions.total}}</dd>
+							<dt data-ng-bind="'LESSON.SUBMISSIONS_AVERAGE' | translate"></dt>
+							<dd>{{submissions.mean}}</dd>
+						</dl>
+						<h4 data-ng-bind="'LESSON.USERS_SUBMISSIONS_LIST' | translate"></h4>
+						<accordion>
+							<accordion-group data-ng-repeat="stats in submissions.users | orderBy: '+user.lastname'" heading="{{stats.user.firstname}} {{stats.user.lastname}} ({{stats.submissions.length}} {{'LESSON.SUBMISSIONS' | translate}})">
 								<dl>
 									<dt data-ng-repeat-start="j in getNumber(stats.submissions.length)">{{'LESSON.SUBMISSION' | translate}} {{j+1}}</dt>
 									<dd data-ng-repeat-end>

@@ -103,7 +103,11 @@
 		"PROBLEM_STATS": "Statistiques sur les problèmes",
 		"NB_PROBLEMS": "Nombre de problèmes",
 		"SUBMISSIONS": "soumissions",
-		"SUBMISSION": "Soumission"
+		"SUBMISSION": "Soumission",
+		"SUBMISSIONS_STATS": "Statistiques sur les soumissions",
+		"SUBMISSIONS_TOTAL": "Total",
+		"SUBMISSIONS_AVERAGE": "Moyenne",
+		"USERS_SUBMISSIONS_LIST": "Liste des soumissions des utilisateurs"
 	},
 	"PROBLEM": {
 		"PROBLEMS": "Problèmes",
