@@ -203,10 +203,14 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 	};
 
 	$scope.getProgress = function(problems) {
+		if (problems.length === 0) {
+			return 0;
+		}
+		// Count the number of succeeded problems
 		var succeeded = 0;
 		for (var i = 0; i < problems.length; i++) {
 			var lastsubmission = problems[i].submissions[problems[i].submissions.length - 1];
-			if (lastsubmission.status === 'success') {
+			if (lastsubmission !== undefined && lastsubmission.status === 'success') {
 				succeeded += 1;
 			}
 		}
