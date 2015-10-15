@@ -174,7 +174,8 @@
 		"CREATE": "Créer",
 		"PUBLISHED_ON": "Publiée le",
 		"PUBLISHED_BY": "Publiée par",
-		"DASHBOARD": "Tableau de bord"
+		"DASHBOARD": "Tableau de bord",
+		"EDIT_NEWS": "Éditer la news"
 	},
 	"BY": "Par",
 	"PYTHIA_AUTHORS": "les auteurs de Pythia LMS"

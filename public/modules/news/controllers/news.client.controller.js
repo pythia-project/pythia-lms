@@ -70,4 +70,18 @@ angular.module('news').controller('NewsController', ['$scope', '$stateParams', '
 	$scope.loadCourses = function(query) {
 		return $filter('filter')(coursesList, query);
 	};
+
+	// Test whether the current user has one of the specified roles
+	$scope.hasRole = function(roles) {
+		return $scope.authentication.user && roles.some(function(element, index, array) {
+			return $scope.authentication.user.roles.indexOf(element) !== -1;
+		});
+	};
+
+	// Test whether the current user is a coordinator of this course
+	$scope.isCoordinator = function() {
+		return $scope.authentication.user && $scope.course.coordinators.some(function(element, index, array) {
+			return $scope.authentication.user._id === element._id;
+		});
+	};
 }]);
