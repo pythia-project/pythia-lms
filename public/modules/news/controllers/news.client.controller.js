@@ -37,7 +37,13 @@ angular.module('news').controller('NewsController', ['$scope', '$stateParams', '
 
 	// Update existing news
 	$scope.update = function() {
+		// Create new news object
+		var coursesIDs = [];
+		for (var i = 0; i < this.courses.length; i++) {
+			coursesIDs.push(this.courses[i]._id);
+		}
 		var news = $scope.news;
+		news.course = coursesIDs.length > 0 ? coursesIDs[0] : null;
 		news.$update({
 			'newsId': news._id
 		}, function() {
@@ -56,6 +62,10 @@ angular.module('news').controller('NewsController', ['$scope', '$stateParams', '
 	$scope.findOne = function() {
 		$scope.news = News.get({
 			newsId: $stateParams.newsId
+		}, function() {
+			if ($scope.news.course !== null) {
+				$scope.courses = [$scope.news.course];
+			}
 		});
 	};
 

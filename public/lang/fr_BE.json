@@ -175,7 +175,10 @@
 		"PUBLISHED_ON": "Publiée le",
 		"PUBLISHED_BY": "Publiée par",
 		"DASHBOARD": "Tableau de bord",
-		"EDIT_NEWS": "Éditer la news"
+		"EDIT_NEWS": "Éditer la news",
+		"ERROR": "Erreur",
+		"ACCESS_DENIED": "Vous n'êtes pas autorisé à accéder à cette news.",
+		"UPDATE": "Mettre à jour"
 	},
 	"BY": "Par",
 	"PYTHIA_AUTHORS": "les auteurs de Pythia LMS"
