@@ -258,9 +258,15 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		$scope.courseSerial = $stateParams.courseSerial;
 		$scope.sequenceIndex = $stateParams.sequenceIndex;
 		$scope.lessonIndex = $stateParams.lessonIndex;
+		$scope.nextLesson = null;
 		$scope.sequence = Sequences.get({ 
 			courseSerial: $stateParams.courseSerial,
 			sequenceIndex: $stateParams.sequenceIndex
+		}, function() {
+			var next = parseInt ($stateParams.lessonIndex) + 1;
+			if (next < $scope.sequence.lessons.length) {
+				$scope.nextLesson = $scope.sequence.lessons[next];
+			}
 		});
 	};
 
@@ -339,5 +345,19 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		return $scope.authentication.user && $scope.course.coordinators.some(function(element, index, array) {
 			return $scope.authentication.user._id === element._id;
 		});
+	};
+
+	// Test whether the specified date is before now
+	$scope.isBefore = function(date) {
+		return moment().isBefore(moment(date));
+	};
+
+	// Test whether the specified date is after now
+	$scope.isAfter = function(date) {
+		return moment().isAfter(moment(date));
+	};
+
+	$scope.increment = function(data) {
+		return parseInt(data);
 	};
 }]);
