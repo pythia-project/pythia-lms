@@ -28,11 +28,11 @@
 					<div class="panel-body">
 						<dl data-ng-if="sequence.start !== null">
 							<dt data-ng-bind="'SEQUENCE.START_DATE' | translate"></dt>
-							<dd>{{sequence.start | amDateFormat: 'ddd, D MMM YYYY, H:mm'}}</dd>
+							<dd data-ng-bind="sequence.start | amDateFormat: 'ddd, D MMM YYYY, H:mm'"></dd>
 						</dl>
 						<dl data-ng-if="sequence.end !== null">
 							<dt data-ng-bind="'SEQUENCE.END_DATE' | translate"></dt>
-							<dd>{{sequence.end | amDateFormat: 'ddd, D MMM YYYY, H:mm'}}</dd>
+							<dd data-ng-bind="sequence.end | amDateFormat: 'ddd, D MMM YYYY, H:mm'"></dd>
 						</dl>
 						<dl data-ng-if="registration !== null">
 							<dt data-ng-bind="'SEQUENCE.PROGRESS' | translate"></dt>
