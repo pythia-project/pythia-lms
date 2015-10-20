@@ -107,7 +107,9 @@
 		"SUBMISSIONS_STATS": "Statistics about submissions",
 		"SUBMISSIONS_TOTAL": "Total",
 		"SUBMISSIONS_AVERAGE": "Average",
-		"USERS_SUBMISSIONS_LIST": "List of submissions by users"
+		"USERS_SUBMISSIONS_LIST": "List of submissions by users",
+		"PREVIOUS_LESSON": "Previous lesson",
+		"NEXT_LESSON": "Next lesson"
 	},
 	"PROBLEM": {
 		"PROBLEMS": "Problems",
