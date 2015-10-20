@@ -18,8 +18,8 @@
 				<div class="context" data-bind-html-compile="lessonContext"></div>
 
 				<ul class="pager" data-ng-init="nextLessonId = parseint(lessonIndex) + 1; previousLessonId = parseint(lessonIndex) - 1">
-					<li data-ng-init="prevDisabled = previousLesson !== null && ((previousLesson.start === null || isAfter(previousLesson.start)) && (previousLesson.end === null || isBefore(previousLesson.end)))" data-ng-class="{'previous': true, 'disabled': ! prevDisabled}"><a href="/#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/lessons/{{previousLessonId}}" data-ng-bind="'LESSON.PREVIOUS_LESSON' | translate"></a></li>
-					<li data-ng-init="nextDisabled = nextLesson !== null && ((nextLesson.start === null || isAfter(nextLesson.start)) && (nextLesson.end === null || isBefore(nextLesson.end)))" data-ng-class="{'next': true, 'disabled': ! nextDisabled}"><a href="/#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/lessons/{{nextLessonId}}" data-ng-bind="'LESSON.NEXT_LESSON' | translate"></a></li>
+					<li data-ng-if="previousLesson !== null" data-ng-init="prevDisabled = previousLesson !== null && ((previousLesson.start === null || isAfter(previousLesson.start)) && (previousLesson.end === null || isBefore(previousLesson.end)))" data-ng-class="{'previous': true, 'disabled': ! prevDisabled}"><a href="/#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/lessons/{{previousLessonId}}" data-ng-bind="'LESSON.PREVIOUS_LESSON' | translate"></a></li>
+					<li data-ng-if="nextLesson !== null" data-ng-init="nextDisabled = nextLesson !== null && ((nextLesson.start === null || isAfter(nextLesson.start)) && (nextLesson.end === null || isBefore(nextLesson.end)))" data-ng-class="{'next': true, 'disabled': ! nextDisabled}"><a href="/#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}/lessons/{{nextLessonId}}" data-ng-bind="'LESSON.NEXT_LESSON' | translate"></a></li>
 				</ul>
 			</div>
 

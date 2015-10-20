@@ -271,7 +271,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			}
 			// Get the next lesson in the sequence
 			var next = parseInt($stateParams.lessonIndex) + 1;
-			if (next - 1 <= $scope.sequence.lessons.length) {
+			if (next - 1 < $scope.sequence.lessons.length) {
 				$scope.nextLesson = $scope.sequence.lessons[next - 1];
 			}
 		});
