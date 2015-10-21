@@ -161,7 +161,8 @@
 		"NEW_PASSWORD": "Nouveau mot de passe",
 		"CONFIRM_PASSWORD": "Confirmer mot de passe",
 		"SAVE_PASSWORD": "Enregistrer",
-		"PASSWORD_CHANGE_SUCCESS": "Mot de passe modifié avec succès."
+		"PASSWORD_CHANGE_SUCCESS": "Mot de passe modifié avec succès.",
+		"ACCOUNT_CREATED": "Compte créé avec succès, vous pourrez vous connecter une fois activé par un modérateur."
 	},
 	"NEWS": {
 		"NEWS": "News",

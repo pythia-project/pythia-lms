@@ -27,6 +27,9 @@
 					<button type="submit" class="btn btn-large btn-primary">Sign up</button>&nbsp; or&nbsp;
 					<a href="/#!/signin" class="show-signup">Sign in</a>
 				</div>
+				<div data-ng-show="success" class="text-center text-success">
+					<strong data-ng-bind="'USER.ACCOUNT_CREATED' | translate"></strong>
+				</div>
 				<div data-ng-show="error" class="text-center text-danger">
 					<strong data-ng-bind="error"></strong>
 				</div>

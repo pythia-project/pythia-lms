@@ -161,7 +161,8 @@
 		"NEW_PASSWORD": "New Password",
 		"CONFIRM_PASSWORD": "Verify Password",
 		"SAVE_PASSWORD": "Save",
-		"PASSWORD_CHANGE_SUCCESS": "Password changed successfully."
+		"PASSWORD_CHANGE_SUCCESS": "Password changed successfully.",
+		"ACCOUNT_CREATED": "Account successfully created, you will be able to signin when activated by a moderator."
 	},
 	"NEWS": {
 		"NEWS": "News",
