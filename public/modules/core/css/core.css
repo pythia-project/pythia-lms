@@ -130,3 +130,7 @@ span.flag-be::before {
 	content:url('/images/be.png');
 	margin-right: 10px;
 }
+span.flag-pl::before {
+	content:url('/images/pl.png');
+	margin-right: 10px;
+}
