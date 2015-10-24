@@ -7,7 +7,7 @@
 	"HOME": {
 		"JUMBOTRON": "Naucz sie kodować i od razu testuj nowe pojęcia nauczane przez platforme Pythia LMS. Postępuj w nauce dzieki inteligentymi feedbackami i osobistym programem nauczania.",
 		"LEARN_MORE": "Dowiedzieć się więcej",
-		"LEARN_CODE": "Nauczyć sie kodować",
+		"LEARN_CODE": "Naucz sie kodować",
 		"LEARN_CODE_DESC": "Pythia LMS proponuje problemy do rozwiązania w sieci, które będą od razu poprawione przez platforme Pythia. Inteligentne feedbacki pomogą wam robić postępy w nauce.",
 		"CREATE_COURSES": "Utwóż kursy",
 		"CREATE_COURSES_DESC": "Pythia LMS pomaga wam utworzyć kursy zorganizowane w sekwecenje lekcji. Dostęp do różnych sekwencji i lekcji można dostosować dla każdego użytkownika.",
@@ -15,7 +15,7 @@
 		"MANAGE_CLASSROOMS_DESC": "Pythia LMS daje dla nauczycieli prosty sposób zarządzania klasą i pozwala uczniom dzielić się kodem. Statystyki dotyczące wydajności użytkowników pozwalają nauczycielom dostosować kursy."
 	},
 	"MENU": {
-		"SIGNUP": "Zarejestrować się",
+		"SIGNUP": "Zarejestruj się",
 		"SIGNIN": "Zaloguj się",
 		"SIGNOUT": "Wyloguj się",
 		"EDIT_PROFILE": "Zmienić mój profil",
@@ -24,7 +24,7 @@
 		"DASHBOARD": "Ogólna tablica",
 		"COURSES": "Kursy",
 		"MY_COURSES": "Moje kursy",
-		"REGISTER_COURSE": "Zarejestrować się na kurs",
+		"REGISTER_COURSE": "Zarejestruj się na kurs",
 		"PROBLEMS": "Problemy",
 		"USERS": "Użytkownicy",
 		"NEWS": "Nowości"
