@@ -180,7 +180,8 @@
 		"EDIT_NEWS": "Éditer la news",
 		"ERROR": "Erreur",
 		"ACCESS_DENIED": "Vous n'êtes pas autorisé à accéder à cette news.",
-		"UPDATE": "Mettre à jour"
+		"UPDATE": "Mettre à jour",
+		"GENERAL": "Général"
 	},
 	"BY": "Par",
 	"PYTHIA_AUTHORS": "les auteurs de Pythia LMS"

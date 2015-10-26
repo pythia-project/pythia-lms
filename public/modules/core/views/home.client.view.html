@@ -45,8 +45,8 @@
 					<div class="panel-heading"><h3 class="panel-title" data-ng-bind="'DASHBOARD.NEWS' | translate"></h3></div>
 					<div class="panel-body">
 						<p data-ng-if="news.$resolved && news.length == 0" data-ng-bind="'DASHBOARD.NO_NEWS' | translate"></p>
-						<ul>
-							<li data-ng-repeat="news in news"><a data-ng-href="/#!/news/{{news._id}}">{{news.title}}</a> <small>[{{news.created | amDateFormat:'ddd, D MMM YYYY, H:mm'}}]</small></li>
+						<ul class="newslist" data-ng-if="news.$resolved && news.length > 0">
+							<li data-ng-repeat="news in news | orderBy: '-created'">[<span data-ng-if="news.course !== null" data-ng-bind="news.course.serial"></span><span data-ng-if="news.course === null" data-ng-bind="'NEWS.GENERAL' | translate"></span>] <a data-ng-href="/#!/news/{{news._id}}">{{news.title}}</a> <small>({{news.created | amDateFormat:'ddd, D MMM YYYY, H:mm'}})</small></li>
 						</ul>
 					</div>
 				</div>

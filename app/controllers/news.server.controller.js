@@ -52,7 +52,7 @@ exports.update = function(req, res) {
  * List of news
  */
 exports.list = function(req, res) { 
-	News.find().exec(function(err, news) {
+	News.find({}, 'title course created').populate('course', 'serial').exec(function(err, news) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

@@ -180,7 +180,8 @@
 		"EDIT_NEWS": "Edytować nowość",
 		"ERROR": "Błąd",
 		"ACCESS_DENIED": "Nie jesteś dozwolony do tej nowości.",
-		"UPDATE": "Aktualizuj"
+		"UPDATE": "Aktualizuj",
+		"GENERAL": "General"
 	},
 	"BY": "Przez",
 	"PYTHIA_AUTHORS": "autorów Pythii LMS"
