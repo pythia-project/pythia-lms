@@ -189,6 +189,29 @@ exports.switchVisibility = function(req, res, next) {
 };
 
 /**
+ * Switch the privacy of a course
+ */
+exports.switchPrivacy = function(req, res, next) {
+	var serial = req.course.serial;
+	Course.findOne({'serial': serial}, 'private').exec(function(err, course) {
+		if (err || ! course) {
+			return errorHandler.getLoadErrorMessage(err, 'course', serial, next);
+		}
+		course.private = ! course.private;
+		course.save(function(err) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			}
+			res.jsonp({
+				'private': course.private
+			});
+		});
+	});
+};
+
+/**
  * Register to a course
  */
 exports.register = function(req, res, next) {

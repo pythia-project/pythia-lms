@@ -19,6 +19,8 @@ module.exports = function(app) {
 
 	app.route('/courses/:courseSerial/switchvisibility')
 		.post(users.requiresLogin, courses.hasAuthorization, courses.switchVisibility);
+	app.route('/courses/:courseSerial/switchprivacy')
+		.post(users.requiresLogin, courses.hasAuthorization, courses.switchPrivacy);
 
 	app.route('/courses/:courseSerial/register')
 		.post(users.requiresLogin, courses.isRegistered(false), courses.register);

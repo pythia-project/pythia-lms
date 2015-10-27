@@ -150,6 +150,14 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 		});
 	};
 
+	// Change the privacy of a course
+	$scope.changePrivacy = function(index) {
+		var course = $scope.courses[index];
+		$http.post('/courses/' + course.serial + '/switchprivacy').success(function(data, status, headers, config) {
+			course.private = data.private;
+		});
+	};
+
 	// Register to a course
 	$scope.register = function(index) {
 		var course = $scope.courses[index];
