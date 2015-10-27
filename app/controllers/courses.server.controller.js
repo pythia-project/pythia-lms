@@ -70,7 +70,7 @@ exports.list = function(req, res) {
 	switch (req.query.filter) {
 		// Get all courses
 		case 'all':
-			Course.find({}, 'serial title visible').exec(function(err, courses) {
+			Course.find({}, 'serial title visible private').exec(function(err, courses) {
 				if (err) {
 					return res.status(400).send({
 						message: errorHandler.getErrorMessage(err)
