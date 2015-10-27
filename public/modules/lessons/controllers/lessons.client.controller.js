@@ -1,7 +1,7 @@
 'use strict';
 
 // Lessons controller
-angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Sequences', 'Lessons', '$sce', '$http', '$filter', function($scope, $stateParams, $location, Authentication, Sequences, Lessons, $sce, $http, $filter) {
+angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Courses', 'Sequences', 'Lessons', '$sce', '$http', '$filter', function($scope, $stateParams, $location, Authentication, Courses, Sequences, Lessons, $sce, $http, $filter) {
 	$scope.authentication = Authentication;
 	$scope.submissionInProgress = [];
 	$scope.progress = 0;
@@ -170,7 +170,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		$scope.progress = Math.round(nbSucceeded / $scope.lesson.problems.length * 100.0);
 	};
 	$scope.findOne = function() {
-		$scope.findSequence();
+		$scope.loadCourseAndSequence();
 		$scope.lesson = Lessons.get({ 
 			courseSerial: $stateParams.courseSerial,
 			sequenceIndex: $stateParams.sequenceIndex,
@@ -194,7 +194,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 
 	// Find stats about lesson
 	$scope.loadStats = function() {
-		$scope.findSequence();
+		$scope.loadCourseAndSequence();
 		$scope.problemstats = null;
 		$http.get('/courses/' + $stateParams.courseSerial + '/sequences/' + $stateParams.sequenceIndex + '/lessons/' + $stateParams.lessonIndex + '/stats').success(function(data, status, header, config) {
 			$scope.lesson = data.lesson;
@@ -253,11 +253,16 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		return JSON.stringify(feedback);
 	};
 
-	// Find existing sequence
-	$scope.findSequence = function() {
+	// Load information about the current course and sequence
+	$scope.loadCourseAndSequence = function() {
 		$scope.courseSerial = $stateParams.courseSerial;
 		$scope.sequenceIndex = $stateParams.sequenceIndex;
 		$scope.lessonIndex = $stateParams.lessonIndex;
+		// Load course
+		$scope.course = Courses.get({
+			courseSerial: $stateParams.courseSerial
+		});
+		// Load sequence
 		$scope.previousLesson = null;
 		$scope.nextLesson = null;
 		$scope.sequence = Sequences.get({ 
