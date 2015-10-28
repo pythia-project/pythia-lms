@@ -82,7 +82,7 @@ exports.list = function(req, res) {
 
 		// Get opened courses the user is not registered to
 		case 'opened':
-			Course.find({}, 'serial title visible').where('visible').equals(true).exec(function(err, courses) {
+			Course.find({}, 'serial title visible private').where('private').equals(false).where('visible').equals(true).exec(function(err, courses) {
 				if (err) {
 					return res.status(400).send({
 						message: errorHandler.getErrorMessage(err)
