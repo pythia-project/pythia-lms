@@ -205,6 +205,7 @@ exports.submit = function(req, res) {
 				var message = '<p>An error occurred during the grading of your submission, please try again later.</p>';
 				var data = '';
 				var submissions = [];
+				var newregistration = null;
 				var socket = new net.Socket();
 				var score = 0;
 				socket.setEncoding('utf8');
@@ -263,15 +264,45 @@ exports.submit = function(req, res) {
 									'raw': output.feedback
 								}
 							});
-							// Set the score
+							// Update the score and success status
+							// For the problem
 							problem.score = score;
-							// Check if lesson succeeded
-							var succeeded = true;
-							for (var i = 0; i < lesson.problems.length && succeeded; i++) {
+							// For the lesson
+							lesson.succeeded = true;
+							lesson.score = 0;
+							lesson.progress = 0;
+							for (var i = 0; i < lesson.problems.length; i++) {
 								var s = lesson.problems[i].submissions;
-								succeeded = ! (s.length === 0 || s[s.length - 1].status !== 'success');
+								var success = ! (s.length === 0 || s[s.length - 1].status !== 'success');
+								lesson.succeeded &= success;
+								lesson.score += lesson.problems[i].score;
+								if (success) {
+									lesson.progress++;
+								}
 							}
-							lesson.succeeded = succeeded;
+							lesson.progress /= lesson.problems.length;
+							// For the sequence
+							sequence.succeeded = true;
+							sequence.score = 0;
+							sequence.progress = 0;
+							for (var j = 0; j < sequence.lessons.length; j++) {
+								sequence.succeeded &= sequence.lessons[j].succeeded;
+								sequence.score += sequence.lessons[j].score;
+								if (sequence.lessons[j].succeeded) {
+									sequence.progress++;
+								}
+							}
+							sequence.progress /= sequence.lessons.length;
+							// For the course
+							registration.score = 0;
+							registration.progress = 0;
+							for (var k = 0; k < registration.sequences.length; k++) {
+								registration.score += registration.sequences[k].score;
+								if (registration.sequences[k].succeeded) {
+									registration.progress++;
+								}
+							}
+							registration.progress /= registration.sequences.length;
 							// Save submission in database
 							registration.save(function(err) {
 								if (err) {
@@ -279,7 +310,7 @@ exports.submit = function(req, res) {
 										message: errorHandler.getErrorMessage(err)
 									});
 								}
-								submissions = problem.submissions;
+								newregistration = registration;
 								socket.destroy();
 							});
 						});
@@ -293,7 +324,7 @@ exports.submit = function(req, res) {
 					res.jsonp({
 						'status': had_error ? 'error' : status,
 						'message': message,
-						'submissions': submissions,
+						'registration': newregistration,
 						'score': score
 					});
 				});

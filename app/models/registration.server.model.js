@@ -49,6 +49,10 @@ var RegistrationSchema = new Schema({
 								})],
 								default: []
 							},
+							succeeded: {
+								type: Boolean,
+								default: false
+							},
 							score: {
 								type: Number,
 								default: 0
@@ -62,6 +66,14 @@ var RegistrationSchema = new Schema({
 					succeeded: {
 						type: Boolean,
 						default: false
+					},
+					score: {
+						type: Number,
+						default: 0
+					},
+					progress: {
+						type: Number,
+						default: 0
 					}
 				}, {
 					id: false,
@@ -72,12 +84,28 @@ var RegistrationSchema = new Schema({
 			succeeded: {
 				type: Boolean,
 				default: false
+			},
+			score: {
+				type: Number,
+				default: 0
+			},
+			progress: {
+				type: Number,
+				default: 0
 			}
 		}, {
 			id: false,
 			_id: false
 		})],
 		default: []
+	},
+	score: {
+		type: Number,
+		default: 0
+	},
+	progress: {
+		type: Number,
+		default: 0
 	}
 });
 

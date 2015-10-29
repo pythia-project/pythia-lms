@@ -327,7 +327,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 				// Update scope objects
 				var problem = getProblem($scope.registration, $scope.sequenceIndex, $scope.lessonIndex, index);
 				problem.score = data.score;
-				problem.submissions = data.submissions;
+				$scope.registration = data.registration;
 				updateProgress();
 				// Enable submission button
 				$scope.submissionInProgress[index - 1] = false;
