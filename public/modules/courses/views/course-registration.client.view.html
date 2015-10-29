@@ -14,6 +14,8 @@
 			</form>
 		</div>
 
+		<p><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> <b>{{registrations.length}}</b> {{'COURSE.REGISTERED_USERS' | translate}}.</p>
+
 		<ul data-ng-if="registrations.length > 0" class="list-group">
 			<li data-ng-repeat="registration in registrations | orderBy: '+user.lastname'" class="list-group-item"><img data-ng-src="/images/users/{{user._id}}.jpg" width="25" height="25" class="iconuserpic" data-ng-if="user.picture" /> {{registration.user.firstname}} {{registration.user.lastname}}</li>
 		</ul>
