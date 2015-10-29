@@ -53,7 +53,9 @@
 		"MY_COURSES": "My courses",
 		"REGISTER_COURSE": "Register to a course",
 		"NO_AVAILABLE_COURSE": "No available courses.",
-		"STATS": "Statistics"
+		"STATS": "Statistics",
+		"POINTS": "points",
+		"MAX_SCORE": "Max score"
 	},
 	"REGISTRATION": {
 		"REGISTRATIONS": "Registrations",

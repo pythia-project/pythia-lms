@@ -86,6 +86,12 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 		$http.get('/courses/' + $stateParams.courseSerial + '/registrations').success(function(data, status, header, config) {
 			$scope.course = data.course;
 			$scope.registrations = data.registrations;
+			$scope.maxScore = 0;
+			for (var i = 0; i < $scope.registrations.length; i++) {
+				if ($scope.registrations[i].score > $scope.maxScore) {
+					$scope.maxScore = $scope.registrations[i].score;
+				}
+			}
 		});
 	};
 
@@ -100,18 +106,7 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 
 	// Get the progress for a given registration
 	$scope.getProgress = function(registration) {
-		if (registration.sequences === undefined || registration.sequences.length === 0) {
-			return 0;
-		}
-		// Count the number of succeeded sequences
-		var succeeded = 0;
-		var nbsequences = registration.sequences.length;
-		for (var i = 0; i < nbsequences; i++) {
-			if (registration.sequences[i].succeeded) {
-				succeeded += 1;
-			}
-		}
-		return succeeded / nbsequences;
+		return parseInt (registration.progress * 100.0);
 	};
 
 	// Load the list of teachers, for autocompletion of coordinators field

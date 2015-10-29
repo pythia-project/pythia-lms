@@ -53,7 +53,8 @@
 		"MY_COURSES": "Moje kursy",
 		"REGISTER_COURSE": "Zarejestrować się na kurs",
 		"NO_AVAILABLE_COURSE": "Nie ma dostepnych kursów.",
-		"STATS": "Statystyki"
+		"STATS": "Statystyki",
+		"POINTS": "punkty"
 	},
 	"REGISTRATION": {
 		"REGISTRATIONS": "Rejestacja",

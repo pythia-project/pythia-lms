@@ -53,7 +53,8 @@
 		"MY_COURSES": "Mes cours",
 		"REGISTER_COURSE": "S'inscrire à un cours",
 		"NO_AVAILABLE_COURSE": "Aucun cours disponible.",
-		"STATS": "Statistiques"
+		"STATS": "Statistiques",
+		"POINTS": "points"
 	},
 	"REGISTRATION": {
 		"REGISTRATIONS": "Inscriptions",
