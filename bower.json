@@ -24,7 +24,9 @@
 		"angular-translate-loader-static-files": "~2.8.1",
 		"angular-translate-storage-cookie": "~2.8.1",
 		"angular-translate-storage-local": "~2.8.1",
-		"nya-bootstrap-select": "~2.0.10"
+		"nya-bootstrap-select": "~2.0.10",
+		"flot": "~0.8.3",
+		"angular-flot": "~0.0.14"
 	},
 	"resolutions": {
 		"angular": ">=1.4.3"
