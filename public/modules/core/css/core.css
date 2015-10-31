@@ -115,6 +115,22 @@ ul.newslist > li {
 	margin: 20px 0;
 }
 
+div.codearea div:nth-child(1) div.CodeMirror {
+	border-bottom: none;
+	padding-left: 31px;
+}
+
+div.codearea div:nth-child(2) div.CodeMirror {
+	border-top: none;
+	border-bottom: none;
+	margin: -20px 0;
+}
+
+div.codearea div:nth-child(3) div.CodeMirror {
+	border-top: none;
+	padding-left: 31px;
+}
+
 /* MEAN.js generated */
 
 .undecorated-link:hover {
