@@ -3,6 +3,7 @@
 // Sequences controller
 angular.module('sequences').controller('SequencesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Courses', 'Sequences', '$http', function($scope, $stateParams, $location, Authentication, Courses, Sequences, $http) {
 	$scope.authentication = Authentication;
+	$scope.score = 0;
 	$scope.progress = 0;
 
 	// Create new sequence
@@ -70,15 +71,10 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 			$http.get('/registrations/' + $stateParams.courseSerial).success(function(data, status, header, config) {
 				$scope.registration = data;
 				if ($scope.registration !== null && $scope.registration.sequences.length >= $scope.sequenceIndex) {
-					// Compute the total score
+					// Extract the total score and progress
 					var sequence = $scope.registration.sequences[$scope.sequenceIndex - 1];
-					var nbSucceeded = 0;
-					for (var i = 0; i < sequence.lessons.length; i++) {
-						if (sequence.lessons[i].succeeded) {
-							nbSucceeded++;
-						}
-					}
-					$scope.progress = Math.round(nbSucceeded / $scope.sequence.lessons.length * 100.0);
+					$scope.score = sequence.score;
+					$scope.progress = parseInt(sequence.progress * 100);
 				}
 			});
 		});

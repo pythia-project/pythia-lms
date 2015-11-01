@@ -35,6 +35,10 @@
 							<dd data-ng-bind="sequence.end | amDateFormat: 'ddd, D MMM YYYY, H:mm'"></dd>
 						</dl>
 						<dl data-ng-if="registration !== null">
+							<dt data-ng-bind="'SEQUENCE.SCORE' | translate"></dt>
+							<dd>{{score}} {{'SEQUENCE.POINTS' | translate}}</dd>
+						</dl>
+						<dl data-ng-if="registration !== null">
 							<dt data-ng-bind="'SEQUENCE.PROGRESS' | translate"></dt>
 							<dd>
 								<progressbar animate="false" max="100" value="progress" type="primary"><span data-ng-hide="progress < 15" data-ng-bind="progress + '%'"></span></progressbar>

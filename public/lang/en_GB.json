@@ -78,6 +78,8 @@
 		"NEW_LESSON": "New lesson",
 		"NO_LESSON": "No lessons in this sequence yet.",
 		"INFORMATION": "Information",
+		"SCORE": "Score",
+		"POINTS": "points",
 		"PROGRESS": "Progress",
 		"ERROR": "Error",
 		"ACCESS_DENIED": "You are not allowed to access this sequence.",
