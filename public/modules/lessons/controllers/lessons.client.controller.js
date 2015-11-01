@@ -4,8 +4,8 @@
 angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Courses', 'Sequences', 'Lessons', '$sce', '$http', '$filter', function($scope, $stateParams, $location, Authentication, Courses, Sequences, Lessons, $sce, $http, $filter) {
 	$scope.authentication = Authentication;
 	$scope.submissionInProgress = [];
-	$scope.progress = 0;
 	$scope.score = 0;
+	$scope.progress = 0;
 	$scope.problems = [];
 	var problemsList = [];
 
@@ -120,11 +120,9 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			var p = getProblem($scope.registration, $stateParams.sequenceIndex, $stateParams.lessonIndex, index);
 			if (p !== undefined && p.submissions.length > 0) {
 				var lastsubmission = p.submissions[p.submissions.length - 1];
-				// Success/fail icon
-				var succeeded = lastsubmission.status === 'success';
-				$content.find('#success-p' + index).first().css('display', succeeded ? 'inline-block' : 'none');
-				$content.find('#failed-p' + index).first().css('display', succeeded ? 'none' : 'inline-block');
-				// Score
+				// Success/fail icon and score information
+				$content.find('#success-p' + index).first().css('display', p.succeeded ? 'inline-block' : 'none');
+				$content.find('#failed-p' + index).first().css('display', p.succeeded ? 'none' : 'inline-block');
 				$content.find('#points-p' + index).first().text(p.score + '/');
 				// Form fields
 				var answer = JSON.parse(lastsubmission.answer);
@@ -153,23 +151,15 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		var nbSucceeded = 0;
 		// If admin and not registered, registration will be null
 		if ($scope.registration !== null && $scope.registration.sequences.length > 0) {
-			for (var i = 1; i <= $scope.lesson.problems.length; i++) {
-				var problem = $scope.registration.sequences[$stateParams.sequenceIndex - 1].lessons[$stateParams.lessonIndex - 1].problems[i - 1];
-				if (problem !== undefined) {
-					score += problem.score;
-					if (problem.submissions.length > 0) {
-						var succeeded = problem.submissions[problem.submissions.length - 1].status === 'success';
-						if (succeeded) {
-							nbSucceeded++;
-						}
-						$('#success-p' + i).css('display', succeeded ? 'inline-block' : 'none');
-						$('#failed-p' + i).css('display', succeeded ? 'none' : 'inline-block');
-					}
-				}
+			var lesson = $scope.registration.sequences[$stateParams.sequenceIndex - 1].lessons[$stateParams.lessonIndex - 1];
+			$scope.score = lesson.score;
+			$scope.progress = parseInt(lesson.progress * 100);
+			for (var i = 1; i <= lesson.problems.length; i++) {
+				$('#success-p' + i).css('display', lesson.problems[i - 1].succeeded ? 'inline-block' : 'none');
+				$('#failed-p' + i).css('display', lesson.problems[i - 1].succeeded ? 'none' : 'inline-block');
+				$('#points-p' + i).text(lesson.problems[i - 1].score + '/');
 			}
 		}
-		$scope.score = score;
-		$scope.progress = Math.round(nbSucceeded / $scope.lesson.problems.length * 100.0);
 	};
 	$scope.findOne = function() {
 		$scope.loadCourseAndSequence();
@@ -183,7 +173,6 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 				$scope.registration = data;
 				// Generate the context, replacing placeholders with problems
 				var content = $scope.lesson.context;
-
 				for (var i = 1; i <= $scope.lesson.problems.length; i++) {
 					content = content.replace('[[' + i + ']]', buildProblem(i, $scope.lesson.problems[i - 1]));
 				}

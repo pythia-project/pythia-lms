@@ -275,6 +275,7 @@ exports.submit = function(req, res) {
 							// Update the score and success status
 							// For the problem
 							problem.score = score;
+							problem.succeeded = status === 'success';
 							// For the lesson
 							lesson.succeeded = true;
 							lesson.score = 0;
