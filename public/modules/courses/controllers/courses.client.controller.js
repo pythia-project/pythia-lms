@@ -101,7 +101,7 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 			var ticks = [];
 			for (var j = 0; j < 10; j++) {
 				bins.push([j, 0]);
-				ticks.push([j, (j * binsize).toString()]);
+				ticks.push([j, (parseInt(j * binsize)).toString()]);
 			}
 			ticks.push([10, $scope.maxScore]);
 			for (var k = 0; k < $scope.registrations.length; k++) {
