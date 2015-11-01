@@ -244,7 +244,6 @@ exports.submit = function(req, res) {
 							if (quality.message !== undefined) {
 								message += quality.message;
 							}
-							console.log(score);
 						}
 						// Build the feedback message
 						if (output.feedback.message !== undefined) {
