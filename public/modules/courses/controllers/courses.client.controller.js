@@ -133,7 +133,7 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 
 	// Get the progress for a given registration
 	$scope.getProgress = function(registration) {
-		return parseInt (registration.progress * 100.0);
+		return parseInt(registration.progress * 100.0);
 	};
 
 	// Load the list of teachers, for autocompletion of coordinators field
