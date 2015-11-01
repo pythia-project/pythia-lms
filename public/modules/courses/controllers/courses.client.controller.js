@@ -78,8 +78,10 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 		}, function() {
 			$http.get('/registrations/' + $stateParams.courseSerial).success(function(data, status, header, config) {
 				$scope.registration = data;
-				$scope.score = $scope.registration.score;
-				$scope.progress = parseInt($scope.registration.progress * 100);
+				if ($scope.registration !== null) {
+					$scope.score = $scope.registration.score;
+					$scope.progress = parseInt($scope.registration.progress * 100);
+				}
 			});
 		});
 	};
