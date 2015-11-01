@@ -106,7 +106,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 	// Build a problem
 	var buildProblem = function(index, problem) {
 		// Build the content
-		var content = '<div><div class="panel panel-default problem"><div class="panel-heading"><b>Problem ' + index + '</b>: ' + problem.name + '<span class="pull-right"><i>(' + problem.points + ' points)</i>';
+		var content = '<div><div class="panel panel-default problem"><div class="panel-heading"><b>Problem ' + index + '</b>: ' + problem.name + '<span class="pull-right"><i>(<span id="points-p' + index + '"></span>' + problem.points + ' points)</i>';
 		content += ' <span style="display: none" id="success-p' + index + '" class="glyphicon glyphicon-ok success-icon" aria-hidden="true"></span>';
 		content += ' <span style="display: none" id="failed-p' + index + '" class="glyphicon glyphicon-remove failed-icon" aria-hidden="true"></span>';
 		content += '</span></div><div class="panel-body" id="problem-p' + index + '"><form>' + problem.description + '<div class="form-group text-right">';
@@ -124,6 +124,8 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 				var succeeded = lastsubmission.status === 'success';
 				$content.find('#success-p' + index).first().css('display', succeeded ? 'inline-block' : 'none');
 				$content.find('#failed-p' + index).first().css('display', succeeded ? 'none' : 'inline-block');
+				// Score
+				$content.find('#points-p' + index).first().text(p.score + '/');
 				// Form fields
 				var answer = JSON.parse(lastsubmission.answer);
 				var $form = $content.find('form').first();
