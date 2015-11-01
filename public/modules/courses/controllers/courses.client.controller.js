@@ -4,6 +4,8 @@
 angular.module('courses').controller('CoursesController', ['$scope', '$stateParams', '$location', '$http', '$filter', 'Authentication', 'Courses', function($scope, $stateParams, $location, $http, $filter, Authentication, Courses) {
 	$scope.authentication = Authentication;
 	$scope.coordinators = [];
+	$scope.score = 0;
+	$scope.progress = 0;
 	var teachersList = [];
 	$scope.studentsList = [];
 
@@ -76,6 +78,8 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 		}, function() {
 			$http.get('/registrations/' + $stateParams.courseSerial).success(function(data, status, header, config) {
 				$scope.registration = data;
+				$scope.score = $scope.registration.score;
+				$scope.progress = parseInt($scope.registration.progress * 100);
 			});
 		});
 	};
