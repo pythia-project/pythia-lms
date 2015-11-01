@@ -237,9 +237,18 @@ exports.submit = function(req, res) {
 						if (output.feedback.score !== undefined) {
 							score = Math.round(output.feedback.score * problem.points);
 						}
+						// Check if any quality feedback
+						var quality = output.feedback.quality;
+						if (quality !== undefined) {
+							score = parseInt(score * quality.weight);
+							if (quality.message !== undefined) {
+								message += quality.message;
+							}
+							console.log(score);
+						}
 						// Build the feedback message
 						if (output.feedback.message !== undefined) {
-							message = output.feedback.message;						
+							message = output.feedback.message;
 						} else if (output.feedback.example !== undefined) {
 							message = '<p>Your code did not produced the good result.</p><ul>';
 							if (output.feedback.example.input !== undefined) {
