@@ -1,6 +1,7 @@
 <section data-ng-controller="LessonsController" data-ng-init="loadCourseAndSequence()">
 	<ol class="breadcrumb">
-		<li><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
+		<li data-ng-if="authentication.user && authentication.user.roles.indexOf('admin') !== -1"><a href="#!/courses/manage" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
+		<li data-ng-if="! authentication.user || authentication.user.roles.indexOf('admin') === -1"><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
 		<li><a data-ng-href="#!/courses/{{courseSerial}}">{{courseSerial}}</a></li>
 		<li class="active"><a data-ng-href="#!/courses/{{courseSerial}}/sequences/{{sequenceIndex}}">{{sequence.name}}</a></li>
 	</ol>

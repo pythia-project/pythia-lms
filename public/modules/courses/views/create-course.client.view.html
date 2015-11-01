@@ -1,6 +1,7 @@
 <section data-ng-controller="CoursesController">
 	<ol class="breadcrumb">
-		<li class="active"><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
+		<li data-ng-if="authentication.user && authentication.user.roles.indexOf('admin') !== -1" class="active"><a href="#!/courses/manage" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
+		<li data-ng-if="! authentication.user || authentication.user.roles.indexOf('admin') === -1" class="active"><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
 	</ol>
 
 	<h2 data-ng-bind="'COURSE.CREATE_COURSE' | translate"></h2>

@@ -1,7 +1,8 @@
 <section data-ng-controller="CoursesController" data-ng-init="findOne()">
 	<div data-ng-if="course.$resolved && course._id !== undefined">
 		<ol class="breadcrumb">
-			<li><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
+			<li data-ng-if="authentication.user && authentication.user.roles.indexOf('admin') !== -1"><a href="#!/courses/manage" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
+			<li data-ng-if="! authentication.user || authentication.user.roles.indexOf('admin') === -1"><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
 			<li class="active"><a data-ng-href="#!/courses/{{course.serial}}">{{course.serial}}</a></li>
 		</ol>
 
