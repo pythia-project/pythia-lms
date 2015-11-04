@@ -311,7 +311,7 @@ exports.submit = function(req, res) {
 									registration.progress++;
 								}
 							}
-							registration.progress /= registration.sequences.length;
+							registration.progress /= course.sequences.length;
 							// Save submission in database
 							registration.save(function(err) {
 								if (err) {
