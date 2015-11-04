@@ -10,6 +10,7 @@ angular.module('core').controller('DashboardController', ['$scope', 'Authenticat
 
 	// Find all registered courses
 	$scope.findRegisteredCourses = function() {
+		$scope.registrations = null;
 		$http.get('/users/registrations').success(function(data, status, header, config) {
 			$scope.registrations = data;
 		});

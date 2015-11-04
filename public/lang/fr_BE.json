@@ -6,7 +6,8 @@
 		"GOTO_COURSE": "Aller au cours",
 		"SCORE": "Score",
 		"POINTS": "points",
-		"PROGRESS": "Progrès"
+		"PROGRESS": "Progrès",
+		"NO_REGISTRATION": "Aucune inscription."
 	},
 	"HOME": {
 		"JUMBOTRON": "Apprenez à coder et testez directement les nouveaux concepts appris avec les cours proposés sur la plateforme Pythia LMS. Progressez dans votre apprentissage grâce aux feedbacks intelligents et à une expérience d'apprentissage personnalisée.",
