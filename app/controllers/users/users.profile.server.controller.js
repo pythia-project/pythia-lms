@@ -7,6 +7,7 @@ var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller.js'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
+	Registration = mongoose.model('Registration'),
 	User = mongoose.model('User');
 
 /**
@@ -48,8 +49,20 @@ exports.update = function(req, res) {
 };
 
 /**
- * Send User
+ * Send user
  */
 exports.me = function(req, res) {
 	res.json(req.user || null);
+};
+
+/**
+ * Send user's registrations
+ */
+exports.registrations = function(req, res) {
+	Registration.find({'user': req.user}, 'course sequences score progress').populate('course', 'serial title').exec(function(err, registrations) {
+		if (err) {
+			return errorHandler.getLoadErrorMessage(err, 'registration', 'for course ' + req.course.id);
+		}
+		res.jsonp(registrations);
+	});
 };

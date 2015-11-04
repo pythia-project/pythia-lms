@@ -2,7 +2,11 @@
 	"DASHBOARD": {
 		"DASHBOARD": "Ogólna tablica",
 		"NEWS": "Nowości",
-		"NO_NEWS": "Nic nowego"
+		"NO_NEWS": "Nic nowego",
+		"GOTO_COURSE": "Go to the course",
+		"SCORE": "Wynik",
+		"POINTS": "pukty",
+		"PROGRESS": "Postęp",
 	},
 	"HOME": {
 		"JUMBOTRON": "Naucz sie kodować i od razu testuj nowe pojęcia nauczane przez platforme Pythia LMS. Postępuj w nauce dzieki inteligentymi feedbackami i osobistym programem nauczania.",

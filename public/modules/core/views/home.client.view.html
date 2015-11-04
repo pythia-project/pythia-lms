@@ -37,12 +37,30 @@
 		<h2>{{'DASHBOARD.DASHBOARD' | translate}}</h2>
 
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-8" data-ng-init="findRegisteredCourses()">
+				<div data-ng-repeat="registration in registrations" class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">[{{registration.course.serial}}] {{registration.course.title}}</h3>
+					</div>
+					<div class="panel-body">
+						<dl class="dl-horizontal">
+							<dt data-ng-bind="'DASHBOARD.SCORE' | translate"></dt>
+							<dd>{{registration.score}} {{'DASHBOARD.POINTS' | translate}}</dd>
+							<dt data-ng-bind="'DASHBOARD.PROGRESS' | translate"></dt>
+							<dd data-ng-init="progress = getProgress(registration)">
+								<progressbar class="statsprogressbar pull-left" animate="false" max="100" value="progress" type="primary"><span data-ng-hide="progress < 15" data-ng-bind="progress + '%'"></span></progressbar>
+							</dd>
+						<dl>
+						<div class="pull-right"><a data-ng-href="#!/courses/{{course.serial}}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> {{'DASHBOARD.GOTO_COURSE' | translate}}</a></div>
+					</div>
+				</div>
 			</div>
 
 			<div class="col-md-4">
 				<div class="panel panel-info" data-ng-init="findNews()">
-					<div class="panel-heading"><h3 class="panel-title" data-ng-bind="'DASHBOARD.NEWS' | translate"></h3></div>
+					<div class="panel-heading">
+						<h3 class="panel-title" data-ng-bind="'DASHBOARD.NEWS' | translate"></h3>
+					</div>
 					<div class="panel-body">
 						<p data-ng-if="news.$resolved && news.length == 0" data-ng-bind="'DASHBOARD.NO_NEWS' | translate"></p>
 						<ul class="newslist" data-ng-if="news.$resolved && news.length > 0">

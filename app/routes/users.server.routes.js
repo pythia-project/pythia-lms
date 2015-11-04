@@ -9,6 +9,7 @@ module.exports = function(app) {
 
 	// Setting up the users profile api
 	app.route('/users/me').get(users.me);
+	app.route('/users/registrations').get(users.registrations);
 	app.route('/users')
 		.get(users.requiresLogin, users.list)
 		.put(users.requiresLogin, users.update);
