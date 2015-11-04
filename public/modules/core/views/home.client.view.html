@@ -51,7 +51,7 @@
 								<progressbar class="statsprogressbar pull-left" animate="false" max="100" value="progress" type="primary"><span data-ng-hide="progress < 15" data-ng-bind="progress + '%'"></span></progressbar>
 							</dd>
 						<dl>
-						<div class="pull-right"><a data-ng-href="#!/courses/{{course.serial}}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> {{'DASHBOARD.GOTO_COURSE' | translate}}</a></div>
+						<div class="pull-right"><a data-ng-href="#!/courses/{{registration.course.serial}}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> {{'DASHBOARD.GOTO_COURSE' | translate}}</a></div>
 					</div>
 				</div>
 				<div data-ng-if="registrations !== null && registrations.length === 0" class="alert alert-warning" role="alert" data-ng-bind="'DASHBOARD.NO_REGISTRATION' | translate"></div>
