@@ -27,6 +27,8 @@ module.exports = function(app) {
 
 	app.route('/courses/:courseSerial/registrations')
 		.get(users.requiresLogin, courses.hasAuthorization, courses.getRegistrations);
+	app.route('/courses/:courseSerial/scoreboard')
+		.get(users.requiresLogin, courses.getScoreboard);
 
 	// Finish by binding the course middleware
 	app.param('courseSerial', courses.courseBySerial);

@@ -1,0 +1,37 @@
+<section data-ng-controller="CoursesController" data-ng-init="loadScoreboard()">
+	<div data-ng-if="registrations !== null && course._id !== undefined">
+		<ol class="breadcrumb">
+			<li data-ng-if="authentication.user && authentication.user.roles.indexOf('admin') !== -1"><a href="#!/courses/manage" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
+			<li data-ng-if="! authentication.user || authentication.user.roles.indexOf('admin') === -1"><a href="#!/courses" data-ng-bind="'COURSE.COURSES' | translate"></a></li>
+			<li><a data-ng-href="#!/courses/{{course.serial}}" data-ng-bind="course.serial"></a></li>
+			<li class="active"><a data-ng-href="#!/courses/{{course.serial}}/stats" data-ng-bind="'COURSE.RANKING' | translate"></a></li>
+		</ol>
+
+		<h2 data-ng-bind="'COURSE.RANKING' | translate"></h2>
+
+		<div class="row">
+			<div class="col-md-9">
+				<ul class="list-group">
+					<li data-ng-repeat="registration in registrations" class="list-group-item"><b>{{registration.position}}</b> {{registration.user.firstname}} {{registration.user.lastname}} ({{registration.score}} {{'COURSE.POINTS' | translate}})</li>
+				</ul>
+			</div>
+
+			<div class="col-md-3">
+				<div class="panel panel-info">
+					<div class="panel-heading"><h3 class="panel-title" data-ng-bind="'LESSON.INFORMATION' | translate"></h3></div>
+					<div class="panel-body">
+						<dl>
+							<dt data-ng-bind="'COURSE.REGISTERED_USERS' | translate"></dt>
+							<dd data-ng-bind="registrations.length"></dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div data-ng-if="registrations !== null && course._id === undefined">
+		<h2 data-ng-bind="'COURSE.ERROR' | translate"></h2>
+		<div class="alert alert-danger" role="alert" data-ng-bind="'COURSE.ACCESS_DENIED' | translate"></div>
+	</div>
+</section>										

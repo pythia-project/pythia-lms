@@ -35,5 +35,9 @@ angular.module('courses').config(['$stateProvider', function($stateProvider) {
 	.state('courseStats', {
 		url: '/courses/:courseSerial/stats',
 		templateUrl: 'modules/courses/views/course-stats.client.view.html'
+	})
+	.state('courseScoreboard', {
+		url: '/courses/:courseSerial/scoreboard',
+		templateUrl: 'modules/courses/views/course-scoreboard.client.view.html'
 	});
 }]);

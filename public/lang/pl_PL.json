@@ -65,7 +65,8 @@
 		"POINTS": "punkty",
 		"MAX_SCORE": "Max score",
 		"GLOBAL_STATS": "Global statistics",
-		"USERS_STATS": "Users' statistics"
+		"USERS_STATS": "Users' statistics",
+		"RANKING": "Ranking"
 	},
 	"REGISTRATION": {
 		"REGISTRATIONS": "Rejestacja",

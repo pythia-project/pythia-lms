@@ -166,6 +166,21 @@ exports.getRegistrations = function(req, res) {
 };
 
 /**
+ * Get the scoreboard of a course
+ */
+exports.getScoreboard = function(req, res) {
+	Registration.find({'course': req.course}, 'user score').populate('user', 'firstname lastname').exec(function(err, registrations) {
+		if (err) {
+			return errorHandler.getLoadErrorMessage(err, 'registration', 'for course ' + req.course.id);
+		}
+		res.jsonp({
+			'registrations': registrations,
+			'course': req.course
+		});
+	});
+};
+
+/**
  * Switch the visibility of a course
  */
 exports.switchVisibility = function(req, res, next) {

@@ -65,7 +65,8 @@
 		"POINTS": "points",
 		"MAX_SCORE": "Score maximum",
 		"GLOBAL_STATS": "Statistiques globales",
-		"USERS_STATS": "Statistiques par utilisateur"
+		"USERS_STATS": "Statistiques par utilisateur",
+		"RANKING": "Classement"
 	},
 	"REGISTRATION": {
 		"REGISTRATIONS": "Inscriptions",

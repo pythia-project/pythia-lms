@@ -86,7 +86,7 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 		});
 	};
 
-	// Find stats about course
+	// Load stats about course
 	$scope.loadStats = function() {
 		$scope.registrations = null;
 		$http.get('/courses/' + $stateParams.courseSerial + '/registrations').success(function(data, status, header, config) {
@@ -119,6 +119,25 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 					ticks: ticks
 				}
 			};
+		});
+	};
+
+	// Load scoreboard of the course
+	$scope.loadScoreboard = function() {
+		$scope.registrations = null;
+		$http.get('/courses/' + $stateParams.courseSerial + '/scoreboard').success(function(data, status, header, config) {
+			$scope.course = data.course;
+			$scope.registrations = $filter('orderBy')(data.registrations, '-score');
+			var position = 0;
+			var previous = -1;
+			for (var i = 0; i < $scope.registrations.length; i++) {
+				var registration = $scope.registrations[i];
+				if (registration.score !== previous) {
+					previous = registration.score;
+					position++;
+				}
+				registration.position = position;
+			}
 		});
 	};
 
