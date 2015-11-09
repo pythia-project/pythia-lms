@@ -150,7 +150,13 @@
 		"ERROR": "Błąd",
 		"ACCESS_DENIED": "Nie jesteś dozwolony do tego problemu.",
 		"CREATE_PROBLEM": "Utwóż problem",
-		"CREATE": "Utwóż"
+		"CREATE": "Utwóż",
+		"TYPE": "Type",
+		"GENERIC_TYPE": "Generic",
+		"UNIT-TESTING_TYPE": "Unit-testing",
+		"QCM_TYPE": "Multiple choices",
+		"CONFIG": "Configuration",
+		"NO_CONFIG": "No configuration."
 	},
 	"USER": {
 		"USERS": "Użytkownicy",

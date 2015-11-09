@@ -150,7 +150,13 @@
 		"ERROR": "Erreur",
 		"ACCESS_DENIED": "Vous n'êtes pas autorisé à accéder à ce problème.",
 		"CREATE_PROBLEM": "Créer un problème",
-		"CREATE": "Créer"
+		"CREATE": "Créer",
+		"TYPE": "Type",
+		"GENERIC_TYPE": "Générique",
+		"UNIT-TESTING_TYPE": "Tests unitaires",
+		"QCM_TYPE": "Choix multiples",
+		"CONFIG": "Configuration",
+		"NO_CONFIG": "Aucune configuration."
 	},
 	"USER": {
 		"USERS": "Utilisateurs",

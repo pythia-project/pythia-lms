@@ -15,6 +15,16 @@
 					</div>
 				</div>
 				<div class="form-group">
+					<label class="control-label" for="type" data-ng-bind="'PROBLEM.TYPE' | translate"></label>
+					<div class="controls">
+						<select data-ng-model="type" id="type" class="form-control" required>
+							<option value="generic" data-ng-bind="'PROBLEM.GENERIC_TYPE' | translate"></option>
+							<option value="unit-testing" data-ng-bind="'PROBLEM.UNIT-TESTING_TYPE' | translate"></option>
+							<option value="qcm" data-ng-bind="'PROBLEM.QCM_TYPE' | translate"></option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
 					<label class="control-label" for="description" data-ng-bind="'PROBLEM.DESCRIPTION' | translate"></label>
 					<div class="controls">
 						<textarea data-ng-model="description" id="description" class="form-control" placeholder="{{'PROBLEM.DESCRIPTION' | translate}}" rows="10"></textarea>
@@ -64,6 +74,12 @@
 					<label class="control-label" for="output" data-ng-bind="'PROBLEM.OUTPUT' | translate"></label>
 					<div class="controls">
 						<input type="number" data-ng-model="task.limits.output" id="output" class="form-control" placeholder="1024" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="config" data-ng-bind="'PROBLEM.CONFIG' | translate"></label>
+					<div class="controls">
+						<textarea data-ng-model="config" id="config" class="form-control" placeholder="{{'PROBLEM.CONFIG' | translate}}" rows="5"></textarea>
 					</div>
 				</div>
 				<div class="form-group">

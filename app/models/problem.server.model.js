@@ -29,6 +29,15 @@ var ProblemSchema = new Schema({
 		type: Number,
 		default: 0
 	},
+	type: {
+		type: String,
+		enum: ['generic', 'unit-testing', 'qcm'],
+		default: 'generic'
+	},
+	config: {
+		type: String,
+		default: ''
+	},
 	task: {
 		environment: {
 			type: String,

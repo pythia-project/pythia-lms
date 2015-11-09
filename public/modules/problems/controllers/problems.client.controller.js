@@ -13,20 +13,24 @@ angular.module('problems').controller('ProblemsController', ['$scope', '$statePa
 		}
 		var problem = new Problems ({
 			name: this.name,
+			type: this.type,
 			description: this.description,
 			authors: authors,
 			points: this.points,
-			task: this.task
+			task: this.task,
+			configuration: this.configuration
 		});
 		// Redirect after save
 		problem.$save(function(response) {
 			$location.path('problems/' + response._id);
 			// Clear form fields
 			$scope.name = '';
+			$scope.type = '';
 			$scope.description = '';
 			$scope.authors = [];
 			$scope.points = 0;
 			$scope.task = {};
+			$scope.configuration = '';
 		}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;
 		});
