@@ -6,7 +6,7 @@
 	</div>
 
 	<div data-ng-if="problems.$resolved && problems.length > 0" class="list-group">
-		<a data-ng-repeat="problem in problems" data-ng-href="#!/problems/{{problem._id}}" class="list-group-item" data-ng-bind="problem.name"></a>
+		<a data-ng-repeat="problem in problems | orderBy: '+name'" data-ng-href="#!/problems/{{problem._id}}" class="list-group-item" data-ng-bind="problem.name"></a>
 	</div>
 	<div data-ng-if="problems.$resolved && problems.length === 0" class="alert alert-warning" role="alert" data-ng-bind="'PROBLEM.NO_PROBLEM' | translate"></div>
 </section>
