@@ -175,6 +175,36 @@ var getRegistration = function(registration, course, sequenceIndex, lessonIndex,
 	}
 	return registration;
 };
+var generateFeedback = function(problem, result, output) {
+	var message = '';
+	// Get the default message, if any
+	if (output.feedback.message !== undefined) {
+		message = output.feedback.message;
+	}
+	// Check the status of the submission
+	if (result.status === 'success') {
+		message = '<p>You succeeded!</p>';
+	}
+	// Check any quality message
+	var quality = output.feedback.quality;
+	if (quality !== undefined && quality.message !== undefined) {
+		message += quality.message;
+	}
+	// Build the feedback message according to problem type
+	switch (problem.type) {
+		case 'unit-testing':
+			if (output.feedback.example !== undefined) {
+				message = '<p>Your code did not produced the good result.</p><ul>';
+				if (output.feedback.example.input !== undefined) {
+					message += '<li>Input: ' + output.feedback.example.input + '</li>';
+				}
+				message += '<li>Expected result: ' + output.feedback.example.expected + '</li>';
+				message += '<li>Your result: ' + output.feedback.example.actual + '</li></ul>';
+			}
+		break;
+	}
+	return message;
+};
 exports.submit = function(req, res) {
 	// Check course
 	var courseSerial = req.params.courseSerial;
@@ -194,7 +224,7 @@ exports.submit = function(req, res) {
 			}
 			// Load the problem
 			var problemId = lesson.problems[req.params.problemIndex - 1];
-			Problem.findById({'_id': problemId}, 'points task').exec(function(err, problem) {
+			Problem.findById({'_id': problemId}, 'points task type').exec(function(err, problem) {
 				if (err || ! problem) {
 					return res.status(400).send({
 						message: errorHandler.getLoadErrorMessage(err, 'problem', problemId)
@@ -231,31 +261,17 @@ exports.submit = function(req, res) {
 						// Check whether the problem has been solved
 						if (result.status === 'success') {
 							status = output.status;
-							message = '<p>You succeeded!</p>';
 						}
 						// Get the score, if any
 						if (output.feedback.score !== undefined) {
 							score = Math.round(output.feedback.score * problem.points);
-						}
-						// Check if any quality feedback
-						var quality = output.feedback.quality;
-						if (quality !== undefined) {
-							score = parseInt(score * quality.weight);
-							if (quality.message !== undefined) {
-								message += quality.message;
+							var quality = output.feedback.quality;
+							if (quality !== undefined) {
+								score = parseInt(score * quality.weight);
 							}
 						}
 						// Build the feedback message
-						if (output.feedback.message !== undefined) {
-							message = output.feedback.message;
-						} else if (output.feedback.example !== undefined) {
-							message = '<p>Your code did not produced the good result.</p><ul>';
-							if (output.feedback.example.input !== undefined) {
-								message += '<li>Input: ' + output.feedback.example.input + '</li>';
-							}
-							message += '<li>Expected result: ' + output.feedback.example.expected + '</li>' +
-							'<li>Your result: ' + output.feedback.example.actual + '</li></ul>';
-						}
+						message = generateFeedback(problem, result, output);
 						// Save submission in user
 						// Get registration for this course
 						Registration.findOne({'course': course.id, 'user': req.user.id}, function(err, registration) {
