@@ -60,8 +60,25 @@ angular.module('problems').controller('ProblemsController', ['$scope', '$statePa
 	};
 
 	// Find a list of problems
+	$scope.keys = function(obj) {
+		return obj ? Object.keys(obj).sort() : [];
+	};
 	$scope.find = function() {
-		$scope.problems = Problems.query();
+		$scope.problems = null;
+		var problems = Problems.query(function() {
+			var problemsByEnv = {};
+			for (var i = 0; i < problems.length; i++) {
+				var env = 'others';
+				if (problems[i].task !== undefined) {
+					env = problems[i].task.environment;
+				}
+				if (problemsByEnv[env] === undefined) {
+					problemsByEnv[env] = [];
+				}
+				problemsByEnv[env].push(problems[i]);
+			}
+			$scope.problems = problemsByEnv;
+		});
 	};
 
 	// Find existing problem

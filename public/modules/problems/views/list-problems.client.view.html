@@ -5,8 +5,14 @@
 		<a href="#!/problems/create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{'PROBLEM.NEW_PROBLEM' | translate}}</a>
 	</div>
 
-	<div data-ng-if="problems.$resolved && problems.length > 0" class="list-group">
-		<a data-ng-repeat="problem in problems | orderBy: '+name'" data-ng-href="#!/problems/{{problem._id}}" class="list-group-item" data-ng-bind="problem.name"></a>
+	<div data-ng-if="problems !== null && keys(problems).length > 0" class="list-group">
+		<tabset>
+			<tab data-ng-repeat="env in keys(problems)" heading="{{env}}">
+				<p><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> <b>{{problems[env].length}}</b> {{'PROBLEM.PROBLEMS' | translate}}.</p>
+
+				<a data-ng-repeat="problem in problems[env] | orderBy: '+name'" data-ng-href="#!/problems/{{problem._id}}" class="list-group-item" data-ng-bind="problem.name"></a>
+			</tab>
+		</tabset>
 	</div>
-	<div data-ng-if="problems.$resolved && problems.length === 0" class="alert alert-warning" role="alert" data-ng-bind="'PROBLEM.NO_PROBLEM' | translate"></div>
+	<div data-ng-if="problems !== null && keys(problems).length === 0" class="alert alert-warning" role="alert" data-ng-bind="'PROBLEM.NO_PROBLEM' | translate"></div>
 </section>
