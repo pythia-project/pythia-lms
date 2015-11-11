@@ -127,7 +127,7 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 		$scope.registrations = null;
 		$http.get('/courses/' + $stateParams.courseSerial + '/scoreboard').success(function(data, status, header, config) {
 			$scope.course = data.course;
-			$scope.registrations = $filter('orderBy')(data.registrations, '-score');
+			$scope.registrations = $filter('orderBy')(data.registrations, ['-score', '+user.lastname']);
 			var position = 0;
 			var previous = -1;
 			for (var i = 0; i < $scope.registrations.length; i++) {
