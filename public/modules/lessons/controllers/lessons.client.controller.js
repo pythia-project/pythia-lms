@@ -1,7 +1,7 @@
 'use strict';
 
 // Lessons controller
-angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Courses', 'Sequences', 'Lessons', '$sce', '$http', '$filter', function($scope, $stateParams, $location, Authentication, Courses, Sequences, Lessons, $sce, $http, $filter) {
+angular.module('lessons').controller('LessonsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Courses', 'Sequences', 'Lessons', '$sce', '$http', '$filter', '$compile', function($scope, $stateParams, $location, Authentication, Courses, Sequences, Lessons, $sce, $http, $filter, $compile) {
 	$scope.authentication = Authentication;
 	$scope.submissionInProgress = [];
 	$scope.score = 0;
@@ -102,6 +102,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		}
 		// Get the feedback
 		$feedback.html(message);
+		$compile($feedback)($scope);
 	};
 	// Build a problem
 	var buildProblem = function(index, problem) {

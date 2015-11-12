@@ -203,6 +203,13 @@
 		"UPDATE": "Mettre à jour",
 		"GENERAL": "Général"
 	},
+	"FEEDBACK": {
+		"SUCCESS": "Vous avez réussi !",
+		"WRONG_RESULT": "Votre code n'a pas produit le résultat correct.",
+		"INPUT": "Entrée",
+		"YOUR_RESULT": "Votre résultat",
+		"EXPECTED_RESULT": "Le résultat attendu"
+	},
 	"BY": "Par",
 	"PYTHIA_AUTHORS": "les auteurs de Pythia LMS"
 }

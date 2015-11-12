@@ -183,7 +183,7 @@ var generateFeedback = function(problem, result, output) {
 	}
 	// Check the status of the submission
 	if (result.status === 'success') {
-		message = '<p>You succeeded!</p>';
+		message = '<p>{{\'FEEDBACK.SUCCESS\' | translate}}</p>';
 	}
 	// Check any quality message
 	var quality = output.feedback.quality;
@@ -194,12 +194,12 @@ var generateFeedback = function(problem, result, output) {
 	switch (problem.type) {
 		case 'unit-testing':
 			if (output.feedback.example !== undefined) {
-				message = '<p>Your code did not produced the good result.</p><ul>';
+				message = '<p>{{\'FEEDBACK.WRONG_RESULT\' | translate}}</p><ul>';
 				if (output.feedback.example.input !== undefined) {
-					message += '<li>Input: ' + output.feedback.example.input + '</li>';
+					message += '<li>{{\'FEEDBACK.INPUT\' | translate}}: ' + output.feedback.example.input + '</li>';
 				}
-				message += '<li>Expected result: ' + output.feedback.example.expected + '</li>';
-				message += '<li>Your result: ' + output.feedback.example.actual + '</li></ul>';
+				message += '<li>{{\'FEEDBACK.EXPECTED_RESULT\' | translate}}: ' + output.feedback.example.expected + '</li>';
+				message += '<li>{{\'FEEDBACK.YOUR_RESULT\' | translate}}: ' + output.feedback.example.actual + '</li></ul>';
 			}
 		break;
 	}
