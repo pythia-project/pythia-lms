@@ -169,7 +169,7 @@ exports.getRegistrations = function(req, res) {
  * Get the scoreboard of a course
  */
 exports.getScoreboard = function(req, res) {
-	Registration.find({'course': req.course}, 'user score').populate('user', 'firstname lastname').exec(function(err, registrations) {
+	Registration.find({'course': req.course}, 'user score').populate('user', 'firstname lastname picture').exec(function(err, registrations) {
 		if (err) {
 			return errorHandler.getLoadErrorMessage(err, 'registration', 'for course ' + req.course.id);
 		}

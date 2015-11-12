@@ -12,7 +12,7 @@
 		<div class="row">
 			<div class="col-md-9">
 				<ul class="list-group">
-					<li data-ng-repeat="registration in registrations" class="list-group-item"><b>{{registration.position}}</b> {{registration.user.firstname}} {{registration.user.lastname}} ({{registration.score}} {{'COURSE.POINTS' | translate}})</li>
+					<li data-ng-repeat="registration in registrations" class="list-group-item"><b>{{registration.position}}</b> {{registration.user.firstname}} {{registration.user.lastname}} ({{registration.score}} {{'COURSE.POINTS' | translate}})<img data-ng-src="/images/users/{{registration.user._id}}.jpg" width="25" height="25" class="pull-right" data-ng-if="registration.user.picture" /></li>
 				</ul>
 			</div>
 
