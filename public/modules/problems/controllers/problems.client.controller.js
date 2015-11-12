@@ -18,7 +18,7 @@ angular.module('problems').controller('ProblemsController', ['$scope', '$statePa
 			authors: authors,
 			points: this.points,
 			task: this.task,
-			configuration: this.configuration
+			config: this.config
 		});
 		// Redirect after save
 		problem.$save(function(response) {
@@ -30,7 +30,7 @@ angular.module('problems').controller('ProblemsController', ['$scope', '$statePa
 			$scope.authors = [];
 			$scope.points = 0;
 			$scope.task = {};
-			$scope.configuration = '';
+			$scope.config = '';
 		}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;
 		});
