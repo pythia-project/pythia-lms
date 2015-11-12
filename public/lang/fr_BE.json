@@ -205,10 +205,13 @@
 	},
 	"FEEDBACK": {
 		"SUCCESS": "Vous avez réussi !",
+		"SUCCESS_IMPROVE": "Vous avez réussi, mais votre code peut être amélioré :",
+		"FAIL": "Vous avez échoué !",
 		"WRONG_RESULT": "Votre code n'a pas produit le résultat correct.",
-		"INPUT": "Entrée",
-		"YOUR_RESULT": "Votre résultat",
-		"EXPECTED_RESULT": "Le résultat attendu"
+		"INPUT": "Entrée ",
+		"YOUR_RESULT": "Votre résultat ",
+		"EXPECTED_RESULT": "Le résultat attendu ",
+		"HINT": "Indice "
 	},
 	"BY": "Par",
 	"PYTHIA_AUTHORS": "les auteurs de Pythia LMS"

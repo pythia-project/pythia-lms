@@ -205,10 +205,13 @@
 	},
 	"FEEDBACK": {
 		"SUCCESS": "You succeeded!",
+		"SUCCESS_IMPROVE": "You succeeded, but your code can be improved:",
+		"FAIL": "You failed!",
 		"WRONG_RESULT": "Your code did not produced the good result.",
 		"INPUT": "Input",
 		"YOUR_RESULT": "Your result",
-		"EXPECTED_RESULT": "Expected result"
+		"EXPECTED_RESULT": "Expected result",
+		"HINT": "Hint"
 	},
 	"BY": "Door",
 	"PYTHIA_AUTHORS": "de auteurs van Pythia LMS"

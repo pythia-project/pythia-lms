@@ -175,6 +175,21 @@ var getRegistration = function(registration, course, sequenceIndex, lessonIndex,
 	}
 	return registration;
 };
+var genVariableValues = function(config, value, field) {
+	var message = value;
+	if (config !== null && config[field] !== undefined) {
+		var input = [value.trim()];
+		if (input[0].charAt(0) === '(' && input[0].charAt(input[0].length - 1) === ')') {
+			input = input[0].substr(1, input[0].length - 2).split(',');
+		}
+		message = '<table class="table table-bordered table-condensed">';
+		for (var i = 0; i < config[field].length; i++) {
+			message += '<tr class="active"><td style="width: 100px;"><code>' + config[field][i].name + '</code></td><td><code>' + input[i] + '</code></td></tr>';
+		}
+		message += '</table>';
+	}
+	return message;
+};
 var generateFeedback = function(problem, result, output) {
 	var message = '';
 	// Get the default message, if any
@@ -183,24 +198,50 @@ var generateFeedback = function(problem, result, output) {
 	}
 	// Check the status of the submission
 	if (result.status === 'success') {
-		message = '<p>{{\'FEEDBACK.SUCCESS\' | translate}}</p>';
+		switch (output.status) {
+			case 'success':
+				message = '<p><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> {{\'FEEDBACK.SUCCESS\' | translate}}</p>';
+			break;
+
+			case 'failed':
+				message = '<p><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> {{\'FEEDBACK.FAIL\' | translate}}</p>';
+			break;
+		}
 	}
 	// Check any quality message
-	var quality = output.feedback.quality;
-	if (quality !== undefined && quality.message !== undefined) {
-		message += quality.message;
+	if (result.status === 'success' && output.status === 'success') {
+		var quality = output.feedback.quality;
+		if (quality !== undefined && quality.message !== undefined) {
+			message = '<p><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> {{\'FEEDBACK.SUCCESS_IMPROVE\' | translate}}</p>';
+			message += quality.message;
+		}
+	}
+	// Load problem configuration if any
+	var config = null;
+	if (problem.config !== '') {
+		config = JSON.parse(problem.config);
 	}
 	// Build the feedback message according to problem type
 	switch (problem.type) {
+		case 'generic':
+			if (output.feedback.message !== undefined) {
+				message = '<p><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> ' + output.feedback.message + '</p>';
+			}
+		break;
+
 		case 'unit-testing':
 			if (output.feedback.example !== undefined) {
-				message = '<p>{{\'FEEDBACK.WRONG_RESULT\' | translate}}</p><ul>';
+				message = '<p><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> {{\'FEEDBACK.WRONG_RESULT\' | translate}}</p>';
 				if (output.feedback.example.input !== undefined) {
-					message += '<li>{{\'FEEDBACK.INPUT\' | translate}}: ' + output.feedback.example.input + '</li>';
+					message += '<p><b>{{\'FEEDBACK.INPUT\' | translate}}:</b></p>' + genVariableValues(config, output.feedback.example.input, 'input');
 				}
-				message += '<li>{{\'FEEDBACK.EXPECTED_RESULT\' | translate}}: ' + output.feedback.example.expected + '</li>';
-				message += '<li>{{\'FEEDBACK.YOUR_RESULT\' | translate}}: ' + output.feedback.example.actual + '</li></ul>';
+				message += '<p><b>{{\'FEEDBACK.YOUR_RESULT\' | translate}}:</b></p>' + genVariableValues(config, output.feedback.example.actual, 'result');
+				message += '<p><b>{{\'FEEDBACK.EXPECTED_RESULT\' | translate}}:</b></p>' + genVariableValues(config, output.feedback.example.expected, 'result');
 			}
+			// Add specific message, if any
+			if (output.feedback.message !== undefined) {
+				message += '<p><b>{{\'FEEDBACK.HINT\' | translate}}</b>: <i>' + output.feedback.message + '</i></p>';
+			} 
 		break;
 	}
 	return message;
@@ -224,7 +265,7 @@ exports.submit = function(req, res) {
 			}
 			// Load the problem
 			var problemId = lesson.problems[req.params.problemIndex - 1];
-			Problem.findById({'_id': problemId}, 'points task type').exec(function(err, problem) {
+			Problem.findById({'_id': problemId}, 'points task type config').exec(function(err, problem) {
 				if (err || ! problem) {
 					return res.status(400).send({
 						message: errorHandler.getLoadErrorMessage(err, 'problem', problemId)
