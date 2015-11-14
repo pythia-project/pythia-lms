@@ -97,6 +97,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			break;
 			case 'error':
 			case 'failed':
+			case 'timeout':
 				$feedback.addClass('alert-danger');
 			break;
 		}

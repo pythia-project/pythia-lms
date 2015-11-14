@@ -211,7 +211,8 @@
 		"INPUT": "Input",
 		"YOUR_RESULT": "Your result",
 		"EXPECTED_RESULT": "Expected result",
-		"HINT": "Hint"
+		"HINT": "Hint",
+		"TIMEOUT": "Maximum execution time exceeded."
 	},
 	"BY": "By",
 	"PYTHIA_AUTHORS": "the Pythia LMS authors"

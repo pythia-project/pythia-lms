@@ -298,21 +298,30 @@ exports.submit = function(req, res) {
 					try {
 						// Get and analyse result provided by Pythia
 						var result = JSON.parse(data);
-						var output = JSON.parse(result.output);
+						var output = null;
 						// Check whether the problem has been solved
-						if (result.status === 'success') {
-							status = output.status;
+						switch (result.status) {
+							case 'success':
+								output = JSON.parse(result.output);
+								status = output.status;
+								// Get the score, if any
+								if (output.feedback.score !== undefined) {
+									score = Math.round(output.feedback.score * problem.points);
+									var quality = output.feedback.quality;
+									if (quality !== undefined) {
+										score = parseInt(score * quality.weight);
+									}
+								}
+								// Build the feedback message
+								message = generateFeedback(problem, result, output);
+							break;
+
+							case 'timeout':
+								status = 'timeout';
+								score = 0;
+								message = '<p><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> {{\'FEEDBACK.TIMEOUT\' | translate}}</p>';
+							break;
 						}
-						// Get the score, if any
-						if (output.feedback.score !== undefined) {
-							score = Math.round(output.feedback.score * problem.points);
-							var quality = output.feedback.quality;
-							if (quality !== undefined) {
-								score = parseInt(score * quality.weight);
-							}
-						}
-						// Build the feedback message
-						message = generateFeedback(problem, result, output);
 						// Save submission in user
 						// Get registration for this course
 						Registration.findOne({'course': course.id, 'user': req.user.id}, function(err, registration) {
@@ -326,7 +335,7 @@ exports.submit = function(req, res) {
 								'answer': req.body.input,
 								'feedback': {
 									'message': message,
-									'raw': output.feedback
+									'raw': output !== null ? output.feedback : message
 								}
 							});
 							// Update the score and success status
