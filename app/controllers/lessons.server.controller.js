@@ -246,6 +246,51 @@ var generateFeedback = function(problem, result, output) {
 	}
 	return message;
 };
+var updateScore = function(req, registration, course, lesson, score, status) {
+	var sequenceReg = registration.sequences[req.params.sequenceIndex - 1];
+	var lessonReg = sequenceReg.lessons[req.params.lessonIndex - 1];
+	var problemReg = lessonReg.problems[req.params.problemIndex - 1];
+	// For the problem
+	problemReg.score = score;
+	problemReg.succeeded = status === 'success';
+	// For the lesson
+	lessonReg.score = 0;
+	lessonReg.progress = 0;
+	for (var i = 0; i < lessonReg.problems.length; i++) {
+		var s = lessonReg.problems[i].submissions;
+		var success = ! (s.length === 0 || s[s.length - 1].status !== 'success');
+		lessonReg.score += lessonReg.problems[i].score;
+		if (success) {
+			lessonReg.progress++;
+		}
+	}
+	var nbProblems = lesson.problems.length;
+	lessonReg.succeeded = lessonReg.progress === nbProblems;
+	lessonReg.progress /= nbProblems;
+	// For the sequence
+	sequenceReg.score = 0;
+	sequenceReg.progress = 0;
+	for (var j = 0; j < sequenceReg.lessons.length; j++) {
+		sequenceReg.score += sequenceReg.lessons[j].score;
+		if (sequenceReg.lessons[j].succeeded) {
+			sequenceReg.progress++;
+		}
+	}
+	var nbLessons = course.sequences[req.params.sequenceIndex - 1].lessons.length;
+	sequenceReg.succeeded = sequenceReg.progress === nbLessons;
+	sequenceReg.progress /= nbLessons;
+	// For the course
+	registration.score = 0;
+	registration.progress = 0;
+	for (var k = 0; k < registration.sequences.length; k++) {
+		registration.score += registration.sequences[k].score;
+		if (registration.sequences[k].succeeded) {
+			registration.progress++;
+		}
+	}
+	var nbSequences = course.sequences.length;
+	registration.progress /= nbSequences;
+};
 exports.submit = function(req, res) {
 	// Check course
 	var courseSerial = req.params.courseSerial;
@@ -257,7 +302,7 @@ exports.submit = function(req, res) {
 		}
 		// Load the lesson
 		var lessonId = course.sequences[req.params.sequenceIndex - 1].lessons[req.params.lessonIndex - 1];
-		Lesson.findById({'_id': lessonId}).exec(function(err, lesson) {
+		Lesson.findById({'_id': lessonId}, 'problems').exec(function(err, lesson) {
 			if (err || ! lesson) {
 				return res.status(400).send({
 					message: errorHandler.getLoadErrorMessage(err, 'lesson', lessonId)
@@ -299,96 +344,63 @@ exports.submit = function(req, res) {
 						// Get and analyse result provided by Pythia
 						var result = JSON.parse(data);
 						var output = null;
-						// Check whether the problem has been solved
-						switch (result.status) {
-							case 'success':
-								output = JSON.parse(result.output);
-								status = output.status;
-								// Get the score, if any
-								if (output.feedback.score !== undefined) {
-									score = Math.round(output.feedback.score * problem.points);
-									var quality = output.feedback.quality;
-									if (quality !== undefined) {
-										score = parseInt(score * quality.weight);
-									}
+						// Check the nature of the message
+						switch (result.message) {
+							case 'done':
+								// Check the status of the execution performed by Pythia
+								switch (result.status) {
+									case 'success':
+										output = JSON.parse(result.output);
+										status = output.status;
+										// Get the score, if any
+										if (output.feedback.score !== undefined) {
+											score = Math.round(output.feedback.score * problem.points);
+											var quality = output.feedback.quality;
+											if (quality !== undefined) {
+												score = parseInt(score * quality.weight);
+											}
+										}
+										// Build the feedback message
+										message = generateFeedback(problem, result, output);
+									break;
+
+									case 'timeout':
+										status = 'timeout';
+										score = 0;
+										message = '<p><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> {{\'FEEDBACK.TIMEOUT\' | translate}}</p>';
+									break;
 								}
-								// Build the feedback message
-								message = generateFeedback(problem, result, output);
+								// Save submission in user
+								// Get registration for this course
+								Registration.findOne({'course': course.id, 'user': req.user.id}, function(err, registration) {
+									// Get the problem
+									registration = getRegistration(registration, course, req.params.sequenceIndex, req.params.lessonIndex, req.params.problemIndex);
+									registration.sequences[req.params.sequenceIndex - 1].lessons[req.params.lessonIndex - 1].problems[req.params.problemIndex - 1].submissions.push({
+										'status': status,
+										'answer': req.body.input,
+										'feedback': {
+											'message': message,
+											'raw': output !== null ? output.feedback : message
+										}
+									});
+									// Update the score and success status
+									updateScore(req, registration, course, lesson, score, status);
+									registration.save(function(err) {
+										if (err) {
+											return res.status(400).send({
+												message: errorHandler.getErrorMessage(err)
+											});
+										}
+										newregistration = registration;
+										socket.destroy();
+									});
+								});
 							break;
 
-							case 'timeout':
-								status = 'timeout';
-								score = 0;
-								message = '<p><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> {{\'FEEDBACK.TIMEOUT\' | translate}}</p>';
+							case 'keep-alive':
+								data = '';
 							break;
 						}
-						// Save submission in user
-						// Get registration for this course
-						Registration.findOne({'course': course.id, 'user': req.user.id}, function(err, registration) {
-							// Get the problem
-							registration = getRegistration(registration, course, req.params.sequenceIndex, req.params.lessonIndex, req.params.problemIndex);
-							var sequence = registration.sequences[req.params.sequenceIndex - 1];
-							var lesson = sequence.lessons[req.params.lessonIndex - 1];
-							var problem = lesson.problems[req.params.problemIndex - 1];
-							problem.submissions.push({
-								'status': status,
-								'answer': req.body.input,
-								'feedback': {
-									'message': message,
-									'raw': output !== null ? output.feedback : message
-								}
-							});
-							// Update the score and success status
-							// For the problem
-							problem.score = score;
-							problem.succeeded = status === 'success';
-							// For the lesson
-							lesson.succeeded = true;
-							lesson.score = 0;
-							lesson.progress = 0;
-							for (var i = 0; i < lesson.problems.length; i++) {
-								var s = lesson.problems[i].submissions;
-								var success = ! (s.length === 0 || s[s.length - 1].status !== 'success');
-								lesson.succeeded &= success;
-								lesson.score += lesson.problems[i].score;
-								if (success) {
-									lesson.progress++;
-								}
-							}
-							lesson.progress /= lesson.problems.length;
-							// For the sequence
-							sequence.succeeded = true;
-							sequence.score = 0;
-							sequence.progress = 0;
-							for (var j = 0; j < sequence.lessons.length; j++) {
-								sequence.succeeded &= sequence.lessons[j].succeeded;
-								sequence.score += sequence.lessons[j].score;
-								if (sequence.lessons[j].succeeded) {
-									sequence.progress++;
-								}
-							}
-							sequence.progress /= sequence.lessons.length;
-							// For the course
-							registration.score = 0;
-							registration.progress = 0;
-							for (var k = 0; k < registration.sequences.length; k++) {
-								registration.score += registration.sequences[k].score;
-								if (registration.sequences[k].succeeded) {
-									registration.progress++;
-								}
-							}
-							registration.progress /= course.sequences.length;
-							// Save submission in database
-							registration.save(function(err) {
-								if (err) {
-									return res.status(400).send({
-										message: errorHandler.getErrorMessage(err)
-									});
-								}
-								newregistration = registration;
-								socket.destroy();
-							});
-						});
 					} catch (err) {
 						console.log('Pythia error: ' + err);
 						console.log('Current data: ' + data);
