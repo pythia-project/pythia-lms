@@ -158,3 +158,7 @@ span.flag-pl::before {
 	content:url('/images/pl.png');
 	margin-right: 10px;
 }
+span.flag-br::before {
+	content:url('/images/br.png');
+	margin-right: 10px;
+}

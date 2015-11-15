@@ -26,3 +26,4 @@ Pythia LMS is an application to create courses with Pythia problems and manage l
 
 - Dutch: Guillaume van den Hove d'Ertsenryck
 - Polish: Marcin Krasowski
+- Português: Matheus Mortl Gardellim
