@@ -96,6 +96,20 @@ angular.module('sequences').controller('SequencesController', ['$scope', '$state
 		return tab;
 	};
 
+	// Test whether the current user has one of the specified roles
+	$scope.hasRole = function(roles) {
+		return $scope.authentication.user && roles.some(function(element, index, array) {
+			return $scope.authentication.user.roles.indexOf(element) !== -1;
+		});
+	};
+
+	// Test whether the current user is a coordinator of this course
+	$scope.isCoordinator = function() {
+		return $scope.authentication.user && $scope.course.coordinators.some(function(element, index, array) {
+			return $scope.authentication.user._id === element._id;
+		});
+	};
+
 	// Test whether the specified date is before now
 	$scope.isBefore = function(date) {
 		return moment().isBefore(moment(date));
