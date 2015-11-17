@@ -9,4 +9,5 @@ app/tests/coverage/
 .idea/
 public/dist/
 public/images/users/
+config/sslcerts/
 tasks/
