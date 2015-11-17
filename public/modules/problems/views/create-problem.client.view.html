@@ -41,39 +41,9 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="environment" data-ng-bind="'PROBLEM.ENVIRONMENT' | translate"></label>
+					<label class="control-label" for="maxsubmission" data-ng-bind="'PROBLEM.MAX_SUBMISSION' | translate"></label>
 					<div class="controls">
-						<input type="text" data-ng-model="task.environment" id="environment" class="form-control" placeholder="busybox" required>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label" for="taskfs">Taskfs</label>
-					<div class="controls">
-						<input type="text" data-ng-model="task.taskfs" id="taskfs" class="form-control" placeholder="task.sfs" required>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label" for="time" data-ng-bind="'PROBLEM.TIME' | translate"></label>
-					<div class="controls">
-						<input type="number" data-ng-model="task.limits.time" id="time" class="form-control" placeholder="60" required>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label" for="memory" data-ng-bind="'PROBLEM.MEMORY' | translate"></label>
-					<div class="controls">
-						<input type="number" data-ng-model="task.limits.memory" id="memory" class="form-control" placeholder="32" required>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label" for="disk" data-ng-bind="'PROBLEM.DISK' | translate"></label>
-					<div class="controls">
-						<input type="number" data-ng-model="task.limits.disk" id="disk" class="form-control" placeholder="50" required>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label" for="output" data-ng-bind="'PROBLEM.OUTPUT' | translate"></label>
-					<div class="controls">
-						<input type="number" data-ng-model="task.limits.output" id="output" class="form-control" placeholder="1024" required>
+						<input type="number" data-ng-model="maxsubmission" id="maxsubmission" class="form-control" placeholder="0" required>
 					</div>
 				</div>
 				<div class="form-group">
@@ -82,6 +52,45 @@
 						<textarea data-ng-model="config" id="config" class="form-control" placeholder="{{'PROBLEM.CONFIG' | translate}}" rows="5"></textarea>
 					</div>
 				</div>
+				<fieldset>
+					<legend>Pythia task configuration</legend>
+					<div class="form-group">
+						<label class="control-label" for="environment" data-ng-bind="'PROBLEM.ENVIRONMENT' | translate"></label>
+						<div class="controls">
+							<input type="text" data-ng-model="task.environment" id="environment" class="form-control" placeholder="busybox" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="taskfs">Taskfs</label>
+						<div class="controls">
+							<input type="text" data-ng-model="task.taskfs" id="taskfs" class="form-control" placeholder="task.sfs" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="time" data-ng-bind="'PROBLEM.TIME' | translate"></label>
+						<div class="controls">
+							<input type="number" data-ng-model="task.limits.time" id="time" class="form-control" placeholder="60" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="memory" data-ng-bind="'PROBLEM.MEMORY' | translate"></label>
+						<div class="controls">
+							<input type="number" data-ng-model="task.limits.memory" id="memory" class="form-control" placeholder="32" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="disk" data-ng-bind="'PROBLEM.DISK' | translate"></label>
+						<div class="controls">
+							<input type="number" data-ng-model="task.limits.disk" id="disk" class="form-control" placeholder="50" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="output" data-ng-bind="'PROBLEM.OUTPUT' | translate"></label>
+						<div class="controls">
+							<input type="number" data-ng-model="task.limits.output" id="output" class="form-control" placeholder="1024" required>
+						</div>
+					</div>
+				</fieldset>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary" data-ng-bind="'PROBLEM.CREATE' | translate"></button>
 				</div>

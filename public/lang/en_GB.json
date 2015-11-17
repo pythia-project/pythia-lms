@@ -145,6 +145,8 @@
 		"DESCRIPTION": "Description",
 		"UPDATE": "Update",
 		"POINTS_MAJ": "Points",
+		"MAX_SUBMISSION": "Maximum number of submissions",
+		"NO_LIMIT": "No limit",
 		"ADD_AUTHOR": "Add an author",
 		"ERROR": "Error",
 		"ACCESS_DENIED": "You are not allowed to access this problem.",

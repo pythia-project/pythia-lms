@@ -116,7 +116,7 @@ exports.list = function(req, res) {
  * Lesson middleware
  */
 exports.lessonByIndex = function(req, res, next, index) { 
-	Lesson.findById({'_id': req.sequence.lessons[index - 1]._id}, 'name start end context problems user').populate('problems', 'name description points authors').exec(function(err, lesson) {
+	Lesson.findById({'_id': req.sequence.lessons[index - 1]._id}, 'name start end context problems user').populate('problems', 'name description points authors maxsubmission').exec(function(err, lesson) {
 		if (err || ! lesson) {
 			return errorHandler.getLoadErrorMessage(err, 'lesson', index + ' of sequence ' + req.sequence.name + ' of course ' + req.course.serial, next);
 		}
@@ -310,120 +310,129 @@ exports.submit = function(req, res) {
 			}
 			// Load the problem
 			var problemId = lesson.problems[req.params.problemIndex - 1];
-			Problem.findById({'_id': problemId}, 'points task type config').exec(function(err, problem) {
+			Problem.findById({'_id': problemId}, 'points task type maxsubmission config').exec(function(err, problem) {
 				if (err || ! problem) {
 					return res.status(400).send({
 						message: errorHandler.getLoadErrorMessage(err, 'problem', problemId)
 					});
 				}
-				// Trying to reach Pythia queue
-				var status = 'failed';
-				var message = '<p>An error occurred during the grading of your submission, please try again later.</p>';
-				var data = '';
-				var submissions = [];
-				var newregistration = null;
-				var socket = new net.Socket();
-				var score = 0;
-				socket.setEncoding('utf8');
-				// On connexion, send the request to the Pythia grader
-				socket.on('connect', function() {
-					socket.write(JSON.stringify({
-						'message': 'launch',
-						'id': 'test',
-						'task': problem.task,
-						'input': JSON.stringify({
-							'tid': 'task1',
-							'fields': JSON.parse(req.body.input)
-						})
-					}));
-				});
-				// On data reception, if complete JSON object, handle it
-				socket.on('data', function(chunk) {
-					data += chunk;
-					try {
-						// Get and analyse result provided by Pythia
-						var result = JSON.parse(data);
-						var output = null;
-						// Check the nature of the message
-						switch (result.message) {
-							case 'done':
-								// Check the status of the execution performed by Pythia
-								switch (result.status) {
-									case 'success':
-										output = JSON.parse(result.output);
-										status = output.status;
-										// Get the score, if any
-										if (output.feedback.score !== undefined) {
-											score = Math.round(output.feedback.score * problem.points);
-											var quality = output.feedback.quality;
-											if (quality !== undefined) {
-												score = parseInt(score * quality.weight);
-											}
+				// Get registration for this course
+				Registration.findOne({'course': course.id, 'user': req.user.id}, function(err, registration) {
+					registration = getRegistration(registration, course, req.params.sequenceIndex, req.params.lessonIndex, req.params.problemIndex);
+					var submissions = registration.sequences[req.params.sequenceIndex - 1].lessons[req.params.lessonIndex - 1].problems[req.params.problemIndex - 1].submissions;
+					// Check if maximal number of submissions has been reached
+					if (problem.maxsubmission !== 0 && submissions.length >= problem.maxsubmission) {
+						res.jsonp({
+							'status': 'error',
+							'message': '<p>Maximal number of submissions reached, you cannot make any more submission.</p>',
+							'registration': registration,
+							'score': 0
+						});
+					} else {
+						// Trying to reach Pythia queue
+						var status = 'failed';
+						var message = '<p>An error occurred during the grading of your submission, please try again later.</p>';
+						var data = '';
+						var newregistration = null;
+						var socket = new net.Socket();
+						var score = 0;
+						socket.setEncoding('utf8');
+						// On connexion, send the request to the Pythia grader
+						socket.on('connect', function() {
+							socket.write(JSON.stringify({
+								'message': 'launch',
+								'id': 'test',
+								'task': problem.task,
+								'input': JSON.stringify({
+									'tid': 'task1',
+									'fields': JSON.parse(req.body.input)
+								})
+							}));
+						});
+						// On data reception, if complete JSON object, handle it
+						socket.on('data', function(chunk) {
+							data += chunk;
+							try {
+								// Get and analyse result provided by Pythia
+								var result = JSON.parse(data);
+								var output = null;
+								// Check the nature of the message
+								switch (result.message) {
+									case 'done':
+										// Check the status of the execution performed by Pythia
+										switch (result.status) {
+											case 'success':
+												output = JSON.parse(result.output);
+												status = output.status;
+												// Get the score, if any
+												if (output.feedback.score !== undefined) {
+													score = Math.round(output.feedback.score * problem.points);
+													var quality = output.feedback.quality;
+													if (quality !== undefined) {
+														score = parseInt(score * quality.weight);
+													}
+												}
+												// Build the feedback message
+												message = generateFeedback(problem, result, output);
+											break;
+
+											case 'timeout':
+												status = 'timeout';
+												score = 0;
+												message = '<p><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> {{\'FEEDBACK.TIMEOUT\' | translate}}</p>';
+											break;
 										}
-										// Build the feedback message
-										message = generateFeedback(problem, result, output);
+										// Save submission in user
+										registration.sequences[req.params.sequenceIndex - 1].lessons[req.params.lessonIndex - 1].problems[req.params.problemIndex - 1].submissions.push({
+											'status': status,
+											'answer': req.body.input,
+											'feedback': {
+												'message': message,
+												'raw': output !== null ? output.feedback : message
+											}
+										});
+										// Update the score and success status
+										updateScore(req, registration, course, lesson, score, status);
+										registration.save(function(err) {
+											if (err) {
+												return res.status(400).send({
+													message: errorHandler.getErrorMessage(err)
+												});
+											}
+											newregistration = registration;
+											socket.destroy();
+										});
 									break;
 
-									case 'timeout':
-										status = 'timeout';
-										score = 0;
-										message = '<p><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> {{\'FEEDBACK.TIMEOUT\' | translate}}</p>';
+									case 'keep-alive':
+										data = '';
 									break;
 								}
-								// Save submission in user
-								// Get registration for this course
-								Registration.findOne({'course': course.id, 'user': req.user.id}, function(err, registration) {
-									// Get the problem
-									registration = getRegistration(registration, course, req.params.sequenceIndex, req.params.lessonIndex, req.params.problemIndex);
-									registration.sequences[req.params.sequenceIndex - 1].lessons[req.params.lessonIndex - 1].problems[req.params.problemIndex - 1].submissions.push({
-										'status': status,
-										'answer': req.body.input,
-										'feedback': {
-											'message': message,
-											'raw': output !== null ? output.feedback : message
-										}
-									});
-									// Update the score and success status
-									updateScore(req, registration, course, lesson, score, status);
-									registration.save(function(err) {
-										if (err) {
-											return res.status(400).send({
-												message: errorHandler.getErrorMessage(err)
-											});
-										}
-										newregistration = registration;
-										socket.destroy();
-									});
-								});
-							break;
-
-							case 'keep-alive':
-								data = '';
-							break;
-						}
-					} catch (err) {
-						console.log('Pythia error: ' + err);
-						console.log('Current data: ' + data);
+							} catch (err) {
+								console.log('Pythia error: ' + err);
+								console.log('Current data: ' + data);
+							}
+						});
+						// On close, send back answer to the client
+						socket.on('close', function(had_error) {
+							res.jsonp({
+								'status': had_error ? 'error' : status,
+								'message': message,
+								'registration': newregistration,
+								'score': score
+							});
+						});
+						// On error, generate an error message
+						socket.on('error', function(err) {
+							switch (err.errno) {
+								case 'ECONNREFUSED':
+									message = 'The grading server is not reachable, please try again later.';
+								break;
+							}
+						});
+						socket.connect(9000, '127.0.0.1');
 					}
 				});
-				// On close, send back answer to the client
-				socket.on('close', function(had_error) {
-					res.jsonp({
-						'status': had_error ? 'error' : status,
-						'message': message,
-						'registration': newregistration,
-						'score': score
-					});
-				});
-				// On error, generate an error message
-				socket.on('error', function(err) {
-					switch (err.errno) {
-						case 'ECONNREFUSED':
-							message = 'The grading server is not reachable, please try again later.';
-						break;
-					}
-				});
-				socket.connect(9000, '127.0.0.1');
 			});
 		});
 	});

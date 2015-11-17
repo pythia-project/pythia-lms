@@ -38,6 +38,10 @@ var ProblemSchema = new Schema({
 		type: String,
 		default: ''
 	},
+	maxsubmission: {
+		type: Number,
+		default: 0
+	},
 	task: {
 		environment: {
 			type: String,

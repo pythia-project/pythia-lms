@@ -113,6 +113,9 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		content += ' <span style="display: none" id="failed-p' + index + '" class="glyphicon glyphicon-remove failed-icon" aria-hidden="true"></span>';
 		content += '</span></div><div class="panel-body" id="problem-p' + index + '"><form>' + problem.description + '<div class="form-group text-right">';
 		if ($scope.registration !== null) {
+			if (problem.maxsubmission > 0) {
+				content += '<i>(<span id="submissions-p' + index + '"></span>' + problem.maxsubmission + ' submissions)</i> ';
+			}
 			content += '<a id="submit-p' + index + '" href="#" onclick="angular.element(document.getElementById(\'lessoncontent\')).scope().submitProblem(' + index + ');event.preventDefault();" class="btn btn-primary">Submit</a>';
 		}
 		content += '</div><div id="feedback-p' + index + '" class="feedback"></div></form></div></div></div>';
@@ -126,6 +129,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 				$content.find('#success-p' + index).first().css('display', p.succeeded ? 'inline-block' : 'none');
 				$content.find('#failed-p' + index).first().css('display', p.succeeded ? 'none' : 'inline-block');
 				$content.find('#points-p' + index).first().text(p.score + '/');
+				$content.find('#submissions-p' + index).first().text(p.submissions.length + '/');
 				// Form fields
 				var answer = JSON.parse(lastsubmission.answer);
 				var $form = $content.find('form').first();
@@ -160,6 +164,9 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 				$('#success-p' + i).css('display', lesson.problems[i - 1].succeeded ? 'inline-block' : 'none');
 				$('#failed-p' + i).css('display', lesson.problems[i - 1].succeeded ? 'none' : 'inline-block');
 				$('#points-p' + i).text(lesson.problems[i - 1].score + '/');
+				if ($('#submissions-p' + i).length === 1) {
+					$('#submissions-p' + i).text(lesson.problems[i - 1].submissions.length + '/');
+				}
 			}
 		}
 	};

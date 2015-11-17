@@ -39,6 +39,11 @@
 							<dd data-ng-bind="problem.type"></dd>
 						</dl>
 						<dl>
+							<dt data-ng-bind="'PROBLEM.MAX_SUBMISSION' | translate"></dt>
+							<dd data-ng-if="problem.maxsubmission > 0" data-ng-bind="problem.maxsubmission"></dd>
+							<dd data-ng-if="problem.maxsubmission === 0" data-ng-bind="'PROBLEM.NO_LIMIT' | translate"></dd>
+						</dl>
+						<dl>
 							<dt data-ng-bind="'PROBLEM.ENVIRONMENT' | translate"></dt>
 							<dd data-ng-bind="problem.task.environment"></dd>
 						</dl>

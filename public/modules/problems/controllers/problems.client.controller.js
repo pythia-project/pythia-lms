@@ -17,6 +17,7 @@ angular.module('problems').controller('ProblemsController', ['$scope', '$statePa
 			description: this.description,
 			authors: authors,
 			points: this.points,
+			maxsubmission: this.maxsubmission,
 			task: this.task,
 			config: this.config
 		});
@@ -29,6 +30,7 @@ angular.module('problems').controller('ProblemsController', ['$scope', '$statePa
 			$scope.description = '';
 			$scope.authors = [];
 			$scope.points = 0;
+			$scope.maxsubmission = 0;
 			$scope.task = {};
 			$scope.config = '';
 		}, function(errorResponse) {

@@ -145,6 +145,8 @@
 		"DESCRIPTION": "Opis",
 		"UPDATE": "Aktualizuj",
 		"POINTS_MAJ": "Punkty",
+		"MAX_SUBMISSION": "Maximum number of submissions",
+		"NO_LIMIT": "No limit",
 		"ADD_AUTHOR": "Dodać autora",
 		"ERROR": "Błąd",
 		"ACCESS_DENIED": "Nie jesteś dozwolony do tego problemu.",
