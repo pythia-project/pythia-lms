@@ -212,7 +212,7 @@
 		"YOUR_RESULT": "Votre résultat ",
 		"EXPECTED_RESULT": "Le résultat attendu ",
 		"HINT": "Indice ",
-		"TIMEOUT": "Temps d'exécution maximal dépassé."
+		"TIMEOUT": "Temps d'exécution maximal dépassé, votre code a mis trop de temps à s'exécuter."
 	},
 	"BY": "Par",
 	"PYTHIA_AUTHORS": "les auteurs de Pythia LMS"
