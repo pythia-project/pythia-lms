@@ -227,6 +227,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 
 	$scope.getSubmissions = function(problem) {
 		var total = 0;
+		var succeeded = 0;
 		var users = 0;
 		var usersubmissions = [];
 		for (var i = 0; i < $scope.problemstats.length; i++) {
@@ -238,6 +239,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 						'submissions': submissions
 					});
 					total += submissions.length;
+					succeeded += $scope.problemstats[i].problems[problem].succeeded ? 1 : 0;
 					users += 1;
 				}
 			}
@@ -245,6 +247,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		return {
 			'users': usersubmissions,
 			'total': total,
+			'succeeded': succeeded,
 			'mean' : total / users
 		};
 	};

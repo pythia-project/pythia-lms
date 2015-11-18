@@ -93,11 +93,24 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 			$scope.course = data.course;
 			$scope.registrations = data.registrations;
 			$scope.maxScore = 0;
+			$scope.totalSubmissions = 0;
+			// Compute the total number of submissions
+			for (var r = 0; r < $scope.registrations.length; r++) {
+				for (var s = 0; s < $scope.registrations[r].sequences.length; s++) {
+					for (var l = 0; l < $scope.registrations[r].sequences[s].lessons.length; l++) {
+						for (var p = 0; p < $scope.registrations[r].sequences[s].lessons[l].problems.length; p++) {
+							$scope.totalSubmissions += $scope.registrations[r].sequences[s].lessons[l].problems[p].submissions.length;
+						}
+					}
+				}
+			}
+			// Compute the max score
 			for (var i = 0; i < $scope.registrations.length; i++) {
 				if ($scope.registrations[i].score > $scope.maxScore) {
 					$scope.maxScore = $scope.registrations[i].score;
 				}
 			}
+			// Compute data for the histogram
 			var binsize = $scope.maxScore / 10;
 			var bins = [];
 			var ticks = [];
@@ -107,8 +120,8 @@ angular.module('courses').controller('CoursesController', ['$scope', '$statePara
 			}
 			ticks.push([10, $scope.maxScore]);
 			for (var k = 0; k < $scope.registrations.length; k++) {
-				var p = parseInt($scope.registrations[k].score / binsize);
-				bins[Math.min(p, 9)][1]++;
+				var b = parseInt($scope.registrations[k].score / binsize);
+				bins[Math.min(b, 9)][1]++;
 			}
 			$scope.scorehisto = [bins];
 			$scope.scorehistoopt = {

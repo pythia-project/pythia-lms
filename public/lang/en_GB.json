@@ -63,6 +63,7 @@
 		"NO_AVAILABLE_COURSE": "No available courses.",
 		"STATS": "Statistics",
 		"MAX_SCORE": "Max score",
+		"TOTAL_SUBMISSIONS": "Total number of submissions",
 		"GLOBAL_STATS": "Global statistics",
 		"USERS_STATS": "Users' statistics",
 		"RANKING": "Ranking"
@@ -120,6 +121,7 @@
 		"SUBMISSIONS_STATS": "Statistics about submissions",
 		"SUBMISSIONS_TOTAL": "Total",
 		"SUBMISSIONS_AVERAGE": "Average",
+		"SUBMISSIONS_SUCCEEDED": "Succeeded",
 		"USERS_SUBMISSIONS_LIST": "List of submissions by users",
 		"PREVIOUS_LESSON": "Previous lesson",
 		"NEXT_LESSON": "Next lesson"

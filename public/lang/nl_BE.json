@@ -63,6 +63,7 @@
 		"NO_AVAILABLE_COURSE": "Geen vakken beschikbaar.",
 		"STATS": "Statistieken",
 		"MAX_SCORE": "Maximum score",
+		"TOTAL_SUBMISSIONS": "Total number of submissions",
 		"GLOBAL_STATS": "Algemene statistieken",
 		"USERS_STATS": "Statistieken van de gebruiker",
 		"RANKING": "Ranking"
@@ -120,6 +121,7 @@
 		"SUBMISSIONS_STATS": "Statistieken van de indieningen",
 		"SUBMISSIONS_TOTAL": "Totaal",
 		"SUBMISSIONS_AVERAGE": "Gemiddelde",
+		"SUBMISSIONS_SUCCEEDED": "Succeeded",
 		"USERS_SUBMISSIONS_LIST": "Lijst van indieningen van de gebruikers",
 		"PREVIOUS_LESSON": "Vorige les",
 		"NEXT_LESSON": "Volgende les"
