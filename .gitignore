@@ -11,3 +11,5 @@ public/dist/
 public/images/users/
 config/sslcerts/
 tasks/
+config/env/production.js
+config/env/secure.js
