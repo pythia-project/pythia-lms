@@ -185,7 +185,8 @@
 		"CONFIRM_PASSWORD": "Verify Password",
 		"SAVE_PASSWORD": "Save",
 		"PASSWORD_CHANGE_SUCCESS": "Password changed successfully.",
-		"ACCOUNT_CREATED": "Account successfully created, you will be able to signin when activated by a moderator."
+		"ACCOUNT_CREATED": "Account successfully created, you will be able to signin when activated by a moderator.",
+		"USERS_NB": "users"
 	},
 	"NEWS": {
 		"NEWS": "News",

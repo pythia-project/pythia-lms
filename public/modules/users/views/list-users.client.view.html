@@ -1,6 +1,8 @@
 <section data-ng-controller="UsersController" data-ng-init="find()">
 	<h2 data-ng-bind="'USER.USERS' | translate"></h2>
 
+	<p><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> <b>{{users.length}}</b> {{'USER.USERS_NB' | translate}}.</p>
+
 	<div data-ng-if="users.$resolved && users.length > 0" class="list-group">
 		<a data-ng-repeat="user in users | orderBy: '+lastname'" class="list-group-item" data-ng-href="#!/users/{{user.username}}"><img data-ng-src="/images/users/{{user._id}}.jpg" width="25" height="25" class="iconuserpic" data-ng-if="user.picture" /> {{user.firstname}} {{user.lastname}}<span class="pull-right"><img src="images/user.png" alt="Register" width="21" height="25" data-ng-class="{grayscale: ! user.active}" data-ng-click="changeActive(user);$event.preventDefault();" /></span></a>
 	</div>

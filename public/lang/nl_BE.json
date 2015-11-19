@@ -185,7 +185,8 @@
 		"CONFIRM_PASSWORD": "Wachtwoord bevestigen",
 		"SAVE_PASSWORD": "Opslaan",
 		"PASSWORD_CHANGE_SUCCESS": "Wachtwoord met succes verandert.",
-		"ACCOUNT_CREATED": "Account succesvol aangemaakt, u kunt zich aanmelden eens geactiveerd door moderator."
+		"ACCOUNT_CREATED": "Account succesvol aangemaakt, u kunt zich aanmelden eens geactiveerd door moderator.",
+		"USERS_NB": "users"
 	},
 	"NEWS": {
 		"NEWS": "Nieuws",

@@ -185,7 +185,8 @@
 		"CONFIRM_PASSWORD": "Confirmar senha",
 		"SAVE_PASSWORD": "Gravar",
 		"PASSWORD_CHANGE_SUCCESS": "Senha modificada com sucesso.",
-		"ACCOUNT_CREATED": "Conta criada com sucesso, poderá se conectar uma vez  que um Mod ativar sua conta."
+		"ACCOUNT_CREATED": "Conta criada com sucesso, poderá se conectar uma vez  que um Mod ativar sua conta.",
+		"USERS_NB": "users"
 	},
 	"NEWS": {
 		"NEWS": "News",
