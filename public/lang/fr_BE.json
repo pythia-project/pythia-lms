@@ -15,7 +15,7 @@
 		"LEARN_CODE": "Apprendre à coder",
 		"LEARN_CODE_DESC": "Pythia LMS propose des problèmes à résoudre complètement en ligne, et qui seront directement corrigés grâce à la plateforme Pythia. Les feedbacks intelligents proposés vous aideront à progresse dans votre apprentissage.",
 		"CREATE_COURSES": "Créer des cours",
-		"CREATE_COURSES_DESC": "Pythia LMS vous permet de créer des cours qui sont organisés en séquences de leçons. L'accès aux différentes séquences et leçons peut être personnalisé pour personnaliser l'expérience d'apprentissage des utilisateurs.",
+		"CREATE_COURSES_DESC": "Pythia LMS vous permet de créer des cours qui sont organisés en séquences de leçons. L'accès aux différentes séquences et leçons peut être contrôlé pour personnaliser l'expérience d'apprentissage des utilisateurs.",
 		"MANAGE_CLASSROOMS": "Gérer des classes",
 		"MANAGE_CLASSROOMS_DESC": "Pythia LMS offre aux enseignants une manière simple de gérer leurs classes et permet à leurs apprenants de partager leur code. Des statistiques à propos des performances des utilisateurs permettent aux enseigants d'adapter leurs cours."
 	},
