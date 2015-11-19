@@ -10,7 +10,7 @@
 		"NO_REGISTRATION": "No registration."
 	},
 	"HOME": {
-		"JUMBOTRON": "Leer coderen en test meteen de nieuwe concepten uit die je net hebt aangeleerd dankzij Pythia LMS. Boek vooruitgang dankzij de intelligente feedbacks, en een persoonlijke leerervaring !",
+		"JUMBOTRON": "Leer coderen en test meteen de nieuwe concepten uit die je net hebt aangeleerd dankzij Pythia LMS. Boek vooruitgang dankzij de intelligente feedbacks en een persoonlijke leerervaring !",
 		"LEARN_MORE": "Meer informatie",
 		"LEARN_CODE": "Leer coderen",
 		"LEARN_CODE_DESC": "Pythia LMS biedt u een tal van oefeningen online aan, met verbeteringen. Dankzij de intelligente feedbacks kunt u gemakkelijk vooruitgang boeken tijdens uw leerproces.",
@@ -50,23 +50,23 @@
 		"PROGRESS": "Progress",
 		"NO_SEQUENCE": "Geen reeksen in dat vak.",
 		"ERROR": "Fout",
-		"ACCESS_DENIED": "Toegang verboden.",
+		"ACCESS_DENIED": "Het is niet toegestaan om dat vak te betreden.",
 		"SERIAL": "Gebruikersnaam",
 		"TITLE": "Tittel",
 		"DESCRIPTION": "Beschrijving",
 		"ADD_COORDINATOR": "Coördinator toevoegen",
 		"UPDATE" : "Update",
 		"CREATE_COURSE": "Vak aanmaken",
-		"CREATE": "Creëren",
+		"CREATE": "Aanmaken",
 		"MY_COURSES": "Mijn vakken",
 		"REGISTER_COURSE": "Zich inschrijven in een vak",
 		"NO_AVAILABLE_COURSE": "Geen vakken beschikbaar.",
 		"STATS": "Statistieken",
 		"MAX_SCORE": "Maximum score",
-		"TOTAL_SUBMISSIONS": "Total number of submissions",
+		"TOTAL_SUBMISSIONS": "Totaal aantal indieningen",
 		"GLOBAL_STATS": "Algemene statistieken",
 		"USERS_STATS": "Statistieken van de gebruiker",
-		"RANKING": "Ranking"
+		"RANKING": "Rang"
 	},
 	"REGISTRATION": {
 		"REGISTRATIONS": "Inschrijvingen",
@@ -91,7 +91,7 @@
 		"POINTS": "punten",
 		"PROGRESS": "Vooruitgang",
 		"ERROR": "Fout",
-		"ACCESS_DENIED": "Het is niet toegestaan om deze reeks te beoefenen.",
+		"ACCESS_DENIED": "Het is niet toegestaan om deze reeks te betreden.",
 		"UPDATE": "Update",
 		"OPENED": "Zal beschikbaar zijn op ",
 		"STATS": "Statistieken"
@@ -121,7 +121,7 @@
 		"SUBMISSIONS_STATS": "Statistieken van de indieningen",
 		"SUBMISSIONS_TOTAL": "Totaal",
 		"SUBMISSIONS_AVERAGE": "Gemiddelde",
-		"SUBMISSIONS_SUCCEEDED": "Succeeded",
+		"SUBMISSIONS_SUCCEEDED": "Voltooid",
 		"USERS_SUBMISSIONS_LIST": "Lijst van indieningen van de gebruikers",
 		"PREVIOUS_LESSON": "Vorige les",
 		"NEXT_LESSON": "Volgende les"
@@ -208,15 +208,15 @@
 		"GENERAL": "Algemeen"
 	},
 	"FEEDBACK": {
-		"SUCCESS": "You succeeded!",
-		"SUCCESS_IMPROVE": "You succeeded, but your code can be improved:",
-		"FAIL": "You failed!",
-		"WRONG_RESULT": "Your code did not produced the good result.",
+		"SUCCESS": "U heeft deze oefening met succes voltooid!",
+		"SUCCESS_IMPROVE": "U heeft deze oefening voltooid, maar je code kan beter:",
+		"FAIL": "U heeft gefaalt!",
+		"WRONG_RESULT": "Uw code geef niet het gewenste resultaat weer.",
 		"INPUT": "Input",
-		"YOUR_RESULT": "Your result",
-		"EXPECTED_RESULT": "Expected result",
+		"YOUR_RESULT": "Uw resultaat",
+		"EXPECTED_RESULT": "Het verwachtte resultaat",
 		"HINT": "Hint",
-		"TIMEOUT": "Maximum execution time exceeded."
+		"TIMEOUT": "De tijd is op, het programma nam te veel tijd om uw code uit te voeren."
 	},
 	"BY": "Door",
 	"PYTHIA_AUTHORS": "de auteurs van Pythia LMS"
