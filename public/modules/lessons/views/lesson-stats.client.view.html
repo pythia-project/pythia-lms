@@ -22,6 +22,7 @@
 				<tabset>
 					<tab data-ng-repeat="i in getNumber(lesson.problems.length) track by $index" heading="{{lesson.problems[$index].name}}" data-ng-init="submissions = getSubmissions($index)">
 						<h4 data-ng-bind="'LESSON.SUBMISSIONS_STATS' | translate"></h4>
+
 						<dl class="dl-horizontal">
 							<dt data-ng-bind="'LESSON.SUBMISSIONS_TOTAL' | translate"></dt>
 							<dd>{{submissions.total}}</dd>
@@ -30,7 +31,9 @@
 							<dt data-ng-bind="'LESSON.SUBMISSIONS_SUCCEEDED' | translate"></dt>
 							<dd>{{submissions.succeeded}}</dd>
 						</dl>
+
 						<h4 data-ng-bind="'LESSON.USERS_SUBMISSIONS_LIST' | translate"></h4>
+
 						<accordion close-others="false">
 							<accordion-group data-ng-repeat="stats in submissions.users | orderBy: '+user.lastname'">
 								<accordion-heading>
@@ -38,10 +41,7 @@
 								</accordion-heading>
 								<dl>
 									<dt data-ng-repeat-start="j in getNumber(stats.submissions.length)">{{'LESSON.SUBMISSION' | translate}} {{j+1}}</dt>
-									<dd data-ng-repeat-end>
-										<div data-ng-bind-html="renderAnswers(stats.submissions[j].answer)"></div>
-										<pre data-ng-bind="renderFeedback(stats.submissions[j].feedback)"></pre>
-									</dd>
+									<dd data-ng-repeat-end data-ng-bind-html="renderSubmission(stats.submissions[j])"></dd>
 								</dl>
 							</accordion-group>
 						</accordion>

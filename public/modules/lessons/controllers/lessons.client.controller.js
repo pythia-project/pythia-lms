@@ -259,18 +259,27 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 	$scope.renderFeedback = function(feedback) {
 		return JSON.stringify(feedback);
 	};
-	$scope.renderAnswers = function(answers) {
+	$scope.renderSubmission = function(submission) {
 		try {
-			var a = JSON.parse(answers);
-			var fields = $scope.keys(a);
 			var result = '<table class="table table-bordered table-condensed">';
+			// Answers
+			var a = JSON.parse(submission.answer);
+			var fields = $scope.keys(a);
+			result += '<tr><th colspan="2">Answers</th></tr>';
 			for (var i = 0; i < fields.length; i++) {
-				result += '<tr><th style="width: 100px;">' + fields[i] + '</th><td><pre class="empty">' + a[fields[i]] + '</pre></td></tr>';
+				result += '<tr><td style="width: 100px;">' + fields[i] + '</td><td><pre class="empty">' + a[fields[i]] + '</pre></td></tr>';
+			}
+			// Feedback
+			var f = submission.feedback;
+			var keys = $scope.keys(f).sort();
+			result += '<tr><th colspan="2">Feedback</th></tr>';
+			for (var j = 0; j < fields.length; j++) {
+				result += '<tr><td style="width: 100px;">' + keys[j] + '</td><td><pre class="empty">' + f[keys[j]] + '</pre></td></tr>';
 			}
 			result += '</table>';
 			return result;
 		} catch (err) {
-			return '<pre>' + answers + '</pre>';
+			return '<pre>' + submission.answer + '</pre><pre>' + JSON.stringify(submission.feedback) + '</pre>';
 		}
 	};
 
