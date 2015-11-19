@@ -252,8 +252,26 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		};
 	};
 
+	$scope.keys = function(obj) {
+		return obj ? Object.keys(obj).sort() : [];
+	};
+
 	$scope.renderFeedback = function(feedback) {
 		return JSON.stringify(feedback);
+	};
+	$scope.renderAnswers = function(answers) {
+		try {
+			var a = JSON.parse(answers);
+			var fields = $scope.keys(a);
+			var result = '<table class="table table-bordered table-condensed">';
+			for (var i = 0; i < fields.length; i++) {
+				result += '<tr><th style="width: 100px;">' + fields[i] + '</th><td><pre class="empty">' + a[fields[i]] + '</pre></td></tr>';
+			}
+			result += '</table>';
+			return result;
+		} catch (err) {
+			return '<pre>' + answers + '</pre>';
+		}
 	};
 
 	// Load information about the current course and sequence

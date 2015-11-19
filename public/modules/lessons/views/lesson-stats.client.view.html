@@ -36,7 +36,7 @@
 								<dl>
 									<dt data-ng-repeat-start="j in getNumber(stats.submissions.length)">{{'LESSON.SUBMISSION' | translate}} {{j+1}}</dt>
 									<dd data-ng-repeat-end>
-										<pre data-ng-bind="stats.submissions[j].answer"></pre>
+										<div data-ng-bind-html="renderAnswers(stats.submissions[j].answer)"></div>
 										<pre data-ng-bind="renderFeedback(stats.submissions[j].feedback)"></pre>
 									</dd>
 								</dl>

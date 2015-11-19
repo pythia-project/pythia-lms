@@ -67,6 +67,12 @@ div.feedback pre {
 	border-left: 5px solid #999;
 }
 
+pre.empty {
+	background-color: transparent;
+	border: none;
+	padding: 2px;
+}
+
 div.problem {
 	margin: 25px 0;
 }
