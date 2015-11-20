@@ -115,6 +115,7 @@
 		"UPDATE": "Aktualizuj",
 		"STATS": "Statyskyki",
 		"PROBLEM_STATS": "Statystyki dotyczące problemów",
+		"USERS_STATS": "Statistics about users",
 		"NB_PROBLEMS": "Liczba problemów",
 		"SUBMISSIONS": "zgłoszenia",
 		"SUBMISSION": "Zgłoszenie",
@@ -123,6 +124,7 @@
 		"SUBMISSIONS_AVERAGE": "Średnia",
 		"SUBMISSIONS_SUCCEEDED": "Succeeded",
 		"USERS_SUBMISSIONS_LIST": "Lista zgłoszen użytkownikow",
+		"USERS_WITH_SUBMISSIONS": "users with submissions",
 		"PREVIOUS_LESSON": "Poprzednia lekcja",
 		"NEXT_LESSON": "Następna lekcja"
 	},

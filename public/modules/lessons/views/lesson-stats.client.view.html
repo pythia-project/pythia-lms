@@ -13,38 +13,67 @@
 
 		<div class="row">
 			<div class="col-md-9">
-				<ul class="list-group">
-					<li data-ng-repeat="stats in problemstats | orderBy: '+user.lastname'" class="list-group-item">{{stats.user.firstname}} {{stats.user.lastname}} ({{getScore(stats.problems)}} {{'LESSON.POINTS' | translate}}) <progressbar data-ng-init="progress = getProgress(stats.problems)" class="pull-right statsprogressbar" animate="false" max="100" value="progress" type="primary"><span data-ng-hide="progress < 15" data-ng-bind="progress + '%'"></span></progressbar></li>
-				</ul>
-
-				<h3 data-ng-bind="'LESSON.PROBLEM_STATS' | translate"></h3>
-
 				<tabset>
-					<tab data-ng-repeat="i in getNumber(lesson.problems.length) track by $index" heading="{{lesson.problems[$index].name}}" data-ng-init="submissions = getSubmissions($index)">
-						<h4 data-ng-bind="'LESSON.SUBMISSIONS_STATS' | translate"></h4>
+					<tab heading="{{'LESSON.PROBLEM_STATS' | translate}}">
+						<tabset>
+							<tab data-ng-repeat="i in getNumber(lesson.problems.length) track by $index" heading="{{lesson.problems[$index].name}}" data-ng-init="submissions = getSubmissions($index)">
+								<h4 data-ng-bind="'LESSON.SUBMISSIONS_STATS' | translate"></h4>
 
-						<dl class="dl-horizontal">
-							<dt data-ng-bind="'LESSON.SUBMISSIONS_TOTAL' | translate"></dt>
-							<dd>{{submissions.total}}</dd>
-							<dt data-ng-bind="'LESSON.SUBMISSIONS_AVERAGE' | translate"></dt>
-							<dd>{{submissions.mean}}</dd>
-							<dt data-ng-bind="'LESSON.SUBMISSIONS_SUCCEEDED' | translate"></dt>
-							<dd>{{submissions.succeeded}}</dd>
-						</dl>
+								<div class="row">
+									<div class="col-md-6">
+										<dl class="dl-horizontal">
+											<dt data-ng-bind="'LESSON.SUBMISSIONS_TOTAL' | translate"></dt>
+											<dd>{{submissions.total}}</dd>
+											<dt data-ng-bind="'LESSON.SUBMISSIONS_SUCCEEDED' | translate"></dt>
+											<dd>{{submissions.totalsucceeded}}</dd>
+										</dl>
+									</div>
+									<div class="col-md-6">
+										<flot dataset="submissionspie" options="submissionspieopt" width="400" height="200"></flot>
+									</div>
+								</div>
 
-						<h4 data-ng-bind="'LESSON.USERS_SUBMISSIONS_LIST' | translate"></h4>
+								<h4 data-ng-bind="'LESSON.USERS_SUBMISSIONS_LIST' | translate"></h4>
 
-						<accordion close-others="false">
-							<accordion-group data-ng-repeat="stats in submissions.users | orderBy: '+user.lastname'">
-								<accordion-heading>
-									{{stats.user.firstname}} {{stats.user.lastname}} ({{stats.submissions.length}} {{'LESSON.SUBMISSIONS' | translate}}) <span data-ng-if="stats.submissions.length > 0" class="pull-right"><i data-ng-if="stats.submissions[stats.submissions.length - 1].status === 'success'" class="glyphicon glyphicon-ok success-icon" aria-hidden="true"></i><i data-ng-if="stats.submissions[stats.submissions.length - 1].status !== 'success'" class="glyphicon glyphicon-remove failed-icon" aria-hidden="true"></i></span>
-								</accordion-heading>
-								<dl>
-									<dt data-ng-repeat-start="j in getNumber(stats.submissions.length)">{{'LESSON.SUBMISSION' | translate}} {{j+1}}</dt>
-									<dd data-ng-repeat-end data-ng-bind-html="renderSubmission(stats.submissions[j])"></dd>
-								</dl>
-							</accordion-group>
-						</accordion>
+								<div class="row">
+									<div class="col-md-6">
+										<dl class="dl-horizontal">
+											<dt data-ng-bind="'LESSON.SUBMISSIONS_TOTAL' | translate"></dt>
+											<dd>{{submissions.users.length}}</dd>
+											<dt data-ng-bind="'LESSON.SUBMISSIONS_SUCCEEDED' | translate"></dt>
+											<dd>{{submissions.userssucceeded}}</dd>
+											<dt data-ng-bind="'LESSON.SUBMISSIONS_AVERAGE' | translate"></dt>
+											<dd>{{submissions.mean}}</dd>
+										</dl>
+									</div>
+									<div class="col-md-6">
+										<flot dataset="userssubmissionspie" options="userssubmissionspieopt" width="400" height="200"></flot>
+									</div>
+								</div>
+
+								<div class="row">
+									<accordion close-others="false">
+										<accordion-group data-ng-repeat="stats in submissions.users | orderBy: '+user.lastname'">
+											<accordion-heading>
+												{{stats.user.firstname}} {{stats.user.lastname}} ({{stats.submissions.length}} {{'LESSON.SUBMISSIONS' | translate}}) <span data-ng-if="stats.submissions.length > 0" class="pull-right"><i data-ng-if="stats.submissions[stats.submissions.length - 1].status === 'success'" class="glyphicon glyphicon-ok success-icon" aria-hidden="true"></i><i data-ng-if="stats.submissions[stats.submissions.length - 1].status !== 'success'" class="glyphicon glyphicon-remove failed-icon" aria-hidden="true"></i></span>
+											</accordion-heading>
+											<dl>
+												<dt data-ng-repeat-start="j in getNumber(stats.submissions.length)">{{'LESSON.SUBMISSION' | translate}} {{j+1}} {{stats.submissions[j]}}</dt>
+												<dd data-ng-repeat-end data-ng-bind-html="renderSubmission(stats.submissions[j])"></dd>
+											</dl>
+										</accordion-group>
+									</accordion>
+								</div>
+							</tab>
+						</tabset>
+					</tab>
+
+					<tab heading="{{'LESSON.USERS_STATS' | translate}}">
+						<p><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> <b>{{problemstats.length}}</b> {{'LESSON.USERS_WITH_SUBMISSIONS' | translate}}.</p>
+
+						<ul class="list-group">
+							<li data-ng-repeat="stats in problemstats | orderBy: '+user.lastname'" class="list-group-item">{{stats.user.firstname}} {{stats.user.lastname}} ({{getScore(stats.problems)}} {{'LESSON.POINTS' | translate}}) <progressbar data-ng-init="progress = getProgress(stats.problems)" class="pull-right statsprogressbar" animate="false" max="100" value="progress" type="primary"><span data-ng-hide="progress < 15" data-ng-bind="progress + '%'"></span></progressbar></li>
+						</ul>
 					</tab>
 				</tabset>
 			</div>

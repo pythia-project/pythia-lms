@@ -227,7 +227,8 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 
 	$scope.getSubmissions = function(problem) {
 		var total = 0;
-		var succeeded = 0;
+		var totalsucceeded = 0;
+		var userssucceeded = 0;
 		var users = 0;
 		var usersubmissions = [];
 		for (var i = 0; i < $scope.problemstats.length; i++) {
@@ -238,16 +239,62 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 						'user': $scope.problemstats[i].user,
 						'submissions': submissions
 					});
+					for (var j = 0; j < submissions.length; j++) {
+						totalsucceeded += submissions[j].status === 'success' ? 1 : 0;
+					}
 					total += submissions.length;
-					succeeded += $scope.problemstats[i].problems[problem].succeeded ? 1 : 0;
+					userssucceeded += $scope.problemstats[i].problems[problem].succeeded ? 1 : 0;
 					users += 1;
 				}
 			}
 		}
+		// Pie chart for submissions
+		var s = parseInt(totalsucceeded / total * 100);
+		$scope.submissionspie = [{label: 'Success', data: s}, {label: 'Failed', data: 100 - s}];
+		$scope.submissionspieopt = {
+			series: {
+				pie: {
+					show: true,
+					radius: 1,
+					label: {
+						show: true,
+						radius: 0.5,
+						formatter: function(label, series) {
+							return '<div style="font-size: 8pt; text-align:center; padding:2px; color: white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
+						}
+					}
+				}
+			},
+			legend: {
+				show: false
+			}
+		};
+		// Pie char for users' submissions
+		s = parseInt(userssucceeded / usersubmissions.length * 100);
+		$scope.userssubmissionspie = [{label: 'Success', data: s}, {label: 'Failed', data: 100 - s}];
+		$scope.userssubmissionspieopt = {
+			series: {
+				pie: {
+					show: true,
+					radius: 1,
+					label: {
+						show: true,
+						radius: 0.5,
+						formatter: function(label, series) {
+							return '<div style="font-size: 8pt; text-align:center; padding:2px; color: white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
+						}
+					}
+				}
+			},
+			legend: {
+				show: false
+			}
+		};
 		return {
 			'users': usersubmissions,
 			'total': total,
-			'succeeded': succeeded,
+			'totalsucceeded': totalsucceeded,
+			'userssucceeded': userssucceeded,
 			'mean' : total / users
 		};
 	};

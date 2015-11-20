@@ -115,6 +115,7 @@
 		"UPDATE": "Atualiazar",
 		"STATS": "Estatísticas",
 		"PROBLEM_STATS": "Estatísticas sobre os Problemas",
+		"USERS_STATS": "Statistics about users",
 		"NB_PROBLEMS": "Número de problemas",
 		"SUBMISSIONS": "submissões",
 		"SUBMISSION": "Submissão",
@@ -123,6 +124,7 @@
 		"SUBMISSIONS_AVERAGE": "Média",
 		"SUBMISSIONS_SUCCEEDED": "Succeeded",
 		"USERS_SUBMISSIONS_LIST": "Lista de submissões dos usuários",
+		"USERS_WITH_SUBMISSIONS": "users with submissions",
 		"PREVIOUS_LESSON": "Aula anterior",
 		"NEXT_LESSON": "Próxima aula"
 	},

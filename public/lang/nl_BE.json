@@ -115,6 +115,7 @@
 		"UPDATE": "Update",
 		"STATS": "Statistieken",
 		"PROBLEM_STATS": "Statistieken op de problemen",
+		"USERS_STATS": "Statistics about users",
 		"NB_PROBLEMS": "Aantal problemen",
 		"SUBMISSIONS": "Indieningen",
 		"SUBMISSION": "Indiening",
@@ -123,6 +124,7 @@
 		"SUBMISSIONS_AVERAGE": "Gemiddelde",
 		"SUBMISSIONS_SUCCEEDED": "Voltooid",
 		"USERS_SUBMISSIONS_LIST": "Lijst van indieningen van de gebruikers",
+		"USERS_WITH_SUBMISSIONS": "users with submissions",
 		"PREVIOUS_LESSON": "Vorige les",
 		"NEXT_LESSON": "Volgende les"
 	},
