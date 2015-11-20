@@ -20,7 +20,7 @@ Pythia LMS is an application to create courses with Pythia problems and manage l
 - Build the application
   `NODE_ENV=development grunt build`
 - Launch the application
-  `NODE_ENV=production grunt`
+  `NODE_ENV=production grunt` (or `secure` environment to have the platform on https)
 
 ## Translations
 
