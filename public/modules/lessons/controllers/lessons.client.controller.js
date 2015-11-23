@@ -199,6 +199,10 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		$http.get('/courses/' + $stateParams.courseSerial + '/sequences/' + $stateParams.sequenceIndex + '/lessons/' + $stateParams.lessonIndex + '/stats').success(function(data, status, header, config) {
 			$scope.lesson = data.lesson;
 			$scope.problemstats = data.problemstats;
+			$scope.submissionspie = [];
+			$scope.submissionspieopt = [];
+			$scope.userssubmissionspie = [];
+			$scope.userssubmissionspieopt = [];
 		});
 	};
 
@@ -250,8 +254,8 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		}
 		// Pie chart for submissions
 		var s = parseInt(totalsucceeded / total * 100);
-		$scope.submissionspie = [{label: 'Success', data: s}, {label: 'Failed', data: 100 - s}];
-		$scope.submissionspieopt = {
+		$scope.submissionspie[problem] = [{label: 'Success', data: s}, {label: 'Failed', data: 100 - s}];
+		$scope.submissionspieopt[problem] = {
 			series: {
 				pie: {
 					show: true,
@@ -271,8 +275,8 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		};
 		// Pie char for users' submissions
 		s = parseInt(userssucceeded / usersubmissions.length * 100);
-		$scope.userssubmissionspie = [{label: 'Success', data: s}, {label: 'Failed', data: 100 - s}];
-		$scope.userssubmissionspieopt = {
+		$scope.userssubmissionspie[problem] = [{label: 'Success', data: s}, {label: 'Failed', data: 100 - s}];
+		$scope.userssubmissionspieopt[problem] = {
 			series: {
 				pie: {
 					show: true,
