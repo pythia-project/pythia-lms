@@ -203,6 +203,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			$scope.submissionspieopt = [];
 			$scope.userssubmissionspie = [];
 			$scope.userssubmissionspieopt = [];
+			$scope.totalSubmissions = 0;
 		});
 	};
 
@@ -294,6 +295,7 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 				show: false
 			}
 		};
+		$scope.totalSubmissions += total;
 		return {
 			'users': usersubmissions,
 			'total': total,
