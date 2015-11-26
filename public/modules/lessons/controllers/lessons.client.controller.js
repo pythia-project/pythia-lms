@@ -326,12 +326,17 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			var f = submission.feedback;
 			var keys = $scope.keys(f).sort();
 			result += '<tr><th colspan="2">Feedback</th></tr>';
-			for (var j = 0; j < fields.length; j++) {
-				result += '<tr><td style="width: 100px;">' + keys[j] + '</td><td><pre class="empty">' + f[keys[j]] + '</pre></td></tr>';
+			for (var j = 0; j < keys.length; j++) {
+				var fieldval = f[keys[j]];
+				if (typeof(fieldval) === 'object') {
+					fieldval = '<pre class="empty">' + JSON.stringify(f[keys[j]]) + '</pre>';
+				}
+				result += '<tr><td style="width: 100px;">' + keys[j] + '</td><td>' + fieldval + '</td></tr>';
 			}
 			result += '</table>';
-			return result;
+			return $sce.trustAsHtml(result);
 		} catch (err) {
+			console.log(err);
 			return '<pre>' + submission.answer + '</pre><pre>' + JSON.stringify(submission.feedback) + '</pre>';
 		}
 	};
