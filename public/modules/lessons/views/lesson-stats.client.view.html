@@ -58,7 +58,7 @@
 												{{stats.user.firstname}} {{stats.user.lastname}} ({{stats.submissions.length}} {{'LESSON.SUBMISSIONS' | translate}}) <span data-ng-if="stats.submissions.length > 0" class="pull-right"><i data-ng-if="stats.submissions[stats.submissions.length - 1].status === 'success'" class="glyphicon glyphicon-ok success-icon" aria-hidden="true"></i><i data-ng-if="stats.submissions[stats.submissions.length - 1].status !== 'success'" class="glyphicon glyphicon-remove failed-icon" aria-hidden="true"></i></span>
 											</accordion-heading>
 											<dl>
-												<dt data-ng-repeat-start="j in getNumber(stats.submissions.length)" data-ng-init="content = renderSubmission(stats.submissions[j])">{{'LESSON.SUBMISSION' | translate}} {{j+1}} {{stats.submissions[j]}}</dt>
+												<dt data-ng-repeat-start="j in getNumber(stats.submissions.length)" data-ng-init="content = renderSubmission(stats.submissions[j])">{{'LESSON.SUBMISSION' | translate}} {{j+1}} ({{stats.submissions[j].submitted | amDateFormat: 'ddd, D MMM YYYY, H:mm'}})</dt>
 												<dd data-ng-repeat-end data-bind-html-compile="content"></dd>
 											</dl>
 										</accordion-group>
