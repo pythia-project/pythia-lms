@@ -18,7 +18,10 @@
 				<h3 data-ng-bind="'COURSE.USERS_STATS' | translate"></h3>
 
 				<ul class="list-group">
-					<li data-ng-repeat="registration in registrations | orderBy: '+user.lastname'" class="list-group-item">{{registration.user.firstname}} {{registration.user.lastname}} ({{registration.score}} {{'COURSE.POINTS' | translate}}) <progressbar data-ng-init="progress = getProgress(registration)" class="pull-right statsprogressbar" animate="false" max="100" value="progress" type="primary"><span data-ng-hide="progress < 15" data-ng-bind="progress + '%'"></span></progressbar></li>
+					<li data-ng-repeat="registration in registrations | orderBy: '+user.lastname'" class="list-group-item">
+					<span data-ng-if="authentication.user && authentication.user.roles.indexOf('admin') !== -1"><a href="#!/users/{{registration.user.username}}">{{registration.user.firstname}} {{registration.user.lastname}}</a></span>
+					<span data-ng-if="authentication.user && authentication.user.roles.indexOf('admin') === -1">{{registration.user.firstname}} {{registration.user.lastname}}</span>
+					({{registration.score}} {{'COURSE.POINTS' | translate}}) <progressbar data-ng-init="progress = getProgress(registration)" class="pull-right statsprogressbar" animate="false" max="100" value="progress" type="primary"><span data-ng-hide="progress < 15" data-ng-bind="progress + '%'"></span></progressbar></li>
 				</ul>
 			</div>
 
