@@ -6,14 +6,63 @@
 var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller.js'),
 	mongoose = require('mongoose'),
-	User = mongoose.model('User');
-
+	Registration = mongoose.model('Registration'),
+	User = mongoose.model('User'),
+	async = require('async');
 
 /**
  * Show the current user
  */
 exports.read = function(req, res) {
 	res.jsonp(req.userprofile);
+};
+
+/**
+ * Delete a user
+ */
+exports.delete = function(req, res) {
+	async.waterfall([
+		// Find and delete registration, if any
+		function(done) {
+			Registration.find({'user': req.userprofile}).exec(function(err, registration) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				}
+				if (registration.length > 0) {
+					registration[0].remove(function(err) {
+						if (err) {
+							return res.status(400).send({
+								message: errorHandler.getErrorMessage(err)
+							});
+						}
+						done(err);
+					});
+				} else {
+					done(err);
+				}
+			});
+		},
+		// Delete the user
+		function(done) {
+			req.userprofile.remove(function(err) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				}
+				res.jsonp(req.userprofile);
+				done(err);
+			});
+		}
+	], function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+	});
 };
 
 /**

@@ -188,7 +188,9 @@
 		"SAVE_PASSWORD": "Save",
 		"PASSWORD_CHANGE_SUCCESS": "Password changed successfully.",
 		"ACCOUNT_CREATED": "Account successfully created, you will be able to signin when activated by a moderator.",
-		"USERS_NB": "users"
+		"USERS_NB": "users",
+		"NB_USERS": "Number of users",
+		"NB_INACTIVE_USERS": "Number of inactive users"
 	},
 	"NEWS": {
 		"NEWS": "News",

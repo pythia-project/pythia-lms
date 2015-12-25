@@ -14,7 +14,8 @@ module.exports = function(app) {
 		.get(users.requiresLogin, users.list)
 		.put(users.requiresLogin, users.update);
 	app.route('/users/:username')
-		.get(users.requiresLogin, users.hasAuthorization(['admin']), users.read);
+		.get(users.requiresLogin, users.hasAuthorization(['admin']), users.read)
+		.delete(users.requiresLogin, users.hasAuthorization(['admin']), users.delete);
 	app.route('/users/:username/switchactive')
 		.post(users.requiresLogin, users.hasAuthorization(['admin']), users.switchActive);
 

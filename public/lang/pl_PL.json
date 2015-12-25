@@ -188,7 +188,9 @@
 		"SAVE_PASSWORD": "Zapisz",
 		"PASSWORD_CHANGE_SUCCESS": "Hasło zapisane z sukcesem.",
 		"ACCOUNT_CREATED": "Konto utworzone z sukcesem, można zalogować się po aktywacji przez moderatora.",
-		"USERS_NB": "users"
+		"USERS_NB": "users",
+		"NB_USERS": "Number of users",
+		"NB_INACTIVE_USERS": "Number of inactive users"
 	},
 	"NEWS": {
 		"NEWS": "Nowości",

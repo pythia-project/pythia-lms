@@ -188,7 +188,9 @@
 		"SAVE_PASSWORD": "Enregistrer",
 		"PASSWORD_CHANGE_SUCCESS": "Mot de passe modifié avec succès.",
 		"ACCOUNT_CREATED": "Compte créé avec succès, vous pourrez vous connecter une fois activé par un modérateur.",
-		"USERS_NB": "utilisateurs"
+		"USERS_NB": "utilisateurs",
+		"NB_USERS": "Nombre d'utilisateurs",
+		"NB_INACTIVE_USERS": "Nombre d'utilisateurs inactifs"
 	},
 	"NEWS": {
 		"NEWS": "News",
