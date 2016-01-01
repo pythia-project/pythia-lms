@@ -29,6 +29,28 @@ app.controller('LanguageController', ['$scope', '$translate', '$translateLocalSt
 	};
 }]);
 
+// Initialise MathJax directive
+// Source: http://stackoverflow.com/questions/16087146/getting-mathjax-to-update-after-changes-to-angularjs-model
+MathJax.Hub.Config({
+	tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ] },
+	displayAlign: 'left',
+	displayIndent: '2em'
+});
+MathJax.Hub.Configured();
+app.directive("mathjaxBind", function() {
+	return {
+		restrict: "A",
+		controller: ["$scope", "$element", "$attrs", function($scope, $element, $attrs) {
+			$scope.$watch($attrs.mathjaxBind, function(texExpression) {
+				var texScript = angular.element("<script type='math/tex'>").html(texExpression ? texExpression :  "");
+				$element.html("");
+				$element.append(texScript);
+				MathJax.Hub.Queue(["Reprocess", MathJax.Hub, $element[0]]);
+			});
+		}]
+	};
+});
+
 // Initialise language for moment
 app.run(['$rootScope', 'amMoment', function($rootScope, amMoment) {
 	amMoment.changeLocale('en');
