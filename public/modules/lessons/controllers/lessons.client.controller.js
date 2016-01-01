@@ -182,10 +182,13 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 				$scope.registration = data;
 				// Generate the context, replacing placeholders with problems
 				var content = $scope.lesson.context;
+				var maxscore = 0;
 				for (var i = 1; i <= $scope.lesson.problems.length; i++) {
 					content = content.replace('[[' + i + ']]', buildProblem(i, $scope.lesson.problems[i - 1]));
+					maxscore += $scope.lesson.problems[i - 1].points;
 				}
 				$scope.lessonContext = $sce.trustAsHtml(content);
+				$scope.maxscore = maxscore;
 				// Update progress and score information
 				updateProgress();
 			});
