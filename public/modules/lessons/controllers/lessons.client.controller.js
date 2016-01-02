@@ -354,20 +354,20 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		}, function() {
 			$scope.previousLesson = null;
 			$scope.nextLesson = null;
-			var curSequence = $scope.course.sequences[$stateParams.sequenceIndex - 1];
+			$scope.sequence = $scope.course.sequences[$stateParams.sequenceIndex - 1];
 			// Get the previous lesson in the sequence
 			var previous = parseInt($stateParams.lessonIndex) - 1;
 			if (previous > 0) {
-				$scope.previousLesson = curSequence.lessons[previous - 1];
+				$scope.previousLesson = $scope.sequence.lessons[previous - 1];
 			}
 			// Get the next lesson in the sequence
 			var next = parseInt($stateParams.lessonIndex) + 1;
-			if (next - 1 < curSequence.lessons.length) {
-				$scope.nextLesson = curSequence.lessons[next - 1];
+			if (next - 1 < $scope.sequence.lessons.length) {
+				$scope.nextLesson = $scope.sequence.lessons[next - 1];
 			}
 			// Compute max score
 			var maxscore = 0;
-			var curLesson = curSequence.lessons[$stateParams.lessonIndex - 1];
+			var curLesson = $scope.sequence.lessons[$stateParams.lessonIndex - 1];
 			for (var i = 0; i < curLesson.problems.length; i++) {
 				maxscore += curLesson.problems[i].points;
 			}
