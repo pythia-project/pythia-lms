@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+	deepPopulate = require('mongoose-deep-populate')(mongoose),
 	Schema = mongoose.Schema;
 
 /**
@@ -54,6 +55,14 @@ var CourseSchema = new Schema({
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
+	}
+});
+CourseSchema.plugin(deepPopulate, {
+	populate: {
+		'coordinators': {select: 'displayname'},
+		'sequences': {select: 'name start end lessons'},
+		'sequences.lessons': {select: 'name start end problems'},
+		'sequences.lessons.problems': {select: 'points'}
 	}
 });
 

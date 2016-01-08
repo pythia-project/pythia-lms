@@ -171,39 +171,41 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 		}
 	};
 	$scope.findOne = function() {
-		$scope.loadCourseAndSequence();
-		$scope.lesson = Lessons.get({ 
-			courseSerial: $stateParams.courseSerial,
-			sequenceIndex: $stateParams.sequenceIndex,
-			lessonIndex: $stateParams.lessonIndex
-		}, function() {
-			// Get the registration information
-			$http.get('/registrations/' + $stateParams.courseSerial).success(function(data, status, header, config) {
-				$scope.registration = data;
-				// Generate the context, replacing placeholders with problems
-				var content = $scope.lesson.context;
-				for (var i = 1; i <= $scope.lesson.problems.length; i++) {
-					content = content.replace('[[' + i + ']]', buildProblem(i, $scope.lesson.problems[i - 1]));
-				}
-				$scope.lessonContext = $sce.trustAsHtml(content);
-				// Update progress and score information
-				updateProgress();
+		$scope.loadCourse(function() {
+			$scope.lesson = Lessons.get({
+				courseSerial: $stateParams.courseSerial,
+				sequenceIndex: $stateParams.sequenceIndex,
+				lessonIndex: $stateParams.lessonIndex
+			}, function() {
+				// Get the registration information
+				$http.get('/registrations/' + $stateParams.courseSerial).success(function(data, status, header, config) {
+					$scope.registration = data;
+					// Generate the context, replacing placeholders with problems
+					var content = $scope.lesson.context;
+					for (var i = 1; i <= $scope.lesson.problems.length; i++) {
+						content = content.replace('[[' + i + ']]', buildProblem(i, $scope.lesson.problems[i - 1]));
+					}
+					$scope.lessonContext = $sce.trustAsHtml(content);
+					// Update progress and score information
+					updateProgress();
+				});
 			});
 		});
 	};
 
 	// Find stats about lesson
 	$scope.loadStats = function() {
-		$scope.loadCourseAndSequence();
-		$scope.problemstats = null;
-		$http.get('/courses/' + $stateParams.courseSerial + '/sequences/' + $stateParams.sequenceIndex + '/lessons/' + $stateParams.lessonIndex + '/stats').success(function(data, status, header, config) {
-			$scope.lesson = data.lesson;
-			$scope.problemstats = data.problemstats;
-			$scope.submissionspie = [];
-			$scope.submissionspieopt = [];
-			$scope.userssubmissionspie = [];
-			$scope.userssubmissionspieopt = [];
-			$scope.totalSubmissions = 0;
+		$scope.loadCourse(function() {
+			$scope.problemstats = null;
+			$http.get('/courses/' + $stateParams.courseSerial + '/sequences/' + $stateParams.sequenceIndex + '/lessons/' + $stateParams.lessonIndex + '/stats').success(function(data, status, header, config) {
+				$scope.lesson = data.lesson;
+				$scope.problemstats = data.problemstats;
+				$scope.submissionspie = [];
+				$scope.submissionspieopt = [];
+				$scope.userssubmissionspie = [];
+				$scope.userssubmissionspieopt = [];
+				$scope.totalSubmissions = 0;
+			});
 		});
 	};
 
@@ -342,21 +344,17 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 	};
 
 	// Load information about the current course and sequence
-	$scope.loadCourseAndSequence = function() {
+	$scope.loadCourse = function(after) {
 		$scope.courseSerial = $stateParams.courseSerial;
 		$scope.sequenceIndex = $stateParams.sequenceIndex;
 		$scope.lessonIndex = $stateParams.lessonIndex;
 		// Load course
 		$scope.course = Courses.get({
 			courseSerial: $stateParams.courseSerial
-		});
-		// Load sequence
-		$scope.previousLesson = null;
-		$scope.nextLesson = null;
-		$scope.sequence = Sequences.get({ 
-			courseSerial: $stateParams.courseSerial,
-			sequenceIndex: $stateParams.sequenceIndex
 		}, function() {
+			$scope.previousLesson = null;
+			$scope.nextLesson = null;
+			$scope.sequence = $scope.course.sequences[$stateParams.sequenceIndex - 1];
 			// Get the previous lesson in the sequence
 			var previous = parseInt($stateParams.lessonIndex) - 1;
 			if (previous > 0) {
@@ -367,6 +365,14 @@ angular.module('lessons').controller('LessonsController', ['$scope', '$statePara
 			if (next - 1 < $scope.sequence.lessons.length) {
 				$scope.nextLesson = $scope.sequence.lessons[next - 1];
 			}
+			// Compute max score
+			var maxscore = 0;
+			var curLesson = $scope.sequence.lessons[$stateParams.lessonIndex - 1];
+			for (var i = 0; i < curLesson.problems.length; i++) {
+				maxscore += curLesson.problems[i].points;
+			}
+			$scope.maxscore = maxscore;
+			after();
 		});
 	};
 

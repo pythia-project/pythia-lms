@@ -59,7 +59,9 @@ module.exports = {
 				'public/lib/angular-translate-storage-local/angular-translate-storage-local.js',
 				'public/lib/flot/jquery.flot.js',
 				'public/lib/flot/jquery.flot.pie.js',
-				'public/lib/angular-flot/angular-flot.js'
+				'public/lib/angular-flot/angular-flot.js',
+				'public/lib/MathJax/MathJax.js',
+				'public/lib/MathJax/config/TeX-AMS_HTML.js'
 			]
 		},
 		css: [

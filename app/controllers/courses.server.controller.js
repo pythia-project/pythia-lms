@@ -122,7 +122,7 @@ exports.list = function(req, res) {
  * Course middleware
  */
 exports.courseBySerial = function(req, res, next, serial) {
-	Course.findOne({'serial': serial}, '_id serial title coordinators description sequences user').populate('coordinators', 'displayname').populate('sequences', 'name start end').exec(function(err, course) {
+	Course.findOne({'serial': serial}, '_id serial title coordinators description sequences user').deepPopulate('coordinators sequences sequences.lessons sequences.lessons.problems').exec(function(err, course) {
 		if (err || ! course) {
 			return errorHandler.getLoadErrorMessage(err, 'course', serial, next);
 		}
