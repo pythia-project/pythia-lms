@@ -190,7 +190,9 @@
 		"ACCOUNT_CREATED": "Compte créé avec succès, vous pourrez vous connecter une fois activé par un modérateur.",
 		"USERS_NB": "utilisateurs",
 		"NB_USERS": "Nombre d'utilisateurs",
-		"NB_INACTIVE_USERS": "Nombre d'utilisateurs inactifs"
+		"NB_INACTIVE_USERS": "Nombre d'utilisateurs inactifs",
+    "NO_COURSE":"Inscrit à aucun cours",
+    "REGISTERED":"Cours suivis"
 	},
 	"NEWS": {
 		"NEWS": "News",

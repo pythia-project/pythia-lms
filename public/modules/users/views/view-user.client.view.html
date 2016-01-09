@@ -26,6 +26,11 @@
 			<dd data-ng-bind="user.picture"></dd>
 			<dt data-ng-bind="'USER.ACTIVE' | translate"></dt>
 			<dd data-ng-bind="user.active"></dd>
-		</dl>
+    </dl> 
+    <h3 data-ng-bind="'USER.REGISTERED' | translate"></h3>   
+  	<div class="list-group">
+      <a data-ng-repeat="registration in user.courses" class="list-group-item" data-ng-href="#!/courses/{{registration.course.serial}}"> {{registration.course.serial}} {{registration.course.title}}</a>
+  	</div>
+  	<div data-ng-if="user.courses.length === 0" class="alert alert-warning" role="alert" data-ng-bind="'USER.NO_COURSE' | translate"></div>
 	</div>
 </section>

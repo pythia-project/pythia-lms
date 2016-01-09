@@ -14,7 +14,17 @@ var _ = require('lodash'),
  * Show the current user
  */
 exports.read = function(req, res) {
-	res.jsonp(req.userprofile);
+  Registration.find({'user': req.userprofile._id}).populate('course', 'serial title').exec(function(err, registration) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+    //Need to convert from mongoose object to json to add a new attribute
+    req.userprofile = req.userprofile.toObject();
+    req.userprofile.courses = registration;
+    res.jsonp(req.userprofile);
+  });
 };
 
 /**
