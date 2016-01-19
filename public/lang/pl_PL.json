@@ -190,7 +190,9 @@
 		"ACCOUNT_CREATED": "Konto utworzone z sukcesem, można zalogować się po aktywacji przez moderatora.",
 		"USERS_NB": "users",
 		"NB_USERS": "Number of users",
-		"NB_INACTIVE_USERS": "Number of inactive users"
+		"NB_INACTIVE_USERS": "Number of inactive users",
+		"NO_COURSE":"No course registration.",
+		"REGISTERED":"Course registration"
 	},
 	"NEWS": {
 		"NEWS": "Nowości",

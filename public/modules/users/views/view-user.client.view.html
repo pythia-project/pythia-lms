@@ -6,31 +6,35 @@
 
 	<h2>{{user.firstname}} {{user.lastname}}</h2>
 
-	<div ng-if="user.picture" class="pull-right">
-		<img ng-src="/images/users/{{user._id}}.jpg" width="150" height="150" alt="Picture of {{user.serial}}" />
+	<div class="row">
+		<img data-ng-if="user.picture" class="pull-right" data-ng-src="/images/users/{{user._id}}.jpg" width="150" height="150" alt="Picture of {{user.serial}}" />
+
+		<div class="pull-left">
+			<dl class="dl-horizontal">
+				<dt data-ng-bind="'USER.USERNAME' | translate"></dt>
+				<dd data-ng-bind="user.username"></dd>
+				<dt data-ng-bind="'USER.FIRSTNAME' | translate"></dt>
+				<dd data-ng-bind="user.firstname"></dd>
+				<dt data-ng-bind="'USER.LASTNAME' | translate"></dt>
+				<dd data-ng-bind="user.lastname"></dd>
+				<dt data-ng-bind="'USER.EMAIL' | translate"></dt>
+				<dd data-ng-bind="user.email"></dd>
+				<dt data-ng-bind="'USER.ROLES' | translate"></dt>
+				<dd><span data-ng-repeat="role in user.roles">{{role}}{{$last ? '' : ', '}}</span></dd>
+				<dt data-ng-bind="'USER.PICTURE' | translate"></dt>
+				<dd data-ng-bind="user.picture"></dd>
+				<dt data-ng-bind="'USER.ACTIVE' | translate"></dt>
+				<dd data-ng-bind="user.active"></dd>
+			</dl>
+		</div>
 	</div>
 
-	<div class="pull-left">
-		<dl class="dl-horizontal">
-			<dt data-ng-bind="'USER.USERNAME' | translate"></dt>
-			<dd data-ng-bind="user.username"></dd>
-			<dt data-ng-bind="'USER.FIRSTNAME' | translate"></dt>
-			<dd data-ng-bind="user.firstname"></dd>
-			<dt data-ng-bind="'USER.LASTNAME' | translate"></dt>
-			<dd data-ng-bind="user.lastname"></dd>
-			<dt data-ng-bind="'USER.EMAIL' | translate"></dt>
-			<dd data-ng-bind="user.email"></dd>
-			<dt data-ng-bind="'USER.ROLES' | translate"></dt>
-			<dd><span data-ng-repeat="role in user.roles">{{role}}{{$last ? '' : ', '}}</span></dd>
-			<dt data-ng-bind="'USER.PICTURE' | translate"></dt>
-			<dd data-ng-bind="user.picture"></dd>
-			<dt data-ng-bind="'USER.ACTIVE' | translate"></dt>
-			<dd data-ng-bind="user.active"></dd>
-    </dl> 
-    <h3 data-ng-bind="'USER.REGISTERED' | translate"></h3>   
-  	<div class="list-group">
-      <a data-ng-repeat="registration in user.courses" class="list-group-item" data-ng-href="#!/courses/{{registration.course.serial}}"> {{registration.course.serial}} {{registration.course.title}}</a>
-  	</div>
-  	<div data-ng-if="user.courses.length === 0" class="alert alert-warning" role="alert" data-ng-bind="'USER.NO_COURSE' | translate"></div>
+	<div class="row">
+		<h3 data-ng-bind="'USER.REGISTERED' | translate"></h3>
+		
+		<div class="list-group">
+			<a data-ng-repeat="registration in user.courses" class="list-group-item" data-ng-href="#!/courses/{{registration.course.serial}}">{{registration.course.serial}} {{registration.course.title}}</a>
+		</div>
+		<div data-ng-if="user.courses.length === 0" class="alert alert-warning" role="alert" data-ng-bind="'USER.NO_COURSE' | translate"></div>
 	</div>
 </section>

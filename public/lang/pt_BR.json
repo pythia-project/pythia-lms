@@ -190,7 +190,9 @@
 		"ACCOUNT_CREATED": "Conta criada com sucesso, poderá se conectar uma vez  que um Mod ativar sua conta.",
 		"USERS_NB": "users",
 		"NB_USERS": "Number of users",
-		"NB_INACTIVE_USERS": "Number of inactive users"
+		"NB_INACTIVE_USERS": "Number of inactive users",
+		"NO_COURSE":"No course registration.",
+		"REGISTERED":"Course registration"
 	},
 	"NEWS": {
 		"NEWS": "News",
