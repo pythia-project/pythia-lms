@@ -1,3 +1,16 @@
+/* General */
+h2 {
+	font-size: 30px;
+	margin-bottom: 25px;
+}
+h3 {
+	font-size: 20px;
+}
+section.container {
+	min-height: 400px;
+}
+
+/* MEAN.js */
 .content {
   margin-top: 50px;
 }
@@ -40,4 +53,33 @@ a:hover .header-profile-image {
 }
 .has-error .help-inline.error-text {
   display: inline;
+}
+
+/* Bootstrap change */
+.navbar-inverse .navbar-brand > img {
+	margin-top: -7px;
+}
+
+.navbar-inverse {
+	background-image: linear-gradient(to bottom, #4e9a06 0%, #418105 100%);
+}
+.navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand {
+	color: #FFFFFF;
+}
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open a:focus {
+	color: #FFFFFF;
+	background-image: linear-gradient(to bottom, #396B0B 0%, #1A2F07 100%);
+}
+
+/* Footer */
+footer {
+	margin-top: 40px;
+}
+footer > div {
+	border-top: 1px solid #eee;
+	padding: 20px 0;
+}
+span.flag-gb::before {
+	content:url('/images/gb.png');
+	margin-right: 10px;
 }
