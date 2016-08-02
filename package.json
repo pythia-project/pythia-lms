@@ -1,14 +1,14 @@
 {
-  "name": "meanjs",
-  "description": "Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js.",
-  "version": "0.5.0-beta",
+  "name": "pythia-lms",
+  "description": "Pythia LMS is an online platform hosting courses with Pythia problems.",
+  "version": "0.1",
   "meanjs-version": "0.5.0-beta",
   "private": false,
-  "author": "https://github.com/meanjs/mean/graphs/contributors",
-  "license": "MIT",
+  "author": "https://github.com/pythia-project/pythia-lms/blob/master/AUTHORS",
+  "license": "GNU AGPLv3",
   "repository": {
     "type": "git",
-    "url": "https://github.com/meanjs/mean.git"
+    "url": "https://github.com/pythia-project/pythia-lms.git"
   },
   "engines": {
     "node": ">=0.12.0",
