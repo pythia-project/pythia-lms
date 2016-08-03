@@ -1,4 +1,4 @@
-<section>
+<section ng-controller="LoginController as vm">
   <h2>Pythia LMS</h2>
   <div class="row">
     <div class="col-md-7">
@@ -6,22 +6,21 @@
       <p>This is your access point to learn how to code and to directly train the newly learned concepts with interactive exercises, intelligent feedbacks and a customised learning experience.</p>
     </div>
     <div class="col-md-2"></div>
-	<div class="col-md-3" data-ng-controller="AuthenticationController" data-ng-if="! authentication.user">
-    
-      <form name="userForm" data-ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
+    <div class="col-md-3" ng-if="!vm.authentication.user">
+      <form name="vm.signinForm" ng-submit="vm.signin(vm.signinForm.$valid)" class="signin" novalidate autocomplete="off">
         <fieldset>
           <div class="form-group" show-errors>
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="Username" required />
-            <div data-ng-messages="userForm.username.$error" role="alert">
-              <p class="help-block error-text" data-ng-message="required">Please enter your username.</p>
+            <input type="text" id="username" name="username" class="form-control" ng-model="vm.credentials.username" placeholder="Username" required />
+            <div ng-messages="vm.signinForm.username.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Please enter your username.</p>
             </div>
           </div>
           <div class="form-group" show-errors>
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password" required />
-            <div data-ng-messages="userForm.password.$error" role="alert">
-              <p class="help-block error-text" data-ng-message="required">Please enter your password.</p>
+            <input type="password" id="password" name="password" class="form-control" ng-model="vm.credentials.password" placeholder="Password" required />
+            <div ng-messages="vm.signinForm.password.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Please enter your password.</p>
             </div>
           </div>
           <div class="text-center form-group">
@@ -32,8 +31,8 @@
           <div class="text-center forgot-password">
             <a ui-sref="password.forgot">Forgot your password?</a>
           </div>
-          <alert type="danger" data-ng-show="error" class="text-center text-danger">
-            <span data-ng-bind="error"></span>
+          <alert type="danger" ng-show="error" class="text-center text-danger">
+            <span ng-bind="vm.error"></span>
           </alert>
         </fieldset>
       </form>

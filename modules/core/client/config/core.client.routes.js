@@ -29,9 +29,7 @@
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'modules/core/client/views/home.client.view.html',
-        controller: 'HomeController',
-        controllerAs: 'vm'
+        templateUrl: 'modules/core/client/views/home.client.view.html'
       })
       .state('not-found', {
         url: '/not-found',
