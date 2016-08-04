@@ -18,6 +18,23 @@
 
   bootstrapConfig.$inject = ['$locationProvider', '$httpProvider'];
 
+  // Configure translation
+  angular
+    .module(app.applicationModuleName)
+    .config(translationConfig);
+
+  function translationConfig($translateProvider) {
+    $translateProvider.useSanitizeValueStrategy('escape');
+    $translateProvider.useStaticFilesLoader({
+      prefix: 'lang/',
+      suffix: '.json'
+    });
+    $translateProvider.preferredLanguage('fr_BE');
+//    $translateProvider.useLocalStorage();
+  }
+
+  translationConfig.$inject = ['$translateProvider'];
+
   // Then define the init function for starting up the application
   angular.element(document).ready(init);
 

@@ -1,0 +1,20 @@
+{
+  "AUTHENTICATION": {
+    "SIGN_IN": "Sign in",
+    "REGISTER": "register",
+    "FORGOT_PASSWORD": "Forgot your password?"
+  },
+  "BY": "By",
+  "HOME": {
+    "LEAD": "Welcome on the Pythia platform!",
+    "INTRO": "This is your access point to learn how to code and to directly train the newly learned concepts with interactive exercises, intelligent feedbacks and a customised learning experience.",
+    "OR": "or"
+  },
+  "PYTHIA_AUTHORS": "the Pythia LMS authors",
+  "USER": {
+    "USERNAME": "Username",
+    "USERNAME_ERROR": "Please fill in your username.",
+    "PASSWORD": "Password",
+    "PASSWORD_ERROR": "Please fill in your password."
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "AUTHENTICATION": {
+    "SIGN_IN": "Se connecter",
+    "REGISTER": "s'inscrire",
+    "FORGOT_PASSWORD": "Mot de passe oublié?"
+  },
+  "BY": "Par",
+  "HOME": {
+    "LEAD": "Bienvenue sur la plateforme Pythia !",
+    "INTRO": "Il s'agit de votre point d'accès pour apprendre comment coder et pour tester directement les nouveaux concepts appris avec des exercices interactifs, des feedbacks intelligents et une expérience d'apprentissage personnalisée.",
+    "OR": "ou"
+  },
+  "PYTHIA_AUTHORS": "les auteurs de Pythia LMS",
+  "USER": {
+    "USERNAME": "Nom d'utilisateur",
+    "USERNAME_PASSWORD": "Veuillez compléter votre nom d'utilisateur.",
+    "PASSWORD": "Mot de passe",
+    "PASSWORD_ERROR": "Veuillez compléter votre mot de passe."
+  }
+}
