@@ -1,11 +1,11 @@
 {
   "name": "pythia-lms",
   "description": "Pythia LMS is an online platform hosting courses with Pythia problems.",
-  "version": "0.1",
+  "version": "0.0.1",
   "meanjs-version": "0.5.0-beta",
   "private": false,
   "author": "https://github.com/pythia-project/pythia-lms/blob/master/AUTHORS",
-  "license": "GNU AGPLv3",
+  "license": "AGPL-3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/pythia-project/pythia-lms.git"
