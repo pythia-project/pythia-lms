@@ -29,12 +29,23 @@
       prefix: 'lang/',
       suffix: '.json'
     });
-    $translateProvider.preferredLanguage('fr_BE');
-//    $translateProvider.useLocalStorage();
+    $translateProvider.preferredLanguage('en_GB');
+    $translateProvider.useLocalStorage();
   }
 
   translationConfig.$inject = ['$translateProvider'];
+/*
+  angular
+    .module(app.applicationModuleName)
+    .controller('LanguageController', languageController);
 
+  function languageController($scope, $translate, $translateLocalStorage) {
+    $scope.lang = $translateLocalStorage.get('NG_TRANSLATE_LANG_KEY');
+    console.log('Hello');
+  }
+
+  languageController.$inject = ['$scope', '$translate', '$translateLocalStorage'];
+*/
   // Then define the init function for starting up the application
   angular.element(document).ready(init);
 

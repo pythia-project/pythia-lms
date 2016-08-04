@@ -14,6 +14,7 @@ module.exports = {
         // bower:js
         'public/lib/angular/angular.min.js',
         'public/lib/angular-resource/angular-resource.min.js',
+        'public/lib/angular-cookies/angular-cookies.min.js',
         'public/lib/angular-animate/angular-animate.min.js',
         'public/lib/angular-messages/angular-messages.min.js',
         'public/lib/angular-ui-router/release/angular-ui-router.min.js',
@@ -21,10 +22,10 @@ module.exports = {
         'public/lib/angular-file-upload/dist/angular-file-upload.min.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         'public/lib/nya-bootstrap-select/dist/js/nya-bs-select.min.js',
-        'public/lib/angular-translate/angular-translate.js',
-        'public/lib/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
-        'public/lib/angular-translate-storage-cookie/angular-translate-storage-cookie.js',
-        'public/lib/angular-translate-storage-local/angular-translate-storage-local.js'
+        'public/lib/angular-translate/angular-translate.min.js',
+        'public/lib/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
+        'public/lib/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js',
+        'public/lib/angular-translate-storage-local/angular-translate-storage-local.min.js'
         // endbower
       ]
     },

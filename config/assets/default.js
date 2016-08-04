@@ -14,6 +14,7 @@ module.exports = {
         // bower:js
         'public/lib/angular/angular.js',
         'public/lib/angular-resource/angular-resource.js',
+        'public/lib/angular-cookies/angular-cookies.js',
         'public/lib/angular-animate/angular-animate.js',
         'public/lib/angular-messages/angular-messages.js',
         'public/lib/angular-ui-router/release/angular-ui-router.js',
