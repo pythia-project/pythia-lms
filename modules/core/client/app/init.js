@@ -34,18 +34,24 @@
   }
 
   translationConfig.$inject = ['$translateProvider'];
-/*
+
   angular
     .module(app.applicationModuleName)
     .controller('LanguageController', languageController);
 
-  function languageController($scope, $translate, $translateLocalStorage) {
-    $scope.lang = $translateLocalStorage.get('NG_TRANSLATE_LANG_KEY');
-    console.log('Hello');
+  function languageController($translate, $translateLocalStorage) {
+    var vm = this;
+
+    vm.lang = $translateLocalStorage.get('NG_TRANSLATE_LANG_KEY');
+    vm.changeLanguage = changeLanguage;
+
+    function changeLanguage(lang) {
+      $translate.use(lang);
+    }
   }
 
-  languageController.$inject = ['$scope', '$translate', '$translateLocalStorage'];
-*/
+  languageController.$inject = ['$translate', '$translateLocalStorage'];
+
   // Then define the init function for starting up the application
   angular.element(document).ready(init);
 
