@@ -83,10 +83,10 @@ footer > div {
   padding: 20px 0;
 }
 span.flag-be::before {
-  content:url('/images/be.png');
+  content:url('/modules/core/client/img/be.png');
   margin-right: 10px;
 }
 span.flag-gb::before {
-  content:url('/images/gb.png');
+  content:url('/modules/core/client/img/gb.png');
   margin-right: 10px;
 }
