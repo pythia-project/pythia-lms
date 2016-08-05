@@ -1,0 +1,39 @@
+<section>
+  <div ng-if="!vm.problems.$resolved" class="loading">
+    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> {{'LOADING' | translate}}
+  </div>
+
+  <div ng-if="vm.problems.$resolved">
+    <ol class="breadcrumb">
+      <li class="active"><a ui-sref="problems.list" ng-bind="'PROBLEM.PROBLEMS' | translate"></a></li>
+    </ol>
+
+    <h2 ng-bind="'PROBLEM.PROBLEMS' | translate"></h2>
+
+    <div class="row">
+      <div class="col-md-9">
+        <div class="action-box">
+          <a ui-sref="problems.create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{'PROBLEM.CREATE' | translate}}</a>
+        </div>
+
+        <div class="list-group" ng-if="vm.problems.length">
+          <a ng-repeat="problem in vm.problems" ui-sref="problems.view({ problemId: problem._id })" class="list-group-item" ng-bind="problem.name"></a>
+        </div>
+
+        <div class="alert alert-warning" ng-if="!vm.problems.length" ng-bind="'PROBLEM.NO_PROBLEM' | translate"></div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="panel panel-info">
+          <div class="panel-heading"><h3 class="panel-title" ng-bind="'INFORMATIONS' | translate"></h3></div>
+          <div class="panel-body">
+            <dl>
+              <dt ng-bind="'PROBLEM.NB_PROBLEMS' | translate"></dt>
+              <dd ng-bind="vm.problems.length"></dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

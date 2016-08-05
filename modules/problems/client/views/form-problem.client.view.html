@@ -1,0 +1,60 @@
+<section>
+  <div ng-if="vm.problem._id && !vm.problem.$resolved" class="loading">
+    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> {{'LOADING' | translate}}
+  </div>
+
+  <div ng-if="!vm.problem._id || vm.problem.$resolved">
+    <ol class="breadcrumb">
+      <li class="active"><a ui-sref="problems.list" ng-bind="'PROBLEM.PROBLEMS' | translate"></a></li>
+    </ol>
+
+    <h2>{{vm.problem._id ? 'PROBLEM.EDIT' : 'PROBLEM.CREATE' | translate}}</h2>
+
+    <div class="col-md-12">
+      <form name="vm.form.problemForm" class="form-horizontal" ng-submit="vm.save(vm.form.problemForm.$valid)" novalidate>
+        <fieldset>
+          <div class="form-group" show-errors>
+            <label class="control-label" for="name" ng-bind="'PROBLEM.NAME' | translate"></label>
+            <input name="name" type="text" ng-model="vm.problem.name" id="name" class="form-control" placeholder="{{'PROBLEM.NAME' | translate}}" required />
+            <div ng-messages="vm.form.problemForm.name.$error" role="alert">
+              <p class="help-block error-text" ng-message="required" ng-bind="'PROBLEM.NAME_ERROR' | translate"></p>
+            </div>
+          </div>
+          <div class="form-group" show-errors>
+            <label class="control-label" for="type" ng-bind="'PROBLEM.TYPE' | translate"></label>
+            <select name="type" ng-model="vm.problem.type" id="type" class="form-control" required>
+              <option value="generic" ng-bind="'PROBLEM.GENERIC_TYPE' | translate"></option>
+              <option value="unit-testing" ng-bind="'PROBLEM.UNIT_TESTING_TYPE' | translate"></option>
+              <option value="qcm" ng-bind="'PROBLEM.QCM_TYPE' | translate"></option>
+            </select>
+            <div ng-messages="vm.form.problemForm.type.$error" role="alert">
+              <p class="help-block error-text" ng-message="required" ng-bind="'PROBLEM.TYPE_ERROR' | translate"></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="description" ng-bind="'PROBLEM.DESCRIPTION' | translate"></label>
+            <textarea name="description" data-ng-model="vm.description.content" id="description" class="form-control" cols="30" rows="10" placeholder="{{'PROBLEM.DESCRIPTION' | translate}}"></textarea>
+          </div>
+          <div class="form-group" show-errors>
+            <label class="control-label" for="points" ng-bind="'PROBLEM.POINTS' | translate"></label>
+            <input name="points" type="number" ng-model="vm.problem.points" id="points" class="form-control" placeholder="0" />
+          </div>
+          <div class="form-group" show-errors>
+            <label class="control-label" for="maxsubmissions" ng-bind="'PROBLEM.MAX_SUBMISSIONS' | translate"></label>
+            <input name="maxsubmissions" type="number" ng-model="vm.problem.maxsubmissions" id="maxsubmissions" class="form-control" placeholder="0" />
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="config" ng-bind="'PROBLEM.CONFIG' | translate"></label>
+            <textarea name="config" data-ng-model="vm.description.config" id="config" class="form-control" cols="30" rows="10" placeholder="{{'PROBLEM.CONFIG' | translate}}"></textarea>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">{{vm.problem._id ? 'GENERAL.UPDATE' : 'GENERAL.CREATE' | translate}}</button>
+          </div>
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</section>
