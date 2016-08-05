@@ -1,7 +1,7 @@
 (function (window) {
   'use strict';
 
-  var applicationModuleName = 'mean';
+  var applicationModuleName = 'pythia-lms';
 
   var service = {
     applicationModuleName: applicationModuleName,

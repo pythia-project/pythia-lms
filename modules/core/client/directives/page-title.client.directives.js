@@ -25,12 +25,12 @@
       }
 
       function getTitle(currentState) {
-        var applicationCoreTitle = 'MEAN.js';
+        var applicationCoreTitle = 'Pythia';
         var workingState = currentState;
         if (currentState.data) {
           workingState = (typeof workingState.locals !== 'undefined') ? workingState.locals.globals : workingState;
           var stateTitle = $interpolate(currentState.data.pageTitle)(workingState);
-          return applicationCoreTitle + ' - ' + stateTitle;
+          return applicationCoreTitle + ' | ' + stateTitle;
         } else {
           return applicationCoreTitle;
         }
