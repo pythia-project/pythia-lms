@@ -5,10 +5,34 @@
     "FORGOT_PASSWORD": "Mot de passe oublié?"
   },
   "BY": "Par",
+  "GENERAL": {
+    "CREATE": "Créer",
+    "EDIT": "Modifier"
+  },
   "HOME": {
     "LEAD": "Bienvenue sur la plateforme Pythia !",
     "INTRO": "Il s'agit de votre point d'accès pour apprendre comment coder et pour tester directement les nouveaux concepts appris avec des exercices interactifs, des feedbacks intelligents et une expérience d'apprentissage personnalisée.",
     "OR": "ou"
+  },
+  "INFORMATIONS": "Informations",
+  "LOADING": "Chargement...",
+  "PROBLEM": {
+    "PROBLEMS": "Problèmes",
+    "NO_PROBLEM": "Encore aucun problème.",
+    "NB_PROBLEMS": "Nombre de problèmes",
+    "CREATE": "Créer un problème",
+    "NAME": "Nom",
+    "NAME_ERROR": "Veuillez compléter le nom.",
+    "TYPE": "Type",
+    "GENERIC_TYPE": "Générique",
+    "UNIT_TESTING_TYPE": "Basé sur des tests unitaires",
+    "QCM_TYPE": "Choix multiples",
+    "TYPE_ERROR": "Veuillez choisir le type.",
+    "DESCRIPTION": "Description",
+    "NO_DESCRIPTION": "Pas de description.",
+    "POINTS": "Points",
+    "MAX_SUBMISSIONS": "Nombre maximum de soumissions",
+    "CONFIG": "Configuration"
   },
   "PYTHIA_AUTHORS": "les auteurs de Pythia LMS",
   "USER": {
