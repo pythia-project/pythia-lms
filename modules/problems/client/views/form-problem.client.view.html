@@ -31,9 +31,12 @@
               <p class="help-block error-text" ng-message="required" ng-bind="'PROBLEM.TYPE_ERROR' | translate"></p>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" show-errors>
             <label class="control-label" for="description" ng-bind="'PROBLEM.DESCRIPTION' | translate"></label>
-            <textarea name="description" data-ng-model="vm.problem.description" id="description" class="form-control" cols="30" rows="10" placeholder="{{'PROBLEM.DESCRIPTION' | translate}}"></textarea>
+            <textarea name="description" data-ng-model="vm.problem.description" id="description" class="form-control" cols="30" rows="10" placeholder="{{'PROBLEM.DESCRIPTION' | translate}}" required></textarea>
+            <div ng-messages="vm.form.problemForm.description.$error" role="alert">
+              <p class="help-block error-text" ng-message="required" ng-bind="'PROBLEM.DESCRIPTION_ERROR' | translate"></p>
+            </div>
           </div>
           <div class="form-group" show-errors>
             <label class="control-label" for="points" ng-bind="'PROBLEM.POINTS' | translate"></label>

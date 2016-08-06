@@ -13,8 +13,7 @@
 
     <div class="row">
       <div class="col-md-9">
-        <p ng-if="!vm.problem.description" ng-bind="'PROBLEM.NO_DESCRIPTION' | translate"></p>
-        <div ng-if="vm.problem.description" ng-bind="vm.problem.description"></div>
+        <div ng-bind="vm.problem.description"></div>
 
         <h3 ng-bind="'PROBLEM.CONFIG' | translate"></h3>
 

@@ -28,7 +28,9 @@ var ProblemSchema = new Schema({
     required: 'Please fill in at least one author.'
   },
   description: {
-    type: String
+    type: String,
+    required: 'Please fill in a description.',
+    trim: true
   },
   points: {
     type: Number,

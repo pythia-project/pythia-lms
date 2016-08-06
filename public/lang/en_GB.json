@@ -29,7 +29,7 @@
     "QCM_TYPE": "Multiple choices",
     "TYPE_ERROR": "Please select the type.",
     "DESCRIPTION": "Description",
-    "NO_DESCRIPTION": "No description.",
+    "DESCRIPTION_ERROR": "Please fill in the description.",
     "POINTS": "Points",
     "MAX_SUBMISSIONS": "Maximum number of submissions",
     "CONFIG": "Configuration",
