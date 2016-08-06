@@ -5,7 +5,7 @@
 
   <div ng-if="vm.problems.$resolved">
     <ol class="breadcrumb">
-      <li class="active"><a ui-sref="problems.list" ng-bind="'PROBLEM.PROBLEMS' | translate"></a></li>
+      <li class="active"><a ui-sref="admin.manage.problems.list" ng-bind="'PROBLEM.PROBLEMS' | translate"></a></li>
     </ol>
 
     <h2 ng-bind="'PROBLEM.PROBLEMS' | translate"></h2>
@@ -13,11 +13,11 @@
     <div class="row">
       <div class="col-md-9">
         <div class="action-box">
-          <a ui-sref="problems.create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{'PROBLEM.CREATE' | translate}}</a>
+          <a ui-sref="admin.manage.problems.create" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{'PROBLEM.CREATE' | translate}}</a>
         </div>
 
         <div class="list-group" ng-if="vm.problems.length">
-          <a ng-repeat="problem in vm.problems" ui-sref="problems.view({ problemId: problem._id })" class="list-group-item" ng-bind="problem.name"></a>
+          <a ng-repeat="problem in vm.problems" ui-sref="admin.manage.problems.view({ problemId: problem._id })" class="list-group-item" ng-bind="problem.name"></a>
         </div>
 
         <div class="alert alert-warning" ng-if="!vm.problems.length" ng-bind="'PROBLEM.NO_PROBLEM' | translate"></div>

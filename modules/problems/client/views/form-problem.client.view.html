@@ -5,7 +5,7 @@
 
   <div ng-if="!vm.problem._id || vm.problem.$resolved">
     <ol class="breadcrumb">
-      <li class="active"><a ui-sref="problems.list" ng-bind="'PROBLEM.PROBLEMS' | translate"></a></li>
+      <li class="active"><a ui-sref="admin.manage.problems.list" ng-bind="'PROBLEM.PROBLEMS' | translate"></a></li>
     </ol>
 
     <h2>{{vm.problem._id ? 'PROBLEM.EDIT' : 'PROBLEM.CREATE' | translate}}</h2>

@@ -9,12 +9,12 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('problems', {
+      .state('admin.manage.problems', {
         abstract: true,
         url: '/problems',
         template: '<ui-view/>'
       })
-      .state('problems.list', {
+      .state('admin.manage.problems.list', {
         url: '',
         templateUrl: 'modules/problems/client/views/list-problems.client.view.html',
         controller: 'ProblemsListController',
@@ -23,7 +23,7 @@
           pageTitle: 'Problems list'
         }
       })
-      .state('problems.create', {
+      .state('admin.manage.problems.create', {
         url: '/create',
         templateUrl: 'modules/problems/client/views/form-problem.client.view.html',
         controller: 'ProblemsController',
@@ -36,7 +36,7 @@
           pageTitle: 'Problems Create'
         }
       })
-      .state('problems.view', {
+      .state('admin.manage.problems.view', {
         url: '/:problemId',
         templateUrl: 'modules/problems/client/views/view-problem.client.view.html',
         controller: 'ProblemsController',

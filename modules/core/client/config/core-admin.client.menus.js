@@ -14,5 +14,12 @@
       type: 'dropdown',
       roles: ['admin']
     });
+
+    menuService.addMenuItem('topbar', {
+      title: 'Manage',
+      state: 'admin.manage',
+      type: 'dropdown',
+      roles: ['admin']
+    });
   }
 }());

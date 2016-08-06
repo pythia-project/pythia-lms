@@ -8,18 +8,11 @@
   menuConfig.$inject = ['menuService'];
 
   function menuConfig(menuService) {
-    menuService.addMenuItem('topbar', {
-      title: 'Problems',
-      state: 'problems',
-      type: 'dropdown',
-      roles: ['*']
-    });
-
     // Add the dropdown list item
-    menuService.addSubMenuItem('topbar', 'problems', {
-      title: 'List problems',
-      state: 'problems.list',
-      roles: ['*']
+    menuService.addSubMenuItem('topbar', 'admin.manage', {
+      title: 'Problems',
+      state: 'admin.manage.problems.list',
+      roles: ['admin']
     });
   }
 }());

@@ -5,8 +5,8 @@
 
   <div ng-if="vm.problem.$resolved">
     <ol class="breadcrumb">
-      <li><a ui-sref="problems.list" ng-bind="'PROBLEM.PROBLEMS' | translate"></a></li>
-      <li class="active"><a ui-sref="problems.view({problemId: vm.problem._id})" ng-bind="vm.problem.name"></a></li>
+      <li><a ui-sref="admin.manage.problems.list" ng-bind="'PROBLEM.PROBLEMS' | translate"></a></li>
+      <li class="active"><a ui-sref="admin.manage.problems.view({problemId: vm.problem._id})" ng-bind="vm.problem.name"></a></li>
     </ol>
 
     <h2 ng-bind="vm.problem.name"></h2>
