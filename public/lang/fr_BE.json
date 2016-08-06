@@ -32,7 +32,8 @@
     "NO_DESCRIPTION": "Pas de description.",
     "POINTS": "Points",
     "MAX_SUBMISSIONS": "Nombre maximum de soumissions",
-    "CONFIG": "Configuration"
+    "CONFIG": "Configuration",
+    "NO_CONFIG": "Pas de configuration."
   },
   "PYTHIA_AUTHORS": "les auteurs de Pythia LMS",
   "USER": {

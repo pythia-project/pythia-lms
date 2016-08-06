@@ -15,6 +15,11 @@
       <div class="col-md-9">
         <p ng-if="!vm.problem.description" ng-bind="'PROBLEM.NO_DESCRIPTION' | translate"></p>
         <div ng-if="vm.problem.description" ng-bind="vm.problem.description"></div>
+
+        <h3 ng-bind="'PROBLEM.CONFIG' | translate"></h3>
+
+        <p ng-if="!vm.problem.config" ng-bind="'PROBLEM.NO_CONFIG' | translate"></p>
+        <pre ng-if="vm.problem.config" ng-bind="vm.problem.config"></pre>
       </div>
 
       <div class="col-md-3">
