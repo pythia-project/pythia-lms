@@ -13,7 +13,7 @@
             <label for="username" ng-bind="'USER.USERNAME' | translate"></label>
             <input type="text" id="username" name="username" class="form-control" ng-model="vm.credentials.username" placeholder="{{'USER.USERNAME' | translate}}" required />
             <div ng-messages="vm.signinForm.username.$error" role="alert">
-              <p class="help-block error-text" ng-message="required" ng-bind="'USER.USERNAME_PASSWORD' | translate"></p>
+              <p class="help-block error-text" ng-message="required" ng-bind="'USER.USERNAME_ERROR' | translate"></p>
             </div>
           </div>
           <div class="form-group" show-errors>
