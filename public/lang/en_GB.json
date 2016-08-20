@@ -5,6 +5,18 @@
     "FORGOT_PASSWORD": "Forgot your password?"
   },
   "BY": "By",
+  "COURSE": {
+    "COURSES": "Courses",
+    "CREATE": "Create a course",
+    "NB_COURSES": "Number of courses",
+    "COORDINATORS": "Coordinators",
+    "CREDITS": "Credits",
+    "SERIAL": "Serial",
+    "TITLE": "Title",
+    "SERIAL_ERROR": "Please fill in the serial.",
+    "TITLE_ERROR": "Please fill in the title",
+    "CREDITS_ERROR": "Please fill in the number of credits"
+  },
   "GENERAL": {
     "CREATE": "Create",
     "EDIT": "Edit"
