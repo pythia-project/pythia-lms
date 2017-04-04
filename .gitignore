@@ -9,3 +9,7 @@ public/dist/
 config/env/local.js
 config/env/local-*.js
 
+# Log file
+# ======================
+*.log
+
